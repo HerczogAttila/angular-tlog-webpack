@@ -22,7 +22,7 @@ export class TaskListComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.pagerService.refresh().subscribe(()=>{
+    this.pagerService.refresh().subscribe(() => {
       this.day = this.weekService.selectedDay;
     });
 
