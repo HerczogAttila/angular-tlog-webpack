@@ -13,8 +13,6 @@ export class PagerService {
     dayInMonth = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
     actualMonth: string;
 
-    selectedDay: Day;
-
     constructor(private weekService: WeekService) { }
 
     createWeeks(jsonData: string) {
@@ -45,6 +43,9 @@ export class PagerService {
                     d.extraMinutes = wd.extraMinPerDay;
                     d.requiredWorkMinutes = wd.requiredMinPerDay;
                     d.minutes = wd.sumMinPerDay;
+                    if (!this.weekService.selectedDay) {
+                        this.weekService.selectedDay = d;
+                    }
                 }
             }
 
@@ -98,7 +99,10 @@ export class PagerService {
     }
 
     refresh() {
-        this.weekService.getMonth(this.year, this.month + 1).subscribe(data => this.createWeeks(data));
+        let month = this.weekService.getMonth(this.year, this.month + 1);
+        month.subscribe(data => this.createWeeks(data));
+
+        return month;
     }
 
     init() {

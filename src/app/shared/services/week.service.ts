@@ -17,6 +17,8 @@ import { ModifyTaskRB } from '../classes/ModifyTaskRB';
 export class WeekService {
     weeks: Week[] = [];
 
+    selectedDay: Day;
+
     workdays: number;
     reqWorkMinutes: number;
     minutes: number;

@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { OnInit } from '@angular/core';
 import { WeekService } from '../shared/services/week.service';
 import { PagerService } from '../shared/services/pager.service';
 
@@ -8,7 +7,7 @@ import { PagerService } from '../shared/services/pager.service';
   templateUrl: 'calendar.component.html',
 })
 
-export class CalendarComponent implements OnInit {
+export class CalendarComponent {
   daysOfWeek = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
 
   constructor(
@@ -18,9 +17,5 @@ export class CalendarComponent implements OnInit {
 
   deleteAll() {
     this.weekService.deleteAll().subscribe(() => this.pagerService.refresh());
-  }
-
-  ngOnInit(): void {
-    this.pagerService.init();
   }
 }

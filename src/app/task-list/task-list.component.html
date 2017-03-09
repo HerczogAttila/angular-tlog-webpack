@@ -1,9 +1,10 @@
 <h2>Task list</h2>
 <div *ngIf="day">
   <div>
+    Selected day: {{day.year}}. {{day.month + 1}}. {{day.day}}.
     <div>
       <!--<label>Required working minutes: <input value="{{day.requiredWorkMinutes}}" #reqMin /></label><br>-->
-      <label>Minutes: <input value="{{day.minutes}}" #minutes /></label>
+      <br><label>Minutes: <input value="{{day.minutes}}" #minutes /></label>
       <button (click)="modifyDay(minutes.value)">Modify</button>
     </div><br>
     <div>

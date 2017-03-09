@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { Day } from '../../../shared/classes/day';
 import { Router } from '@angular/router';
 import { AppComponent } from '../../../app.component';
-import { PagerService } from '../../../shared/services/pager.service';
+import { WeekService } from '../../../shared/services/week.service';
 
 @Component({
   selector: 'my-workday',
@@ -16,11 +16,11 @@ export class WorkdayComponent {
 
   constructor(
       private router: Router,
-      private pagerService: PagerService,
+      private weekService: WeekService,
   ) { }
 
   navigateTaskList() {
-    this.pagerService.selectedDay = this.day;
+    this.weekService.selectedDay = this.day;
     this.router.navigate(['/task-list']);
   }
 }

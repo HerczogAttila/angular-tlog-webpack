@@ -1,11 +1,11 @@
 import 'rxjs/add/operator/switchMap';
 import { Component, OnInit } from '@angular/core';
 import { Day } from '../shared/classes/day';
-import { PagerService } from '../shared/services/pager.service';
 import { WeekService } from '../shared/services/week.service';
 import { StartTaskRB } from '../shared/classes/startTaskRB';
 import { DeleteTaskRB } from '../shared/classes/DeleteTaskRB';
 import { ModifyTaskRB } from '../shared/classes/ModifyTaskRB';
+import { PagerService } from '../shared/services/pager.service';
 
 @Component({
   selector: 'my-task-list',
@@ -17,12 +17,14 @@ export class TaskListComponent implements OnInit {
   selectedTask: any;
 
   constructor(
-      private pagerService: PagerService,
       private weekService: WeekService,
+      private pagerService: PagerService
   ) { }
 
   ngOnInit() {
-    this.day = this.pagerService.selectedDay;
+    this.pagerService.refresh().subscribe(()=>{
+      this.day = this.weekService.selectedDay;
+    });
 
     this.refreshTasks();
   }
