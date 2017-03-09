@@ -6,6 +6,7 @@ import { StartTaskRB } from '../shared/classes/startTaskRB';
 import { DeleteTaskRB } from '../shared/classes/DeleteTaskRB';
 import { ModifyTaskRB } from '../shared/classes/ModifyTaskRB';
 import { PagerService } from '../shared/services/pager.service';
+import { FinishingTaskRB } from '../shared/classes/FinishingTaskRB';
 
 @Component({
   selector: 'my-task-list',
@@ -13,7 +14,7 @@ import { PagerService } from '../shared/services/pager.service';
 })
 
 export class TaskListComponent implements OnInit {
-  day: Day;
+  date: Day;
   selectedTask: any;
 
   constructor(
@@ -23,24 +24,46 @@ export class TaskListComponent implements OnInit {
 
   ngOnInit() {
     this.pagerService.refresh().subscribe(() => {
-      this.day = this.weekService.selectedDay;
+      this.date = this.weekService.selectedDay;
+      this.refreshTasks();
     });
-
-    this.refreshTasks();
   }
 
-  addTask(id: string) {
+  startTask(id: string) {
     if (!id)  {
       return;
     }
 
     let startTask = new StartTaskRB();
-    startTask.year = this.day.year;
-    startTask.month = this.day.month + 1;
-    startTask.day = this.day.day;
+    startTask.year = this.date.year;
+    startTask.month = this.date.month + 1;
+    startTask.day = this.date.day;
     startTask.taskId = id;
-    startTask.startTime = '9:30';
+    startTask.startTime = this.getActualTime();
     this.weekService.startTask(startTask).subscribe(() => this.refreshTasks());
+  }
+
+  finishingTask(task: any) {
+    if (!task) {
+      return;
+    }
+
+    console.log(task);
+
+    let finishingTask = new FinishingTaskRB();
+    finishingTask.year = this.date.year;
+    finishingTask.month = this.date.month + 1;
+    finishingTask.day = this.date.day;
+    finishingTask.taskId = task.taskId;
+    finishingTask.startTime = task.startTime;
+    finishingTask.endTime = this.getActualTime();
+    if (task.startTime) {
+      finishingTask.startTime = task.startTime.hour + ':' + task.startTime.minute;
+    }
+
+    this.weekService.finishingTask(finishingTask).subscribe(() => {
+      this.refreshTasks();
+    });
   }
 
   deleteTask(task: any) {
@@ -53,9 +76,9 @@ export class TaskListComponent implements OnInit {
     }
 
     let deleteTask = new DeleteTaskRB();
-    deleteTask.year = this.day.year;
-    deleteTask.month = this.day.month + 1;
-    deleteTask.day = this.day.day;
+    deleteTask.year = this.date.year;
+    deleteTask.month = this.date.month + 1;
+    deleteTask.day = this.date.day;
     deleteTask.taskId = task.taskId;
     if (task.startTime) {
       deleteTask.startTime = task.startTime.hour + ':' + task.startTime.minute;
@@ -65,17 +88,17 @@ export class TaskListComponent implements OnInit {
   }
 
   modifyDay(minutes: number) {
-    // this.day.requiredWorkMinutes = +reqMin;
-    this.day.minutes = +minutes;
-    this.day.extraMinutes = this.day.minutes - this.day.requiredWorkMinutes;
+    // this.date.requiredWorkMinutes = +reqMin;
+    this.date.minutes = +minutes;
+    this.date.extraMinutes = this.date.minutes - this.date.requiredWorkMinutes;
   }
 
   modifyTask(taskId: string, comment: string, startHour: string, startMinute: string, endHour: string, endMinute: string) {
 
     let modifyTask = new ModifyTaskRB();
-    modifyTask.year = this.day.year;
-    modifyTask.month = this.day.month + 1;
-    modifyTask.day = this.day.day;
+    modifyTask.year = this.date.year;
+    modifyTask.month = this.date.month + 1;
+    modifyTask.day = this.date.day;
     modifyTask.taskId = this.selectedTask.taskId;
 
     modifyTask.newTaskId = taskId;
@@ -91,26 +114,30 @@ export class TaskListComponent implements OnInit {
 
     this.weekService.modifyTask(modifyTask).subscribe(() => this.refreshTasks());
     this.selectedTask = null;
-
-    /* this.selectedTask.id = taskId;
-    this.selectedTask.comment = comment;
-    this.selectedTask.startHour = +startHour;
-    this.selectedTask.startMinute = +startMinute;
-    this.selectedTask.endHour = +endHour;
-    this.selectedTask.endMinute = +endMinute;*/
   }
 
   refreshTasks() {
-    if (this.day) {
-      this.weekService.getTasks(this.day).subscribe(data => this.getTasks(data));
+    if (this.date) {
+      this.weekService.getTasks(this.date).subscribe(data => this.getTasks(data));
     }
   }
 
   getTasks(jsonData: string) {
-    this.day.tasks = JSON.parse(jsonData);
+    this.date.tasks = JSON.parse(jsonData);
   }
 
   onSelect(t: any): void {
     this.selectedTask = t;
+  }
+
+  getActualTime() {
+    let date = new Date();
+    let minutes = date.getMinutes() - date.getMinutes() % 15 + '';
+    console.log(minutes);
+    if (minutes === '0') {
+      minutes = '00';
+    }
+
+    return date.getHours() + ':' + minutes;
   }
 }

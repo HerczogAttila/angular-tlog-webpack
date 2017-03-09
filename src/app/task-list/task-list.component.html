@@ -1,24 +1,25 @@
 <h2>Task list</h2>
-<div *ngIf="day">
+<div *ngIf="date">
   <div>
-    Selected day: {{day.year}}. {{day.month + 1}}. {{day.day}}.
+    Selected day: {{date.year}}. {{date.month + 1}}. {{date.day}}.
     <div>
-      <!--<label>Required working minutes: <input value="{{day.requiredWorkMinutes}}" #reqMin /></label><br>-->
-      <br><label>Minutes: <input value="{{day.minutes}}" #minutes /></label>
+      <!--<label>Required working minutes: <input value="{{date.requiredWorkMinutes}}" #reqMin /></label><br>-->
+      <br><label>Minutes: <input value="{{date.minutes}}" #minutes /></label>
       <button (click)="modifyDay(minutes.value)">Modify</button>
     </div><br>
     <div>
       <label>Task id: <input #taskId /></label>
-      <button (click)="addTask(taskId.value); taskId.value=''">Add</button>
+      <button (click)="startTask(taskId.value); taskId.value=''">Add</button>
     </div>
   </div>
-  <div *ngFor="let t of day.tasks">
+  <div *ngFor="let t of date.tasks">
     <label (click)="onSelect(t)">
       {{t.taskId}}, {{t.comment}},
-      <label *ngIf="t.startTime">{{t.startTime.hour}}:{{t.startTime.minute}}</label>-
-      <label *ngIf="t.endTime">{{t.endTime.hour}}:{{t.endTime.minute}}</label>
+      <label *ngIf="t.startTime">{{t.startTime.hour}}:{{t.startTime.minute}}<label *ngIf="t.startTime.minute === 0">0</label></label>-
+      <label *ngIf="t.endTime">{{t.endTime.hour}}:{{t.endTime.minute}}<label *ngIf="t.endTime.minute === 0">0</label></label>
     </label>
     <button (click)="deleteTask(t)">x</button>
+    <label *ngIf="!t.endTime" ><button (click)="finishingTask(t)" >Finishing</button></label>
   </div>
   <div *ngIf="selectedTask">
     Selected task: {{selectedTask.taskId}}<br>
@@ -37,5 +38,5 @@
       </div>
     </div>
   </div>
-  <my-daily-statistic [day]="day"></my-daily-statistic>
+  <my-daily-statistic [day]="date"></my-daily-statistic>
 </div>

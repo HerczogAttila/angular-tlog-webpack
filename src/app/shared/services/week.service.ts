@@ -12,6 +12,7 @@ import { StartTaskRB } from '../classes/startTaskRB';
 import { Day } from '../classes/day';
 import { DeleteTaskRB } from '../classes/DeleteTaskRB';
 import { ModifyTaskRB } from '../classes/ModifyTaskRB';
+import { FinishingTaskRB } from '../classes/FinishingTaskRB';
 
 @Injectable()
 export class WeekService {
@@ -39,6 +40,7 @@ export class WeekService {
 
     urlGetTasks = this.urlBase + '/timelogger/workmonths/';
     urlStartTask = this.urlBase + '/timelogger/workmonths/workdays/tasks/start';
+    urlFinishingTask = this.urlBase + '/timelogger/workmonths/workdays/tasks/finish';
     urlModifyTask = this.urlBase + '/timelogger/workmonths/workdays/tasks/modify';
     urlDeleteTask = this.urlBase + '/timelogger/workmonths/workdays/tasks/delete';
 
@@ -64,6 +66,11 @@ export class WeekService {
     }
     startTask(startTask: StartTaskRB) {
         return this.http.post(this.urlStartTask, JSON.stringify(startTask), this.options)
+            .catch(this.handleError);
+    }
+    finishingTask(finishingTask: FinishingTaskRB) {
+        console.log(JSON.stringify(finishingTask));
+        return this.http.put(this.urlFinishingTask, JSON.stringify(finishingTask), this.options)
             .catch(this.handleError);
     }
     modifyTask(modifyTask: ModifyTaskRB) {
