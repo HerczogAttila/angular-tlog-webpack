@@ -54,8 +54,6 @@ export class TaskListComponent implements OnInit {
       return;
     }
 
-    console.log(task);
-
     let finishingTask = new FinishingTaskRB();
     finishingTask.year = this.date.year;
     finishingTask.month = this.date.month + 1;

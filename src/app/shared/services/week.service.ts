@@ -75,7 +75,6 @@ export class WeekService {
             .catch(this.handleError);
     }
     finishingTask(finishingTask: FinishingTaskRB) {
-        console.log(JSON.stringify(finishingTask));
         return this.http.put(this.urlFinishingTask, JSON.stringify(finishingTask), this.options)
             .catch(this.handleError);
     }
