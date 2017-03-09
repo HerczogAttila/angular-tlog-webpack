@@ -8,7 +8,7 @@ import { PagerService } from '../shared/services/pager.service';
 })
 
 export class CalendarComponent {
-  daysOfWeek = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+  daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
   constructor(
       public weekService: WeekService,

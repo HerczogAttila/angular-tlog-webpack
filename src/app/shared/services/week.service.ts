@@ -9,16 +9,16 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 import { WorkDayRB } from '../classes/workDayRB';
 import { StartTaskRB } from '../classes/startTaskRB';
-import { Day } from '../classes/day';
-import { DeleteTaskRB } from '../classes/DeleteTaskRB';
-import { ModifyTaskRB } from '../classes/ModifyTaskRB';
-import { FinishingTaskRB } from '../classes/FinishingTaskRB';
+import { MyDate } from '../classes/myDate';
+import { DeleteTaskRB } from '../classes/deleteTaskRB';
+import { ModifyTaskRB } from '../classes/modifyTaskRB';
+import { FinishingTaskRB } from '../classes/finishingTaskRB';
 
 @Injectable()
 export class WeekService {
     weeks: Week[] = [];
 
-    selectedDay: Day;
+    selectedDay: MyDate;
 
     workdays: number;
     reqWorkMinutes: number;
@@ -37,6 +37,7 @@ export class WeekService {
     urlDeleteAll = this.urlBase + '/timelogger/workmonths/deleteall';
 
     urlAddWorkDay = this.urlBase + '/timelogger/workmonths/workdays';
+    urlAddWorkDayWeekend = this.urlBase + '/timelogger/workmonths/workdaysweekend';
 
     urlGetTasks = this.urlBase + '/timelogger/workmonths/';
     urlStartTask = this.urlBase + '/timelogger/workmonths/workdays/tasks/start';
@@ -57,8 +58,13 @@ export class WeekService {
             .map(this.extractDataText)
             .catch(this.handleError);
     }
+    addWorkDayWeekend(workDay: WorkDayRB) {
+        return this.http.post(this.urlAddWorkDayWeekend, JSON.stringify(workDay), this.options)
+            .map(this.extractDataText)
+            .catch(this.handleError);
+    }
 
-    getTasks(day: Day) {
+    getTasks(day: MyDate) {
         let url = this. urlGetTasks + day.year + '/' + (day.month + 1) + '/' + day.day;
         return this.http.get(url, this.options)
             .map(this.extractDataText)

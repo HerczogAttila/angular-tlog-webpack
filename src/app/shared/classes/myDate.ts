@@ -1,4 +1,4 @@
-export class Day {
+export class MyDate {
   type: string; // empty, simple, work
   year: number;
   month: number;
@@ -6,5 +6,6 @@ export class Day {
   requiredWorkMinutes = 0;
   minutes = 0;
   extraMinutes = 0;
+  weekend = false;
   tasks: any[] = [];
 }

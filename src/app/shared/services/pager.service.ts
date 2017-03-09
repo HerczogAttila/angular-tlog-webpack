@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { WeekService } from './week.service';
 import { Week } from '../classes/week';
-import { Day } from '../classes/day';
+import { MyDate } from '../classes/myDate';
 
 @Injectable()
 export class PagerService {
@@ -21,13 +21,13 @@ export class PagerService {
         let workdays: any[] = JSON.parse(jsonData);
 
         let firstDay = new Date(this.year, this.month, 1);
-        let startingDay = (firstDay.getDay() + 6) % 7;
+        let startingDay = firstDay.getDay() % 7;
 
-        let days: Day[] = [];
+        let days: MyDate[] = [];
         let weeks: Week[] = [];
-        let d: Day;
-        for (let i = 1; i <= startingDay; i++) {
-            d = new Day();
+        let d: MyDate;
+        for (let i = 0; i < startingDay; i++) {
+            d = new MyDate();
             d.type = 'empty';
             days.push(d);
         }
@@ -35,7 +35,7 @@ export class PagerService {
         let dayCount = this.getMonthDayCount();
         let w: Week;
         for (let i = 1; i <= dayCount; i++) {
-            d = new Day();
+            d = new MyDate();
             d.type = 'simple';
             for (let wd of workdays) {
                 if (wd.actualDay.dayOfMonth === i) {
@@ -53,6 +53,9 @@ export class PagerService {
             d.month = this.month;
             d.year = this.year;
             days.push(d);
+            if (days.length === 1 || days.length === 7) {
+                d.weekend = true;
+            }
             if (days.length === 7) {
                 w = new Week();
                 w.days = days;

@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { Day } from '../../../shared/classes/day';
+import { MyDate } from '../../../shared/classes/myDate';
 import { Router } from '@angular/router';
 import { AppComponent } from '../../../app.component';
 import { WeekService } from '../../../shared/services/week.service';
@@ -12,7 +12,7 @@ import { WeekService } from '../../../shared/services/week.service';
 export class WorkdayComponent {
   app = AppComponent;
 
-  @Input() day: Day;
+  @Input() day: MyDate;
 
   constructor(
       private router: Router,

@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { Day } from '../../../shared/classes/day';
+import { MyDate } from '../../../shared/classes/myDate';
 import { WeekService } from '../../../shared/services/week.service';
 import { WorkDayRB } from '../../../shared/classes/workDayRB';
 
@@ -9,29 +9,37 @@ import { WorkDayRB } from '../../../shared/classes/workDayRB';
 })
 
 export class SimpleDayComponent {
-  @Input() day: Day;
+  @Input() date: MyDate;
 
   constructor(private weekService: WeekService) {}
 
   newWorkday() {
     let workDay = new WorkDayRB();
-    workDay.year = this.day.year;
-    workDay.month = this.day.month + 1;
-    workDay.day = this.day.day;
+    workDay.year = this.date.year;
+    workDay.month = this.date.month + 1;
+    workDay.day = this.date.day;
     workDay.requiredHours = 450;
-    this.weekService.addWorkDay(workDay).subscribe(data => this.responseNewWorkDay(data));
 
-    this.weekService.update();
+    if (this.date.weekend) {
+      if (confirm('Are you sure working on weekend?')) {
+        this.weekService.addWorkDayWeekend(workDay).subscribe(data => this.responseNewWorkDay(data));
+      }
+    } else {
+      this.weekService.addWorkDay(workDay).subscribe(data => this.responseNewWorkDay(data));
+    }
   }
 
   responseNewWorkDay(jsonData: string) {
     try {
       let workday = JSON.parse(jsonData);
 
-      this.day.type = 'work';
-      this.day.requiredWorkMinutes = workday.requiredMinPerDay;
-      this.day.extraMinutes = workday.extraMinPerDay;
-      this.day.minutes = workday.sumMinPerDay;
-    } catch (Error) { console.log(Error.message); }
+      this.date.type = 'work';
+      this.date.requiredWorkMinutes = workday.requiredMinPerDay;
+      this.date.extraMinutes = workday.extraMinPerDay;
+      this.date.minutes = workday.sumMinPerDay;
+      this.weekService.update();
+    } catch (Error) {
+      console.log(Error.message);
+    }
   }
 }

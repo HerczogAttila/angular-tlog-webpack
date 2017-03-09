@@ -1,12 +1,12 @@
 import 'rxjs/add/operator/switchMap';
 import { Component, OnInit } from '@angular/core';
-import { Day } from '../shared/classes/day';
+import { MyDate } from '../shared/classes/myDate';
 import { WeekService } from '../shared/services/week.service';
 import { StartTaskRB } from '../shared/classes/startTaskRB';
-import { DeleteTaskRB } from '../shared/classes/DeleteTaskRB';
-import { ModifyTaskRB } from '../shared/classes/ModifyTaskRB';
+import { DeleteTaskRB } from '../shared/classes/deleteTaskRB';
+import { ModifyTaskRB } from '../shared/classes/modifyTaskRB';
 import { PagerService } from '../shared/services/pager.service';
-import { FinishingTaskRB } from '../shared/classes/FinishingTaskRB';
+import { FinishingTaskRB } from '../shared/classes/finishingTaskRB';
 
 @Component({
   selector: 'my-task-list',
@@ -14,7 +14,7 @@ import { FinishingTaskRB } from '../shared/classes/FinishingTaskRB';
 })
 
 export class TaskListComponent implements OnInit {
-  date: Day;
+  date: MyDate;
   selectedTask: any;
 
   constructor(
@@ -27,6 +27,12 @@ export class TaskListComponent implements OnInit {
       this.date = this.weekService.selectedDay;
       this.refreshTasks();
     });
+  }
+
+  modifyDay(minutes: number) {
+    // this.date.requiredWorkMinutes = +reqMin;
+    this.date.minutes = +minutes;
+    this.date.extraMinutes = this.date.minutes - this.date.requiredWorkMinutes;
   }
 
   startTask(id: string) {
@@ -85,12 +91,6 @@ export class TaskListComponent implements OnInit {
     }
 
     this.weekService.deleteTask(deleteTask).subscribe(() => this.refreshTasks());
-  }
-
-  modifyDay(minutes: number) {
-    // this.date.requiredWorkMinutes = +reqMin;
-    this.date.minutes = +minutes;
-    this.date.extraMinutes = this.date.minutes - this.date.requiredWorkMinutes;
   }
 
   modifyTask(taskId: string, comment: string, startHour: string, startMinute: string, endHour: string, endMinute: string) {

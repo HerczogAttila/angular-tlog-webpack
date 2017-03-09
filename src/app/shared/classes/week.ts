@@ -1,5 +1,5 @@
-import { Day } from './day';
+import { MyDate } from './myDate';
 
 export class Week {
-  days: Day[];
+  days: MyDate[];
 }

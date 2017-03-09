@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { Day } from '../../shared/classes/day';
+import { MyDate } from '../../shared/classes/myDate';
 
 @Component({
     selector: 'my-daily-statistic',
@@ -7,5 +7,5 @@ import { Day } from '../../shared/classes/day';
 })
 
 export class DailyStatisticComponent {
-    @Input() day: Day;
+    @Input() day: MyDate;
 }
