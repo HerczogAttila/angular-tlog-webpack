@@ -9,7 +9,7 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 import { WorkDayRB } from '../classes/workDayRB';
 import { StartTaskRB } from '../classes/startTaskRB';
-import { MyDate } from '../classes/myDate';
+import { MyDate, DayType } from '../classes/myDate';
 import { DeleteTaskRB } from '../classes/deleteTaskRB';
 import { ModifyTaskRB } from '../classes/modifyTaskRB';
 import { FinishingTaskRB } from '../classes/finishingTaskRB';
@@ -119,7 +119,7 @@ export class WeekService {
                 this.reqWorkMinutes += d.requiredWorkMinutes;
                 this.minutes += d.minutes;
                 this.extraMinutes += d.extraMinutes;
-                if (d.type === 'work') {
+                if (d.type === DayType.Work) {
                     this.workdays++;
                 }
             }

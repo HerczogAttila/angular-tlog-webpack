@@ -1,5 +1,7 @@
+export enum DayType { Empty, Simple, Work }
+
 export class MyDate {
-  type: string; // empty, simple, work
+  type: DayType;
   year: number;
   month: number;
   day: number;
@@ -8,4 +10,11 @@ export class MyDate {
   extraMinutes = 0;
   weekend = false;
   tasks: any[] = [];
+
+  isSimpleDay() {
+    return this.type === DayType.Simple;
+  }
+  isWorkDay() {
+    return this.type === DayType.Work;
+  }
 }

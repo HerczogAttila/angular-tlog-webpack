@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { WeekService } from './week.service';
 import { Week } from '../classes/week';
-import { MyDate } from '../classes/myDate';
+import { MyDate, DayType } from '../classes/myDate';
 
 @Injectable()
 export class PagerService {
@@ -28,7 +28,7 @@ export class PagerService {
         let d: MyDate;
         for (let i = 0; i < startingDay; i++) {
             d = new MyDate();
-            d.type = 'empty';
+            d.type = DayType.Empty;
             days.push(d);
         }
 
@@ -36,10 +36,10 @@ export class PagerService {
         let w: Week;
         for (let i = 1; i <= dayCount; i++) {
             d = new MyDate();
-            d.type = 'simple';
+            d.type = DayType.Simple;
             for (let wd of workdays) {
                 if (wd.actualDay.dayOfMonth === i) {
-                    d.type = 'work';
+                    d.type = DayType.Work;
                     d.extraMinutes = wd.extraMinPerDay;
                     d.requiredWorkMinutes = wd.requiredMinPerDay;
                     d.minutes = wd.sumMinPerDay;

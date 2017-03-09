@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { MyDate } from '../../../shared/classes/myDate';
+import { MyDate, DayType } from '../../../shared/classes/myDate';
 import { WeekService } from '../../../shared/services/week.service';
 import { WorkDayRB } from '../../../shared/classes/workDayRB';
 
@@ -33,7 +33,7 @@ export class SimpleDayComponent {
     try {
       let workday = JSON.parse(jsonData);
 
-      this.date.type = 'work';
+      this.date.type = DayType.Work;
       this.date.requiredWorkMinutes = workday.requiredMinPerDay;
       this.date.extraMinutes = workday.extraMinPerDay;
       this.date.minutes = workday.sumMinPerDay;

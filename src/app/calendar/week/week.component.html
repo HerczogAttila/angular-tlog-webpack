@@ -1,4 +1,4 @@
 <div class="day col-xs-1"  *ngFor="let d of week.days">
-  <my-simple-day *ngIf="d.type == 'simple'" [date]="d"></my-simple-day>
-  <my-workday *ngIf="d.type == 'work'" [day]="d"></my-workday>
+  <my-simple-day *ngIf="d.isSimpleDay()" [date]="d"></my-simple-day>
+  <my-workday *ngIf="d.isWorkDay()" [day]="d"></my-workday>
 </div>
