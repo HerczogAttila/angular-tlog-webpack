@@ -5,9 +5,9 @@
       <my-pager></my-pager>
     </div>
     <div class="col-md-12">
-      <ul class="day_header col-xs-1" *ngFor="let d of daysOfWeek">{{d}}</ul>
+      <ul class="day_header col-xs-1" *ngFor="let day of daysOfWeek">{{day}}</ul>
     </div>
-    <div class="col-md-12" *ngFor="let w of weekService.weeks"><my-week [week]="w"></my-week></div>
+    <div class="col-md-12" *ngFor="let week of weekService.weeks"><my-week [week]="week"></my-week></div>
     <my-monthly-statistic></my-monthly-statistic>
   </div>
 </div>

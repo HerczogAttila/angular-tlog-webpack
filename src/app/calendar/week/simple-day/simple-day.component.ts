@@ -13,7 +13,7 @@ export class SimpleDayComponent {
 
   constructor(private weekService: WeekService) {}
 
-  newWorkday() {
+  public onNewWorkday(): void {
     let workDay = new WorkDayRB();
     workDay.year = this.date.year;
     workDay.month = this.date.month + 1;
@@ -29,17 +29,17 @@ export class SimpleDayComponent {
     }
   }
 
-  responseNewWorkDay(jsonData: string) {
+  private responseNewWorkDay(jsonData: string): void {
     try {
-      let workday = JSON.parse(jsonData);
+      let workDay = JSON.parse(jsonData);
 
       this.date.type = DayType.Work;
-      this.date.requiredWorkMinutes = workday.requiredMinPerDay;
-      this.date.extraMinutes = workday.extraMinPerDay;
-      this.date.minutes = workday.sumMinPerDay;
-      this.weekService.update();
+      this.date.requiredWorkMinutes = workDay.requiredMinPerDay;
+      this.date.extraMinutes = workDay.extraMinPerDay;
+      this.date.minutes = workDay.sumMinPerDay;
+      this.weekService.refreshStatistics();
     } catch (Error) {
-      console.log(Error.message);
+      console.error(Error.message);
     }
   }
 }

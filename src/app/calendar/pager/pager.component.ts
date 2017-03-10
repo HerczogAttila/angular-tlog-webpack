@@ -9,11 +9,11 @@ import { Component } from '@angular/core';
 export class PagerComponent {
     constructor(public pagerService: PagerService) {}
 
-    previousMonth() {
+    public onPreviousMonth(): void {
         this.pagerService.previousMonth();
     }
 
-    nextMonth() {
+    public onNextMonth(): void {
         this.pagerService.nextMonth();
     }
 }

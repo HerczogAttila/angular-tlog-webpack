@@ -15,7 +15,7 @@ export class CalendarComponent {
       private pagerService: PagerService,
   ) { }
 
-  deleteAll() {
+  public deleteAll(): void {
     this.weekService.deleteAll().subscribe(() => this.pagerService.refresh());
   }
 }

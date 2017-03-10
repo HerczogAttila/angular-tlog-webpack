@@ -12,15 +12,17 @@ import { WeekService } from '../../../shared/services/week.service';
 export class WorkdayComponent {
   app = AppComponent;
 
-  @Input() day: MyDate;
+  @Input() date: MyDate;
 
   constructor(
       private router: Router,
       private weekService: WeekService,
   ) { }
 
-  navigateTaskList() {
-    this.weekService.selectedDay = this.day;
-    this.router.navigate(['/task-list']);
+  public navigateTaskList(): void {
+    this.weekService.selectedDay = this.date;
+    this.router.navigate(['/task-list']).catch(error => {
+      console.error(error);
+    });
   }
 }

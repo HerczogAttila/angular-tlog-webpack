@@ -50,57 +50,74 @@ export class WeekService {
 
     constructor (private http: Http) {}
 
-    getMonth(year: number, month: number) {
+    public refreshStatistics(): void {
+        this.reqWorkMinutes = 0;
+        this.minutes = 0;
+        this.extraMinutes = 0;
+        this.workdays = 0;
+        for (let w of this.weeks) {
+            for (let d of w.days) {
+                this.reqWorkMinutes += d.requiredWorkMinutes;
+                this.minutes += d.minutes;
+                this.extraMinutes += d.extraMinutes;
+                if (d.type === DayType.Work) {
+                    this.workdays++;
+                }
+            }
+        }
+    }
+
+    public getMonthWorkDays(year: number, month: number): Observable<any> {
         return this.http.get(this.urlGetMonths + year + '/' + month)
             .map(this.extractDataText)
             .catch(this.handleError);
     }
 
-    addWorkDay(workDay: WorkDayRB) {
+    public addWorkDay(workDay: WorkDayRB): Observable<any> {
         return this.http.post(this.urlAddWorkDay, JSON.stringify(workDay), this.options)
             .map(this.extractDataText)
             .catch(this.handleError);
     }
-    addWorkDayWeekend(workDay: WorkDayRB) {
+    public addWorkDayWeekend(workDay: WorkDayRB): Observable<any> {
         return this.http.post(this.urlAddWorkDayWeekend, JSON.stringify(workDay), this.options)
             .map(this.extractDataText)
             .catch(this.handleError);
     }
-    getWorkDay(date: MyDate) {
+    public getWorkDay(date: MyDate): Observable<any> {
         return this.http.get(this.urlGetWorkDay + date.year + '/' + (date.month + 1) + '/' + date.day, this.options)
             .map(this.extractDataText)
             .catch(this.handleError);
     }
-    modifyWorkDay(modifyWorkDay: ModifyWorkDayRB) {
+    public modifyWorkDay(modifyWorkDay: ModifyWorkDayRB): Observable<any> {
         return this.http.put(this.urlModifyWorkDay, JSON.stringify(modifyWorkDay), this.options)
             .map(this.extractDataText)
             .catch(this.handleError);
     }
 
-    getTasks(date: MyDate) {
+    public getTasks(date: MyDate): Observable<any> {
         let url = this.urlGetTasks + date.year + '/' + (date.month + 1) + '/' + date.day;
         return this.http.get(url, this.options)
             .map(this.extractDataText)
             .catch(this.handleError);
     }
-    startTask(startTask: StartTaskRB) {
+    public startTask(startTask: StartTaskRB): Observable<any> {
         return this.http.post(this.urlStartTask, JSON.stringify(startTask), this.options)
             .catch(this.handleError);
     }
-    finishingTask(finishingTask: FinishingTaskRB) {
+    public finishingTask(finishingTask: FinishingTaskRB): Observable<any> {
         return this.http.put(this.urlFinishingTask, JSON.stringify(finishingTask), this.options)
             .catch(this.handleError);
     }
-    modifyTask(modifyTask: ModifyTaskRB) {
+    public modifyTask(modifyTask: ModifyTaskRB): Observable<any> {
         return this.http.put(this.urlModifyTask, JSON.stringify(modifyTask), this.options)
             .catch(this.handleError);
     }
-    deleteTask(deleteTask: DeleteTaskRB) {
+    public deleteTask(deleteTask: DeleteTaskRB): Observable<any> {
         return this.http.put(this.urlDeleteTask, JSON.stringify(deleteTask), this.options)
             .catch(this.handleError);
     }
 
-    deleteAll() {
+    public deleteAll(): Observable<any> {
         return this.http.put(this.urlDeleteAll, this.options)
             .catch(this.handleError);
     }
@@ -120,22 +137,5 @@ export class WeekService {
         }
         console.error(errMsg);
         return Observable.throw(errMsg);
-    }
-
-    update() {
-        this.reqWorkMinutes = 0;
-        this.minutes = 0;
-        this.extraMinutes = 0;
-        this.workdays = 0;
-        for (let w of this.weeks) {
-            for (let d of w.days) {
-                this.reqWorkMinutes += d.requiredWorkMinutes;
-                this.minutes += d.minutes;
-                this.extraMinutes += d.extraMinutes;
-                if (d.type === DayType.Work) {
-                    this.workdays++;
-                }
-            }
-        }
     }
 }

@@ -35,14 +35,18 @@ export class TaskListComponent implements OnInit {
       private pagerService: PagerService
   ) { }
 
-  ngOnInit() {
+  public ngOnInit(): void {
     this.pagerService.refresh().subscribe(() => {
       this.date = this.weekService.selectedDay;
       this.refreshWorkDay();
     });
   }
 
-  modifyDay(reqWorkMinutes: number) {
+  public onSelectTask(task: Task): void {
+    this.selectedTask = task;
+  }
+
+  public modifyDay(reqWorkMinutes: number): void {
     if (!reqWorkMinutes) {
       return;
     }
@@ -57,8 +61,8 @@ export class TaskListComponent implements OnInit {
     });
   }
 
-  startTask(id: string) {
-    if (!id)  {
+  public startTask(taskId: string): void {
+    if (!taskId)  {
       return;
     }
 
@@ -66,12 +70,12 @@ export class TaskListComponent implements OnInit {
     startTask.year = this.date.year;
     startTask.month = this.date.month + 1;
     startTask.day = this.date.day;
-    startTask.taskId = id;
+    startTask.taskId = taskId;
     startTask.startTime = TaskListComponent.getActualTime();
     this.weekService.startTask(startTask).subscribe(() => this.refreshWorkDay());
   }
 
-  finishingTask(task: Task) {
+  public finishingTask(task: Task): void {
     if (!task) {
       return;
     }
@@ -81,10 +85,9 @@ export class TaskListComponent implements OnInit {
     finishingTask.month = this.date.month + 1;
     finishingTask.day = this.date.day;
     finishingTask.taskId = task.taskId;
-    finishingTask.startTime = task.startTime.toString();
     finishingTask.endTime = TaskListComponent.getActualTime();
     if (task.startTime) {
-      finishingTask.startTime = task.startTime.hour + ':' + task.startTime.minute;
+      finishingTask.startTime = task.startTime.toString();
     }
 
     this.weekService.finishingTask(finishingTask).subscribe(() => {
@@ -92,7 +95,7 @@ export class TaskListComponent implements OnInit {
     });
   }
 
-  deleteTask(task: Task) {
+  public deleteTask(task: Task): void {
     if (!task) {
       return;
     }
@@ -107,14 +110,14 @@ export class TaskListComponent implements OnInit {
     deleteTask.day = this.date.day;
     deleteTask.taskId = task.taskId;
     if (task.startTime) {
-      deleteTask.startTime = task.startTime.hour + ':' + task.startTime.minute;
+      deleteTask.startTime = task.startTime.toString();
     }
 
     this.weekService.deleteTask(deleteTask).subscribe(() => this.refreshWorkDay());
   }
 
-  modifyTask(taskId: string, comment: string, startHour: string, startMinute: string, endHour: string, endMinute: string) {
-
+  public modifyTask(taskId: string, comment: string, startHour: string, startMinute: string,
+                    endHour: string, endMinute: string): void {
     let modifyTask = new ModifyTaskRB();
     modifyTask.year = this.date.year;
     modifyTask.month = this.date.month + 1;
@@ -125,7 +128,7 @@ export class TaskListComponent implements OnInit {
     modifyTask.newComment = comment;
 
     if (this.selectedTask.startTime) {
-      modifyTask.startTime = this.selectedTask.startTime.hour + ':' + this.selectedTask.startTime.minute;
+      modifyTask.startTime = this.selectedTask.startTime.toString();
       modifyTask.newStartTime = startHour + ':' + startMinute;
     }
     if (this.selectedTask.endTime) {
@@ -136,7 +139,7 @@ export class TaskListComponent implements OnInit {
     this.selectedTask = null;
   }
 
-  refreshWorkDay() {
+  public refreshWorkDay(): void {
     if (this.date) {
       this.weekService.getWorkDay(this.date).subscribe(jsonData =>  {
         this.readWorkDay(jsonData);
@@ -152,9 +155,5 @@ export class TaskListComponent implements OnInit {
     this.tasks = workDay.tasks;
     this.date = this.weekService.selectedDay;
     this.pagerService.refresh();
-  }
-
-  public onSelectTask(task: Task): void {
-    this.selectedTask = task;
   }
 }
