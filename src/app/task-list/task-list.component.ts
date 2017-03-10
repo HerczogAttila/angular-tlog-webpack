@@ -2,12 +2,13 @@ import 'rxjs/add/operator/switchMap';
 import { Component, OnInit } from '@angular/core';
 import { MyDate } from '../shared/classes/myDate';
 import { WeekService } from '../shared/services/week.service';
-import { StartTaskRB } from '../shared/classes/startTaskRB';
-import { DeleteTaskRB } from '../shared/classes/deleteTaskRB';
-import { ModifyTaskRB } from '../shared/classes/modifyTaskRB';
+import { StartTaskRB } from '../shared/classes/backend/startTaskRB';
+import { DeleteTaskRB } from '../shared/classes/backend/deleteTaskRB';
+import { ModifyTaskRB } from '../shared/classes/backend/modifyTaskRB';
 import { PagerService } from '../shared/services/pager.service';
-import { FinishingTaskRB } from '../shared/classes/finishingTaskRB';
-import { ModifyWorkDayRB } from '../shared/classes/modifyWorkDay';
+import { FinishingTaskRB } from '../shared/classes/backend/finishingTaskRB';
+import { ModifyWorkDayRB } from '../shared/classes/backend/modifyWorkDayRB';
+import { Task } from '../shared/classes/backend/task';
 
 @Component({
   selector: 'my-task-list',
@@ -16,7 +17,18 @@ import { ModifyWorkDayRB } from '../shared/classes/modifyWorkDay';
 
 export class TaskListComponent implements OnInit {
   date: MyDate;
-  selectedTask: any;
+  tasks: Task[] = [];
+  selectedTask: Task;
+
+  private static getActualTime(): string {
+    let date = new Date();
+    let minutes = date.getMinutes() - date.getMinutes() % 15 + '';
+    if (minutes === '0') {
+      minutes = '00';
+    }
+
+    return date.getHours() + ':' + minutes;
+  }
 
   constructor(
       private weekService: WeekService,
@@ -55,11 +67,11 @@ export class TaskListComponent implements OnInit {
     startTask.month = this.date.month + 1;
     startTask.day = this.date.day;
     startTask.taskId = id;
-    startTask.startTime = this.getActualTime();
+    startTask.startTime = TaskListComponent.getActualTime();
     this.weekService.startTask(startTask).subscribe(() => this.refreshWorkDay());
   }
 
-  finishingTask(task: any) {
+  finishingTask(task: Task) {
     if (!task) {
       return;
     }
@@ -69,8 +81,8 @@ export class TaskListComponent implements OnInit {
     finishingTask.month = this.date.month + 1;
     finishingTask.day = this.date.day;
     finishingTask.taskId = task.taskId;
-    finishingTask.startTime = task.startTime;
-    finishingTask.endTime = this.getActualTime();
+    finishingTask.startTime = task.startTime.toString();
+    finishingTask.endTime = TaskListComponent.getActualTime();
     if (task.startTime) {
       finishingTask.startTime = task.startTime.hour + ':' + task.startTime.minute;
     }
@@ -80,7 +92,7 @@ export class TaskListComponent implements OnInit {
     });
   }
 
-  deleteTask(task: any) {
+  deleteTask(task: Task) {
     if (!task) {
       return;
     }
@@ -132,27 +144,17 @@ export class TaskListComponent implements OnInit {
     }
   }
 
-  readWorkDay(jsonData: string) {
+  private readWorkDay(jsonData: string): void {
     let workDay = JSON.parse(jsonData);
     this.weekService.selectedDay.requiredWorkMinutes = workDay.requiredMinPerDay;
     this.weekService.selectedDay.minutes = workDay.sumMinPerDay;
     this.weekService.selectedDay.extraMinutes = this.date.minutes - this.date.requiredWorkMinutes;
-    this.weekService.selectedDay.tasks = workDay.tasks;
+    this.tasks = workDay.tasks;
     this.date = this.weekService.selectedDay;
     this.pagerService.refresh();
   }
 
-  onSelect(t: any): void {
-    this.selectedTask = t;
-  }
-
-  getActualTime() {
-    let date = new Date();
-    let minutes = date.getMinutes() - date.getMinutes() % 15 + '';
-    if (minutes === '0') {
-      minutes = '00';
-    }
-
-    return date.getHours() + ':' + minutes;
+  public onSelectTask(task: Task): void {
+    this.selectedTask = task;
   }
 }

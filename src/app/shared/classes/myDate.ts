@@ -9,7 +9,6 @@ export class MyDate {
   minutes = 0;
   extraMinutes = 0;
   weekend = false;
-  tasks: any[] = [];
 
   isSimpleDay() {
     return this.type === DayType.Simple;

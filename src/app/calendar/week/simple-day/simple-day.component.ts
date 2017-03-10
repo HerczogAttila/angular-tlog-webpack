@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { MyDate, DayType } from '../../../shared/classes/myDate';
 import { WeekService } from '../../../shared/services/week.service';
-import { WorkDayRB } from '../../../shared/classes/workDayRB';
+import { WorkDayRB } from '../../../shared/classes/backend/workDayRB';
 
 @Component({
   selector: 'my-simple-day',

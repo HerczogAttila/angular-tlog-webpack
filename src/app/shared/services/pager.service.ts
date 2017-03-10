@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { WeekService } from './week.service';
 import { Week } from '../classes/week';
 import { MyDate, DayType } from '../classes/myDate';
+import { WorkDay } from '../classes/backend/workDay';
 
 @Injectable()
 export class PagerService {
@@ -18,7 +19,7 @@ export class PagerService {
     createWeeks(jsonData: string) {
         this.actualMonth = this.monthsOfYear[this.month];
 
-        let workdays: any[] = JSON.parse(jsonData);
+        let workdays: WorkDay[] = JSON.parse(jsonData);
 
         let firstDay = new Date(this.year, this.month, 1);
         let startingDay = firstDay.getDay() % 7;

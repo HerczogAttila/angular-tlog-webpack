@@ -7,13 +7,13 @@ import { Headers, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
-import { WorkDayRB } from '../classes/workDayRB';
-import { StartTaskRB } from '../classes/startTaskRB';
+import { WorkDayRB } from '../classes/backend/workDayRB';
+import { StartTaskRB } from '../classes/backend/startTaskRB';
 import { MyDate, DayType } from '../classes/myDate';
-import { DeleteTaskRB } from '../classes/deleteTaskRB';
-import { ModifyTaskRB } from '../classes/modifyTaskRB';
-import { FinishingTaskRB } from '../classes/finishingTaskRB';
-import { ModifyWorkDayRB } from '../classes/modifyWorkDay';
+import { DeleteTaskRB } from '../classes/backend/deleteTaskRB';
+import { ModifyTaskRB } from '../classes/backend/modifyTaskRB';
+import { FinishingTaskRB } from '../classes/backend/finishingTaskRB';
+import { ModifyWorkDayRB } from '../classes/backend/modifyWorkDayRB';
 
 @Injectable()
 export class WeekService {
