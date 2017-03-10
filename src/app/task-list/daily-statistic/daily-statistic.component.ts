@@ -7,5 +7,5 @@ import { MyDate } from '../../shared/classes/myDate';
 })
 
 export class DailyStatisticComponent {
-    @Input() day: MyDate;
+    @Input() date: MyDate;
 }

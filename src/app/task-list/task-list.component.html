@@ -3,15 +3,16 @@
   <div>
     Selected day: {{date.year}}. {{date.month + 1}}. {{date.day}}.
     <div>
-      <!--<label>Required working minutes: <input value="{{date.requiredWorkMinutes}}" #reqMin /></label><br>-->
-      <br><label>Minutes: <input value="{{date.minutes}}" #minutes /></label>
-      <button (click)="modifyDay(minutes.value)">Modify</button>
-    </div><br>
-    <div>
-      <label>Task id: <input #taskId /></label>
-      <button (click)="startTask(taskId.value); taskId.value=''">Add</button>
+      <br><label>Required minutes: <input value="{{date.requiredWorkMinutes}}" #reqWorkMinutes /></label>
+      <button (click)="modifyDay(reqWorkMinutes.value)">Modify</button>
     </div>
   </div>
+  <my-daily-statistic [date]="date"></my-daily-statistic><br>
+  <div>
+    <label>Task id: <input #taskId /></label>
+    <button (click)="startTask(taskId.value); taskId.value=''">Add</button>
+  </div>
+  Tasks:
   <div *ngFor="let t of date.tasks">
     <label (click)="onSelect(t)">
       {{t.taskId}}, {{t.comment}},
@@ -38,5 +39,4 @@
       </div>
     </div>
   </div>
-  <my-daily-statistic [day]="date"></my-daily-statistic>
 </div>

@@ -13,6 +13,7 @@ import { MyDate, DayType } from '../classes/myDate';
 import { DeleteTaskRB } from '../classes/deleteTaskRB';
 import { ModifyTaskRB } from '../classes/modifyTaskRB';
 import { FinishingTaskRB } from '../classes/finishingTaskRB';
+import { ModifyWorkDayRB } from '../classes/modifyWorkDay';
 
 @Injectable()
 export class WeekService {
@@ -38,6 +39,8 @@ export class WeekService {
 
     urlAddWorkDay = this.urlBase + '/timelogger/workmonths/workdays';
     urlAddWorkDayWeekend = this.urlBase + '/timelogger/workmonths/workdaysweekend';
+    urlGetWorkDay = this.urlBase + '/timelogger/workmonths/workdays/';
+    urlModifyWorkDay = this.urlBase + '/timelogger/workmonths/workdays/modify';
 
     urlGetTasks = this.urlBase + '/timelogger/workmonths/';
     urlStartTask = this.urlBase + '/timelogger/workmonths/workdays/tasks/start';
@@ -63,9 +66,19 @@ export class WeekService {
             .map(this.extractDataText)
             .catch(this.handleError);
     }
+    getWorkDay(date: MyDate) {
+        return this.http.get(this.urlGetWorkDay + date.year + '/' + (date.month + 1) + '/' + date.day, this.options)
+            .map(this.extractDataText)
+            .catch(this.handleError);
+    }
+    modifyWorkDay(modifyWorkDay: ModifyWorkDayRB) {
+        return this.http.put(this.urlModifyWorkDay, JSON.stringify(modifyWorkDay), this.options)
+            .map(this.extractDataText)
+            .catch(this.handleError);
+    }
 
-    getTasks(day: MyDate) {
-        let url = this. urlGetTasks + day.year + '/' + (day.month + 1) + '/' + day.day;
+    getTasks(date: MyDate) {
+        let url = this.urlGetTasks + date.year + '/' + (date.month + 1) + '/' + date.day;
         return this.http.get(url, this.options)
             .map(this.extractDataText)
             .catch(this.handleError);
