@@ -18,6 +18,7 @@ import { WeekComponent } from './calendar/week/week.component';
 import { MonthlyStatisticComponent } from './calendar/monthly-statistic/monthly-statistic.component';
 import { DailyStatisticComponent } from './task-list/daily-statistic/daily-statistic.component';
 import { PagerComponent } from './calendar/pager/pager.component';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   imports: [
@@ -36,6 +37,7 @@ import { PagerComponent } from './calendar/pager/pager.component';
     MonthlyStatisticComponent,
     DailyStatisticComponent,
     PagerComponent,
+    LoginComponent,
   ],
   providers: [
     ApiService,
