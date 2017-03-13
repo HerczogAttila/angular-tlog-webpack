@@ -14,6 +14,7 @@ import { DeleteTaskRB } from '../classes/backend/deleteTaskRB';
 import { ModifyTaskRB } from '../classes/backend/modifyTaskRB';
 import { FinishingTaskRB } from '../classes/backend/finishingTaskRB';
 import { ModifyWorkDayRB } from '../classes/backend/modifyWorkDayRB';
+import { UserRB } from '../classes/backend/userRB';
 
 @Injectable()
 export class WeekService {
@@ -30,9 +31,13 @@ export class WeekService {
     options = new RequestOptions({ headers: this.headers });
 
     ip = 'localhost';
-    port = 9080;
+    // port = 9080;
+    port = 8080;
 
     urlBase = 'http://' + this.ip + ':' + this.port;
+
+    urlRegistering = this.urlBase + '/timelogger/registering';
+    urlAuthenticate = this.urlBase + '/timelogger/authenticate';
 
     urlGetMonths = this.urlBase + '/timelogger/workmonths/';
     urlDeleteAll = this.urlBase + '/timelogger/workmonths/deleteall';
@@ -65,6 +70,16 @@ export class WeekService {
                 }
             }
         }
+    }
+
+    public registering(user: UserRB): Observable<any> {
+        return this.http.post(this.urlRegistering, JSON.stringify(user), this.options)
+            .map(this.extractDataText);
+    }
+    public authenticate(user: UserRB): Observable<any> {
+        return this.http.post(this.urlAuthenticate, JSON.stringify(user), this.options)
+            .map(this.extractDataText)
+            .catch(this.handleError);
     }
 
     public getMonthWorkDays(year: number, month: number): Observable<any> {
