@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { WeekService } from '../shared/services/week.service';
 import { UserRB } from '../shared/classes/backend/userRB';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'my-login',
@@ -8,24 +9,41 @@ import { UserRB } from '../shared/classes/backend/userRB';
     styleUrls: ['login.component.scss'],
 })
 
-export class LoginComponent {
-    constructor(private weekService: WeekService) {}
+export class LoginComponent implements OnInit {
+    userName: string = 'asdf';
+    password: string = 'asdf';
 
-    public onRegister(userName: string, password: string): void {
+    constructor(
+        private weekService: WeekService,
+        private router: Router,
+    ) {}
+
+    public ngOnInit(): void {
+        if (localStorage.getItem('jwtToken')) {
+            this.router.navigate(['/calendar']).catch(error => {
+                console.error(error);
+            });
+        }
+    }
+
+    public onRegister(): void {
         let user = new UserRB();
-        user.name = userName;
-        user.password = password;
+        user.name = this.userName;
+        user.password = this.password;
 
         this.weekService.registering(user).subscribe();
     }
 
-    public onLogin(userName: string, password: string): void {
+    public onLogin(): void {
         let user = new UserRB();
-        user.name = userName;
-        user.password = password;
+        user.name = this.userName;
+        user.password = this.password;
 
         this.weekService.authenticate(user).subscribe(jwtToken => {
-            console.log(jwtToken);
+            this.weekService.setJWTToken(jwtToken);
+            this.router.navigate(['/calendar']).catch(error => {
+                console.error(error);
+            });
         });
     }
 }

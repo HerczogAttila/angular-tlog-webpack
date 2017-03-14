@@ -78,7 +78,7 @@ export class PagerService {
             day = new MyDate();
             day.type = DayType.Simple;
             for (let wd of workdays) {
-                if (wd.actualDay.dayOfMonth === i) {
+                if (this.getDayOfMonth(wd.date) === i) {
                     day.type = DayType.Work;
                     day.extraMinutes = wd.extraMinPerDay;
                     day.requiredWorkMinutes = wd.requiredMinPerDay;
@@ -112,6 +112,14 @@ export class PagerService {
 
         this.weekService.weeks = weeks;
         this.weekService.refreshStatistics();
+    }
+
+    private getDayOfMonth(date: string): number {
+        let fields = date.split('.');
+        if (fields.length >= 3) {
+            return +fields[2];
+        }
+        return 0;
     }
 
     private getMonthDayCount(): number {

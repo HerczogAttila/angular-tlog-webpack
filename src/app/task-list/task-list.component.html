@@ -16,26 +16,24 @@
   <div *ngFor="let t of tasks">
     <label (click)="onSelectTask(t)">
       {{t.taskId}}, {{t.comment}},
-      <label *ngIf="t.startTime">{{t.startTime.hour}}:{{t.startTime.minute}}<label *ngIf="t.startTime.minute === 0">0</label></label>-
-      <label *ngIf="t.endTime">{{t.endTime.hour}}:{{t.endTime.minute}}<label *ngIf="t.endTime.minute === 0">0</label></label>
+      <label *ngIf="t.startingTime">{{t.startingTime}}</label>-
+      <label *ngIf="t.endingTime">{{t.endingTime}}</label>
     </label>
     <button (click)="deleteTask(t)">x</button>
-    <label *ngIf="!t.endTime" ><button (click)="finishingTask(t)" >Finishing</button></label>
+    <label *ngIf="!t.endingTime"><button (click)="finishingTask(t)">Finishing</button></label>
   </div>
   <div *ngIf="selectedTask">
     Selected task: {{selectedTask.taskId}}<br>
     <label>Task id: <input value="{{selectedTask.taskId}}" #taskId /></label><br>
     <label>Comment: <input value="{{selectedTask.comment}}" #comment /></label><br>
-    <div *ngIf="selectedTask.startTime">
-      <label>Start hour: <input value="{{selectedTask.startTime.hour}}" #startHour /></label><br>
-      <label>Start minute: <input value="{{selectedTask.startTime.minute}}" #startMinute /></label><br>
-      <div *ngIf="selectedTask.endTime">
-        <label>End hour: <input value="{{selectedTask.endTime.hour}}" #endHour /></label><br>
-        <label>End minute: <input value="{{selectedTask.endTime.minute}}" #endMinute /></label><br>
-        <button (click)="modifyTask(taskId.value, comment.value, startHour.value, startMinute.value, endHour.value, endMinute.value)">Modify</button>
+    <div *ngIf="selectedTask.startingTime">
+      <label>Start time: <input value="{{selectedTask.startingTime}}" #startTime /></label><br>
+      <div *ngIf="selectedTask.endingTime">
+        <label>End time: <input value="{{selectedTask.endingTime}}" #endTime /></label><br>
+        <button (click)="modifyTask(taskId.value, comment.value, startTime.value, endTime.value)">Modify</button>
       </div>
-      <div *ngIf="!selectedTask.endTime">
-        <button (click)="modifyTask(taskId.value, comment.value, startHour.value, startMinute.value, '', '')">Modify</button>
+      <div *ngIf="!selectedTask.endingTime">
+        <button (click)="modifyTask(taskId.value, comment.value, startTime.value, '')">Modify</button>
       </div>
     </div>
   </div>

@@ -27,7 +27,7 @@ export class WeekService {
     minutes: number;
     extraMinutes: number;
 
-    headers = new Headers({ 'Content-Type': 'application/json' });
+    headers = new Headers({ 'Content-Type': 'application/json', 'Authorization': null });
     options = new RequestOptions({ headers: this.headers });
 
     ip = 'localhost';
@@ -38,6 +38,7 @@ export class WeekService {
 
     urlRegistering = this.urlBase + '/timelogger/registering';
     urlAuthenticate = this.urlBase + '/timelogger/authenticate';
+    urlRefresh = this.urlBase + '/timelogger/refresh';
 
     urlGetMonths = this.urlBase + '/timelogger/workmonths/';
     urlDeleteAll = this.urlBase + '/timelogger/workmonths/deleteall';
@@ -81,9 +82,14 @@ export class WeekService {
             .map(this.extractDataText)
             .catch(this.handleError);
     }
+    public refresh(): Observable<any> {
+        return this.http.post(this.urlRefresh, {}, this.options)
+            .map(this.extractDataText)
+            .catch(this.handleError);
+    }
 
     public getMonthWorkDays(year: number, month: number): Observable<any> {
-        return this.http.get(this.urlGetMonths + year + '/' + month)
+        return this.http.get(this.urlGetMonths + year + '/' + month, this.options)
             .map(this.extractDataText)
             .catch(this.handleError);
     }
@@ -133,8 +139,14 @@ export class WeekService {
     }
 
     public deleteAll(): Observable<any> {
-        return this.http.put(this.urlDeleteAll, this.options)
+        return this.http.put(this.urlDeleteAll, { }, this.options)
             .catch(this.handleError);
+    }
+
+    public setJWTToken(token: string): void {
+        localStorage.setItem('jwtToken', token);
+        this.headers = new Headers({ 'Content-Type': 'application/json', 'Authorization': localStorage.getItem('jwtToken') });
+        this.options = new RequestOptions({ headers: this.headers });
     }
 
     private extractDataText(res: Response) {
