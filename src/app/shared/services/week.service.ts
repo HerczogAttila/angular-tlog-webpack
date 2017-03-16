@@ -31,8 +31,9 @@ export class WeekService {
     options = new RequestOptions({ headers: this.headers });
 
     ip = 'localhost';
-    // port = 9080;
-    port = 8080;
+    port = 9080;
+    // port = 8080;
+    login = false;
 
     urlBase = 'http://' + this.ip + ':' + this.port;
 
@@ -145,6 +146,7 @@ export class WeekService {
 
     public setJWTToken(token: string): void {
         localStorage.setItem('jwtToken', token);
+        this.login = true;
         this.headers = new Headers({ 'Content-Type': 'application/json', 'Authorization': localStorage.getItem('jwtToken') });
         this.options = new RequestOptions({ headers: this.headers });
     }

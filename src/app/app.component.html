@@ -1,5 +1,5 @@
 <h1 class="center">{{title}}</h1>
-<nav class="center">
+<nav class="center" *ngIf="weekService.login">
   <a routerLink="/calendar">Calendar</a>
   <a routerLink="/task-list">Task list </a>
   <label class="logout" (click)="onLogout()">Logout</label>

@@ -37,6 +37,7 @@ export class AppComponent {
 
   public onLogout(): void {
     localStorage.removeItem('jwtToken');
+    this.weekService.login = false;
     this.weekService.weeks = [];
     this.router.navigate(['/login']).catch(error => {
       console.error(error);
