@@ -10,8 +10,8 @@ import { Router } from '@angular/router';
 })
 
 export class LoginComponent implements OnInit {
-    userName: string = 'asdf';
-    password: string = 'asdf';
+    userName: string;
+    password: string;
 
     constructor(
         private weekService: WeekService,

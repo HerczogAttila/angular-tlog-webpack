@@ -1,13 +1,13 @@
 version: '2'
 services:
   tlog-angular:
-    image: trainingproject/tlog16angular:latest
+    image: polc/tlog16angular
     container_name: tlog-angular
     ports:
     - "9090:80"
-    volumes:
-    - "./dist:/usr/html"
-    - "./node_modules:/usr/html/node_modules"
+#    volumes:
+#    - "./dist:/usr/html"
+#    - "./node_modules:/usr/html/node_modules"
     networks:
     - tlog
   tlog-backend:
