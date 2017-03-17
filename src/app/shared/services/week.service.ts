@@ -27,12 +27,12 @@ export class WeekService {
     minutes: number;
     extraMinutes: number;
 
-    headers = new Headers({ 'Content-Type': 'application/json', 'Authorization': null });
+    headers = new Headers({ 'Content-Type': 'application/json', 'Authorization': localStorage.getItem('jwtToken') });
     options = new RequestOptions({ headers: this.headers });
 
     ip = 'localhost';
-    port = 9080;
-    // port = 8080;
+    // port = 9080;
+    port = 8080;
     login = false;
 
     urlBase = 'http://' + this.ip + ':' + this.port;
