@@ -32,8 +32,7 @@ export class WeekService {
 
     ip = 'localhost';
     port = 9080;
-    // port = 8080;
-    login = false;
+    login = localStorage.getItem('jwtToken') ? true : false;
 
     urlBase = 'http://' + this.ip + ':' + this.port;
 
