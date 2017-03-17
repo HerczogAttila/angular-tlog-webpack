@@ -1,14 +1,14 @@
 <table align="center">
     <tr>
-        <th class="right">Login:</th>
+        <th class="right" i18n="">Username:</th>
         <th><input type="text" [(ngModel)]="userName"></th>
     </tr>
     <tr>
-        <th class="right">Password:</th>
+        <th class="right" i18n>Password:</th>
         <th><input type="password" [(ngModel)]="password"></th>
     </tr>
     <tr>
-        <th><button (click)="onRegister()">Register</button></th>
-        <th class="right"><button (click)="onLogin()">Login</button></th>
+        <th><button (click)="onRegister()" i18n>Register</button></th>
+        <th class="right"><button (click)="onLogin()" i18n>Login</button></th>
     </tr>
 </table>
