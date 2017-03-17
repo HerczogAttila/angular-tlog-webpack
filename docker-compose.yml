@@ -5,13 +5,10 @@ services:
     container_name: tlog-angular
     ports:
     - "9090:80"
-#    volumes:
-#    - "./dist:/usr/html"
-#    - "./node_modules:/usr/html/node_modules"
     networks:
     - tlog
   tlog-backend:
-    image: trainingproject/tlog16rs
+    image: polc/tlog16rs
     container_name: tlog-backend
     networks:
     - tlog
