@@ -43,6 +43,7 @@ export class TaskListComponent implements OnInit {
         console.error(error);
       });
     } else {
+      this.pagerService.init();
       this.pagerService.refresh().subscribe(() => {
         this.date = this.weekService.selectedDay;
         this.refreshWorkDay();
