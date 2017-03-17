@@ -33,7 +33,6 @@ export class AppComponent {
     Observable.interval(240000).subscribe(() => {
       if (localStorage.getItem('jwtToken')) {
         this.weekService.refresh().subscribe(jwtToken => {
-          console.log(jwtToken);
           this.weekService.setJWTToken(jwtToken);
         });
       }

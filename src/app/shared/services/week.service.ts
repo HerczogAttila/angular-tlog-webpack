@@ -31,8 +31,8 @@ export class WeekService {
     options = new RequestOptions({ headers: this.headers });
 
     ip = 'localhost';
-    // port = 9080;
-    port = 8080;
+    port = 9080;
+    // port = 8080;
     login = false;
 
     urlBase = 'http://' + this.ip + ':' + this.port;
