@@ -1,14 +1,14 @@
 <table align="center">
     <tr>
-        <th class="right" i18n="">Username:</th>
+        <th class="right">{{ 'Username' | translate }}:</th>
         <th><input type="text" [(ngModel)]="userName"></th>
     </tr>
     <tr>
-        <th class="right" i18n>Password:</th>
+        <th class="right" >{{ 'Password' | translate }}:</th>
         <th><input type="password" [(ngModel)]="password"></th>
     </tr>
     <tr>
-        <th><button (click)="onRegister()" i18n>Register</button></th>
-        <th class="right"><button (click)="onLogin()" i18n>Login</button></th>
+        <th><button (click)="onRegister()">{{ 'Register' | translate }}</button></th>
+        <th class="right"><button (click)="onLogin()">{{ 'Login' | translate }}</button></th>
     </tr>
 </table>

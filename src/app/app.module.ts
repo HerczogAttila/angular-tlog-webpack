@@ -1,6 +1,6 @@
 import { NgModule, ApplicationRef } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpModule } from '@angular/http';
+import { HttpModule, Http } from '@angular/http';
 import { FormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
@@ -19,13 +19,19 @@ import { MonthlyStatisticComponent } from './calendar/monthly-statistic/monthly-
 import { DailyStatisticComponent } from './task-list/daily-statistic/daily-statistic.component';
 import { PagerComponent } from './calendar/pager/pager.component';
 import { LoginComponent } from './login/login.component';
+import { TranslateModule, TranslateStaticLoader, TranslateLoader } from 'ng2-translate';
 
 @NgModule({
   imports: [
     BrowserModule,
     HttpModule,
     FormsModule,
-    routing
+    routing,
+    TranslateModule.forRoot({
+      provide: TranslateLoader,
+      useFactory: (http: Http) => new TranslateStaticLoader(http, '/translations/', '.json'),
+      deps: [Http]
+    })
   ],
   declarations: [
     AppComponent,

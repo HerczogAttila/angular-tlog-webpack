@@ -4,6 +4,7 @@ import '../style/app.scss';
 import { WeekService } from './shared/services/week.service';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
+import { TranslateService } from 'ng2-translate';
 
 @Component({
   selector: 'my-app', // <my-app></my-app>
@@ -23,8 +24,12 @@ export class AppComponent {
 
   constructor(
       public weekService: WeekService,
+      public translate: TranslateService,
       private router: Router,
   ) {
+    translate.setDefaultLang('en');
+    translate.use(navigator.language);
+
     Observable.interval(240000).subscribe(() => {
       if (localStorage.getItem('jwtToken')) {
         this.weekService.refresh().subscribe(jwtToken => {

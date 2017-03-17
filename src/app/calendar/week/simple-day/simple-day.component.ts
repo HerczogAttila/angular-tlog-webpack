@@ -2,6 +2,7 @@ import { Component, Input } from '@angular/core';
 import { MyDate, DayType } from '../../../shared/classes/myDate';
 import { WeekService } from '../../../shared/services/week.service';
 import { WorkDayRB } from '../../../shared/classes/backend/workDayRB';
+import { TranslateService } from 'ng2-translate';
 
 @Component({
   selector: 'my-simple-day',
@@ -11,7 +12,16 @@ import { WorkDayRB } from '../../../shared/classes/backend/workDayRB';
 export class SimpleDayComponent {
   @Input() date: MyDate;
 
-  constructor(private weekService: WeekService) {}
+  weekendConfirmMessage = 'Are you sure working on weekend?';
+
+  constructor(
+      public translate: TranslateService,
+      private weekService: WeekService,
+  ) {
+    translate.get(this.weekendConfirmMessage).subscribe((res: string) => {
+      this.weekendConfirmMessage = res;
+    });
+  }
 
   public onNewWorkday(): void {
     let workDay = new WorkDayRB();
@@ -21,7 +31,7 @@ export class SimpleDayComponent {
     workDay.requiredHours = 450;
 
     if (this.date.weekend) {
-      if (confirm('Are you sure working on weekend?')) {
+      if (confirm(this.weekendConfirmMessage)) {
         this.weekService.addWorkDayWeekend(workDay).subscribe(data => this.responseNewWorkDay(data));
       }
     } else {

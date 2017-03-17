@@ -1,11 +1,11 @@
 <br><div class="container">
   <div class="row">
-    <h2 class="title">Calendar</h2>
+    <h2 class="title">{{ 'Calendar' | translate }}</h2>
     <div class="month col-md-12">
       <my-pager></my-pager>
     </div>
     <div class="col-md-12">
-      <ul class="day_header col-xs-1" *ngFor="let day of daysOfWeek">{{day}}</ul>
+      <ul class="day_header col-xs-1" *ngFor="let day of daysOfWeek">{{day | translate}}</ul>
     </div>
     <div class="col-md-12" *ngFor="let week of weekService.weeks"><my-week [week]="week"></my-week></div>
     <my-monthly-statistic></my-monthly-statistic>

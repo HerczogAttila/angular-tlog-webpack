@@ -1,5 +1,5 @@
-<h3>Statistics:</h3>
-Workdays: {{weekService.workdays}}<br>
-Required working minutes: {{weekService.reqWorkMinutes}}<br>
-Minutes: {{weekService.minutes}}<br>
-Extra minutes: <label [style.color]="app.getColor(weekService.extraMinutes)">{{weekService.extraMinutes}}</label><br>
+<h3>{{ 'Statistics' | translate }}:</h3>
+{{ 'Workdays' | translate }}: {{weekService.workdays}}<br>
+{{ 'Required working minutes' | translate }}: {{weekService.reqWorkMinutes}}<br>
+{{ 'Minutes' | translate }}: {{weekService.minutes}}<br>
+{{ 'Extra minutes' | translate }}: <label [style.color]="app.getColor(weekService.extraMinutes)">{{weekService.extraMinutes}}</label><br>

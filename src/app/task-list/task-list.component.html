@@ -1,18 +1,18 @@
-<h2>Task list</h2>
+<h2>{{ 'Task list' | translate }}</h2>
 <div *ngIf="date">
   <div>
-    Selected day: {{date.year}}. {{date.month + 1}}. {{date.day}}.
+    {{ 'Selected day' | translate }}: {{date.year}}. {{date.month + 1}}. {{date.day}}.
     <div>
-      <br><label>Required minutes: <input value="{{date.requiredWorkMinutes}}" #reqWorkMinutes /></label>
-      <button (click)="modifyDay(reqWorkMinutes.value)">Modify</button>
+      <br><label>{{ 'Required working minutes' | translate }}: <input value="{{date.requiredWorkMinutes}}" #reqWorkMinutes /></label>
+      <button (click)="modifyDay(reqWorkMinutes.value)">{{ 'Modify' | translate }}</button>
     </div>
   </div>
   <my-daily-statistic [date]="date" [tasks]="tasks"></my-daily-statistic><br>
   <div>
-    <label>Task id: <input #taskId /></label>
-    <button (click)="startTask(taskId.value); taskId.value=''">Add</button>
+    <label>{{ 'Task id' | translate }}: <input #taskId /></label>
+    <button (click)="startTask(taskId.value); taskId.value=''">{{ 'Add' | translate }}</button>
   </div>
-  Tasks:
+  {{ 'Tasks' | translate }}:
   <div *ngFor="let t of tasks">
     <label (click)="onSelectTask(t)">
       {{t.taskId}}, {{t.comment}},
@@ -20,20 +20,20 @@
       <label *ngIf="t.endingTime">{{t.endingTime}}</label>
     </label>
     <button (click)="deleteTask(t)">x</button>
-    <label *ngIf="!t.endingTime"><button (click)="finishingTask(t)">Finishing</button></label>
+    <label *ngIf="!t.endingTime"><button (click)="finishingTask(t)">{{ 'Finishing' | translate }}</button></label>
   </div>
   <div *ngIf="selectedTask">
-    Selected task: {{selectedTask.taskId}}<br>
-    <label>Task id: <input value="{{selectedTask.taskId}}" #taskId /></label><br>
-    <label>Comment: <input value="{{selectedTask.comment}}" #comment /></label><br>
+    {{ 'Selected task' | translate }}: {{selectedTask.taskId}}<br>
+    <label>{{ 'Task id' | translate }}: <input value="{{selectedTask.taskId}}" #taskId /></label><br>
+    <label>{{ 'Comment' | translate }}: <input value="{{selectedTask.comment}}" #comment /></label><br>
     <div *ngIf="selectedTask.startingTime">
-      <label>Start time: <input value="{{selectedTask.startingTime}}" #startTime /></label><br>
+      <label>{{ 'Start time' | translate }}: <input value="{{selectedTask.startingTime}}" #startTime /></label><br>
       <div *ngIf="selectedTask.endingTime">
-        <label>End time: <input value="{{selectedTask.endingTime}}" #endTime /></label><br>
-        <button (click)="modifyTask(taskId.value, comment.value, startTime.value, endTime.value)">Modify</button>
+        <label>{{ 'End time' | translate }}: <input value="{{selectedTask.endingTime}}" #endTime /></label><br>
+        <button (click)="modifyTask(taskId.value, comment.value, startTime.value, endTime.value)">{{ 'Modify' | translate }}</button>
       </div>
       <div *ngIf="!selectedTask.endingTime">
-        <button (click)="modifyTask(taskId.value, comment.value, startTime.value, '')">Modify</button>
+        <button (click)="modifyTask(taskId.value, comment.value, startTime.value, '')">{{ 'Modify' | translate }}</button>
       </div>
     </div>
   </div>
