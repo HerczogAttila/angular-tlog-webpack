@@ -1,12 +1,13 @@
 
-table {
-  margin-top: 5%;
+th {
+  padding: 5px;
 }
 
 .right {
   text-align: right;
 }
 
-th {
-  padding: 5px;
+.errorMessage {
+  color: red;
 }
+

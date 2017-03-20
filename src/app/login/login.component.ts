@@ -3,6 +3,8 @@ import { WeekService } from '../shared/services/week.service';
 import { UserRB } from '../shared/classes/backend/userRB';
 import { Router } from '@angular/router';
 
+const STATUS_CODE_NOT_MODIFIED = 304;
+
 @Component({
     selector: 'my-login',
     templateUrl: 'login.component.html',
@@ -12,6 +14,8 @@ import { Router } from '@angular/router';
 export class LoginComponent implements OnInit {
     userName: string;
     password: string;
+
+    isExistUser = false;
 
     constructor(
         private weekService: WeekService,
@@ -31,7 +35,8 @@ export class LoginComponent implements OnInit {
         user.name = this.userName;
         user.password = this.password;
 
-        this.weekService.registering(user).subscribe();
+        this.weekService.registering(user)
+            .subscribe();
     }
 
     public onLogin(): void {
@@ -45,5 +50,26 @@ export class LoginComponent implements OnInit {
                 console.error(error);
             });
         });
+    }
+
+    public getExistUserMessageVisibility(): string {
+        if (this.isExistUser) {
+            return 'visible';
+        } else {
+            return 'hidden';
+        }
+    }
+
+    public onUserNameChanged(): void {
+        this.weekService.isExistUserName(this.userName)
+            .map(res => res)
+            .subscribe(
+                () => { this.isExistUser = false; },
+                (err) => {
+                    if (err.status === STATUS_CODE_NOT_MODIFIED) {
+                        this.isExistUser = true;
+                    }
+                }
+            );
     }
 }

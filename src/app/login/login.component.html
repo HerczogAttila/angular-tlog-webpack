@@ -1,7 +1,8 @@
 <table align="center">
     <tr>
         <th class="right">{{ 'Username' | translate }}:</th>
-        <th><input type="text" [(ngModel)]="userName"></th>
+        <th><input type="text" [(ngModel)]="userName" (keyup)="onUserNameChanged()"></th>
+        <th class="errorMessage" [style.visibility]="getExistUserMessageVisibility()">{{ 'Existing user name!' | translate}}</th>
     </tr>
     <tr>
         <th class="right" >{{ 'Password' | translate }}:</th>

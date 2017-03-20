@@ -31,28 +31,29 @@ export class WeekService {
     options = new RequestOptions({ headers: this.headers });
 
     ip = 'localhost';
-    port = 9080;
-    login = localStorage.getItem('jwtToken') ? true : false;
+    port = 8080;
+    login = !!localStorage.getItem('jwtToken');
 
-    urlBase = 'http://' + this.ip + ':' + this.port;
+    urlBase = 'http://' + this.ip + ':' + this.port + '/timelogger/';
 
-    urlRegistering = this.urlBase + '/timelogger/registering';
-    urlAuthenticate = this.urlBase + '/timelogger/authenticate';
-    urlRefresh = this.urlBase + '/timelogger/refresh';
+    urlRegistering = this.urlBase + 'registering';
+    urlAuthenticate = this.urlBase + 'authenticate';
+    urlRefresh = this.urlBase + 'refresh';
+    urlExistUser = this.urlBase + 'isExistUser';
 
-    urlGetMonths = this.urlBase + '/timelogger/workmonths/';
-    urlDeleteAll = this.urlBase + '/timelogger/workmonths/deleteall';
+    urlGetMonths = this.urlBase + 'workmonths/';
+    urlDeleteAll = this.urlBase + 'workmonths/deleteall';
 
-    urlAddWorkDay = this.urlBase + '/timelogger/workmonths/workdays';
-    urlAddWorkDayWeekend = this.urlBase + '/timelogger/workmonths/workdaysweekend';
-    urlGetWorkDay = this.urlBase + '/timelogger/workmonths/workdays/';
-    urlModifyWorkDay = this.urlBase + '/timelogger/workmonths/workdays/modify';
+    urlAddWorkDay = this.urlBase + 'workmonths/workdays';
+    urlAddWorkDayWeekend = this.urlBase + 'workmonths/workdaysweekend';
+    urlGetWorkDay = this.urlBase + 'workmonths/workdays/';
+    urlModifyWorkDay = this.urlBase + 'workmonths/workdays/modify';
 
-    urlGetTasks = this.urlBase + '/timelogger/workmonths/';
-    urlStartTask = this.urlBase + '/timelogger/workmonths/workdays/tasks/start';
-    urlFinishingTask = this.urlBase + '/timelogger/workmonths/workdays/tasks/finish';
-    urlModifyTask = this.urlBase + '/timelogger/workmonths/workdays/tasks/modify';
-    urlDeleteTask = this.urlBase + '/timelogger/workmonths/workdays/tasks/delete';
+    urlGetTasks = this.urlBase + 'workmonths/';
+    urlStartTask = this.urlBase + 'workmonths/workdays/tasks/start';
+    urlFinishingTask = this.urlBase + 'workmonths/workdays/tasks/finish';
+    urlModifyTask = this.urlBase + 'workmonths/workdays/tasks/modify';
+    urlDeleteTask = this.urlBase + 'workmonths/workdays/tasks/delete';
 
     constructor (private http: Http) {}
 
@@ -86,6 +87,9 @@ export class WeekService {
         return this.http.post(this.urlRefresh, {}, this.options)
             .map(this.extractDataText)
             .catch(this.handleError);
+    }
+    public isExistUserName(userName: string): Observable<any> {
+        return this.http.post(this.urlExistUser, userName, this.options);
     }
 
     public getMonthWorkDays(year: number, month: number): Observable<any> {
