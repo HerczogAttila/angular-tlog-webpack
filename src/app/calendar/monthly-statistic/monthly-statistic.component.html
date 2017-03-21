@@ -1,5 +1,5 @@
-<h3>{{ 'Statistics' | translate }}:</h3>
-{{ 'Workdays' | translate }}: {{weekService.workdays}}<br>
-{{ 'Required working minutes' | translate }}: {{weekService.reqWorkMinutes}}<br>
-{{ 'Minutes' | translate }}: {{weekService.minutes}}<br>
-{{ 'Extra minutes' | translate }}: <label [style.color]="weekService.getExtraMinutesColor()">{{weekService.extraMinutes}}</label><br>
+<p>{{ 'Statistics' | translate }}:</p>
+<p>{{ 'Workdays' | translate }}: {{weekService.workdays}}</p>
+<p>{{ 'Required working minutes' | translate }}: {{weekService.reqWorkMinutes}}</p>
+<p>{{ 'Minutes' | translate }}: {{weekService.minutes}}</p>
+<p class="inline">{{ 'Extra minutes' | translate }}:</p><p class="inline" [ngClass]="weekService.extraMinutes >= 0 ? 'positiveValue' : 'negativeValue'">{{weekService.extraMinutes}}</p>

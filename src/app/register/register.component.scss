@@ -1,4 +1,10 @@
 
-.errorMessage {
+.existUser {
+  visibility: visible;
+  color: red;
+}
+
+.notExistUser {
+  visibility: hidden;
   color: red;
 }

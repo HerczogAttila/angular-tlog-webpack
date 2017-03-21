@@ -6,6 +6,7 @@ import { WeekService } from '../../../shared/services/week.service';
 @Component({
   selector: 'my-workday',
   templateUrl: 'workday.component.html',
+  styleUrls: ['workday.component.scss'],
 })
 
 export class WorkdayComponent {

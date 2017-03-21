@@ -1,3 +1,3 @@
-{{date.day}}<br>
-<label [style.color]="date.getExtraMinutesColor()">{{date.extraMinutes}}</label><br>
+<p>{{date.day}}</p>
+<p [ngClass]="date.extraMinutes >= 0 ? 'positiveValue' : 'negativeValue'">{{date.extraMinutes}}</p>
 <button (click)="navigateTaskList()">{{ 'Edit' | translate }}</button>

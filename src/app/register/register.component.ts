@@ -42,14 +42,6 @@ export class RegisterComponent implements OnInit {
             .subscribe();
     }
 
-    public getExistUserMessageVisibility(): string {
-        if (this.isExistUser) {
-            return 'visible';
-        } else {
-            return 'hidden';
-        }
-    }
-
     public onUserNameChanged(): void {
         this.weekService.isExistUserName(this.userName)
             .map(res => res)
