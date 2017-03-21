@@ -3,24 +3,24 @@
   <div>
     {{ 'Selected day' | translate }}: {{date.year}}. {{date.month + 1}}. {{date.day}}.
     <div>
-      <br><label>{{ 'Required working minutes' | translate }}: <input value="{{date.requiredWorkMinutes}}" #reqWorkMinutes /></label>
+      <p>{{ 'Required working minutes' | translate }}:</p><label><input value="{{date.requiredWorkMinutes}}" #reqWorkMinutes /></label>
       <button (click)="modifyDay(reqWorkMinutes.value)">{{ 'Modify' | translate }}</button>
     </div>
   </div>
   <my-daily-statistic [date]="date" [tasks]="tasks"></my-daily-statistic><br>
   <div>
-    <label>{{ 'Task id' | translate }}: <input [(ngModel)]="taskId"></label>
+    <p>{{ 'Task id' | translate }}: <label><input [(ngModel)]="taskId"></label></p>
     <button (click)="startTask();">{{ 'Add' | translate }}</button>
   </div>
   {{ 'Tasks' | translate }}:
   <div *ngFor="let t of tasks">
-    <label (click)="onSelectTask(t)">
+    <div class="inline" (click)="onSelectTask(t)">
       {{t.taskId}}, {{t.comment}},
-      <label *ngIf="t.startingTime">{{t.startingTime}}</label>-
-      <label *ngIf="t.endingTime">{{t.endingTime}}</label>
-    </label>
+      <p class="inline" *ngIf="t.startingTime">{{t.startingTime}}</p>-
+      <p class="inline" *ngIf="t.endingTime">{{t.endingTime}}</p>
+    </div>
     <button (click)="deleteTask(t)">x</button>
-    <label *ngIf="!t.endingTime"><button (click)="finishingTask(t)">{{ 'Finishing' | translate }}</button></label>
+    <p class="inline" *ngIf="!t.endingTime"><button (click)="finishingTask(t)">{{ 'Finishing' | translate }}</button></p>
   </div>
   <my-modify-task *ngIf="selectedTask" [selectedTask]="selectedTask" [taskList]="me" ></my-modify-task>
 </div>

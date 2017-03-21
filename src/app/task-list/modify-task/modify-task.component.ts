@@ -7,6 +7,7 @@ import { Task } from '../../shared/classes/backend/task';
 @Component({
     selector: 'my-modify-task',
     templateUrl: 'modify-task.component.html',
+    styleUrls: ['modify-task.component.scss'],
 })
 
 export class ModifyTaskComponent {
