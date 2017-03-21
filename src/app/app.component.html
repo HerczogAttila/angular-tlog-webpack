@@ -4,4 +4,8 @@
   <a routerLink="/task-list">{{ 'Task list' | translate }}</a>
   <label class="logout" (click)="onLogout()">{{ 'Logout' | translate }}</label>
 </nav>
+<nav class="center" *ngIf="!weekService.login">
+  <a routerLink="/login">{{ 'Login' | translate }}</a>
+  <a routerLink="/register">{{ 'Register' | translate }}</a>
+</nav>
 <router-outlet></router-outlet>

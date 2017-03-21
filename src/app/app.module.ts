@@ -20,6 +20,7 @@ import { DailyStatisticComponent } from './task-list/daily-statistic/daily-stati
 import { PagerComponent } from './calendar/pager/pager.component';
 import { LoginComponent } from './login/login.component';
 import { TranslateModule, TranslateStaticLoader, TranslateLoader } from 'ng2-translate';
+import { RegisterComponent } from './register/register.component';
 
 @NgModule({
   imports: [
@@ -44,6 +45,7 @@ import { TranslateModule, TranslateStaticLoader, TranslateLoader } from 'ng2-tra
     DailyStatisticComponent,
     PagerComponent,
     LoginComponent,
+    RegisterComponent,
   ],
   providers: [
     ApiService,
