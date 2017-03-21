@@ -4,7 +4,6 @@ import { MyDate } from '../shared/classes/myDate';
 import { WeekService } from '../shared/services/week.service';
 import { StartTaskRB } from '../shared/classes/backend/startTaskRB';
 import { DeleteTaskRB } from '../shared/classes/backend/deleteTaskRB';
-import { ModifyTaskRB } from '../shared/classes/backend/modifyTaskRB';
 import { PagerService } from '../shared/services/pager.service';
 import { FinishingTaskRB } from '../shared/classes/backend/finishingTaskRB';
 import { ModifyWorkDayRB } from '../shared/classes/backend/modifyWorkDayRB';
@@ -22,6 +21,7 @@ export class TaskListComponent implements OnInit {
   selectedTask: Task;
 
   taskId: string;
+  me = this;
 
   private static getActualTime(): string {
     let date = new Date();
@@ -126,28 +126,6 @@ export class TaskListComponent implements OnInit {
     }
 
     this.weekService.deleteTask(deleteTask).subscribe(() => this.refreshWorkDay());
-  }
-
-  public modifyTask(taskId: string, comment: string, startTime: string, endTime: string): void {
-    let modifyTask = new ModifyTaskRB();
-    modifyTask.year = this.date.year;
-    modifyTask.month = this.date.month + 1;
-    modifyTask.day = this.date.day;
-    modifyTask.taskId = this.selectedTask.taskId;
-
-    modifyTask.newTaskId = taskId;
-    modifyTask.newComment = comment;
-
-    if (this.selectedTask.startingTime) {
-      modifyTask.startTime = this.selectedTask.startingTime;
-      modifyTask.newStartTime = startTime;
-    }
-    if (this.selectedTask.endingTime) {
-      modifyTask.newEndTime = endTime;
-    }
-
-    this.weekService.modifyTask(modifyTask).subscribe(() => this.refreshWorkDay());
-    this.selectedTask = null;
   }
 
   public refreshWorkDay(): void {

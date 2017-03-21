@@ -21,6 +21,7 @@ import { PagerComponent } from './calendar/pager/pager.component';
 import { LoginComponent } from './login/login.component';
 import { TranslateModule, TranslateStaticLoader, TranslateLoader } from 'ng2-translate';
 import { RegisterComponent } from './register/register.component';
+import { ModifyTaskComponent } from './task-list/modify-task/modify-task.component';
 
 @NgModule({
   imports: [
@@ -36,14 +37,18 @@ import { RegisterComponent } from './register/register.component';
   ],
   declarations: [
     AppComponent,
+
     TaskListComponent,
+    DailyStatisticComponent,
+    ModifyTaskComponent,
+
     CalendarComponent,
+    MonthlyStatisticComponent,
+    PagerComponent,
+    WeekComponent,
     SimpleDayComponent,
     WorkdayComponent,
-    WeekComponent,
-    MonthlyStatisticComponent,
-    DailyStatisticComponent,
-    PagerComponent,
+
     LoginComponent,
     RegisterComponent,
   ],
