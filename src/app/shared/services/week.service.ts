@@ -80,17 +80,17 @@ export class WeekService {
 
     public registering(user: UserRB): Observable<any> {
         return this.http.post(this.urlRegistering, JSON.stringify(user), this.options)
-            .map(this.extractDataText);
+            .map(WeekService.extractDataText);
     }
     public authenticate(user: UserRB): Observable<any> {
         return this.http.post(this.urlAuthenticate, JSON.stringify(user), this.options)
-            .map(this.extractDataText)
-            .catch(this.handleError);
+            .map(WeekService.extractDataText)
+            .catch(WeekService.handleError);
     }
     public refresh(): Observable<any> {
         return this.http.post(this.urlRefresh, {}, this.options)
-            .map(this.extractDataText)
-            .catch(this.handleError);
+            .map(WeekService.extractDataText)
+            .catch(WeekService.handleError);
     }
     public isExistUserName(userName: string): Observable<any> {
         return this.http.post(this.urlExistUser, userName, this.options);
@@ -98,57 +98,57 @@ export class WeekService {
 
     public getMonthWorkDays(year: number, month: number): Observable<any> {
         return this.http.get(this.urlGetMonths + year + '/' + month, this.options)
-            .map(this.extractDataText)
-            .catch(this.handleError);
+            .map(WeekService.extractDataText)
+            .catch(WeekService.handleError);
     }
 
     public addWorkDay(workDay: WorkDayRB): Observable<any> {
         return this.http.post(this.urlAddWorkDay, JSON.stringify(workDay), this.options)
-            .map(this.extractDataText)
-            .catch(this.handleError);
+            .map(WeekService.extractDataText)
+            .catch(WeekService.handleError);
     }
     public addWorkDayWeekend(workDay: WorkDayRB): Observable<any> {
         return this.http.post(this.urlAddWorkDayWeekend, JSON.stringify(workDay), this.options)
-            .map(this.extractDataText)
-            .catch(this.handleError);
+            .map(WeekService.extractDataText)
+            .catch(WeekService.handleError);
     }
     public getWorkDay(date: MyDate): Observable<any> {
         return this.http.get(this.urlGetWorkDay + date.year + '/' + (date.month + 1) + '/' + date.day, this.options)
-            .map(this.extractDataText)
-            .catch(this.handleError);
+            .map(WeekService.extractDataText)
+            .catch(WeekService.handleError);
     }
     public modifyWorkDay(modifyWorkDay: ModifyWorkDayRB): Observable<any> {
         return this.http.put(this.urlModifyWorkDay, JSON.stringify(modifyWorkDay), this.options)
-            .map(this.extractDataText)
-            .catch(this.handleError);
+            .map(WeekService.extractDataText)
+            .catch(WeekService.handleError);
     }
 
     public getTasks(date: MyDate): Observable<any> {
         let url = this.urlGetTasks + date.year + '/' + (date.month + 1) + '/' + date.day;
         return this.http.get(url, this.options)
-            .map(this.extractDataText)
-            .catch(this.handleError);
+            .map(WeekService.extractDataText)
+            .catch(WeekService.handleError);
     }
     public startTask(startTask: StartTaskRB): Observable<any> {
         return this.http.post(this.urlStartTask, JSON.stringify(startTask), this.options)
-            .catch(this.handleError);
+            .catch(WeekService.handleError);
     }
     public finishingTask(finishingTask: FinishingTaskRB): Observable<any> {
         return this.http.put(this.urlFinishingTask, JSON.stringify(finishingTask), this.options)
-            .catch(this.handleError);
+            .catch(WeekService.handleError);
     }
     public modifyTask(modifyTask: ModifyTaskRB): Observable<any> {
         return this.http.put(this.urlModifyTask, JSON.stringify(modifyTask), this.options)
-            .catch(this.handleError);
+            .catch(WeekService.handleError);
     }
     public deleteTask(deleteTask: DeleteTaskRB): Observable<any> {
         return this.http.put(this.urlDeleteTask, JSON.stringify(deleteTask), this.options)
-            .catch(this.handleError);
+            .catch(WeekService.handleError);
     }
 
     public deleteAll(): Observable<any> {
         return this.http.put(this.urlDeleteAll, { }, this.options)
-            .catch(this.handleError);
+            .catch(WeekService.handleError);
     }
 
     public setJWTToken(token: string): void {
@@ -158,11 +158,11 @@ export class WeekService {
         this.options = new RequestOptions({ headers: this.headers });
     }
 
-    private extractDataText(res: Response) {
+    private static extractDataText(res: Response) {
         return res.text() || { };
     }
 
-    private handleError (error: Response | any) {
+    private static handleError (error: Response | any) {
         let errMsg: string;
         if (error instanceof Response) {
             const body = error.json() || '';
