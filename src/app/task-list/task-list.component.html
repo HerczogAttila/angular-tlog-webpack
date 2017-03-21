@@ -1,7 +1,7 @@
 <p class="title">{{ 'Task list' | translate }}</p>
 <div *ngIf="date">
   <div>
-    {{ 'Selected day' | translate }}: {{date.year}}. {{date.month + 1}}. {{date.day}}.
+    <p>{{ 'Selected day' | translate }}: {{date.year}}. {{date.month + 1}}. {{date.day}}.</p>
     <div>
       <p>{{ 'Required working minutes' | translate }}:</p><label><input value="{{date.requiredWorkMinutes}}" #reqWorkMinutes /></label>
       <button (click)="modifyDay(reqWorkMinutes.value)">{{ 'Modify' | translate }}</button>
@@ -12,10 +12,10 @@
     <p>{{ 'Task id' | translate }}: <label><input [(ngModel)]="taskId"></label></p>
     <button (click)="startTask();">{{ 'Add' | translate }}</button>
   </div>
-  {{ 'Tasks' | translate }}:
+  <p>{{ 'Tasks' | translate }}:</p>
   <div *ngFor="let t of tasks">
     <div class="inline" (click)="onSelectTask(t)">
-      {{t.taskId}}, {{t.comment}},
+      <p>{{t.taskId}}, {{t.comment}},</p>
       <p class="inline" *ngIf="t.startingTime">{{t.startingTime}}</p>-
       <p class="inline" *ngIf="t.endingTime">{{t.endingTime}}</p>
     </div>
