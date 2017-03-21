@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'my-calendar',
   templateUrl: 'calendar.component.html',
+  styleUrls: ['calendar.component.scss'],
 })
 
 export class CalendarComponent implements OnInit {
@@ -27,7 +28,7 @@ export class CalendarComponent implements OnInit {
     }
   }
 
-  public deleteAll(): void {
-    this.weekService.deleteAll().subscribe(() => this.pagerService.refresh());
-  }
+  // public deleteAll(): void {
+  //   this.weekService.deleteAll().subscribe(() => this.pagerService.refresh());
+  // }
 }

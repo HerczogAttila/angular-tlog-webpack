@@ -1,8 +1,8 @@
-<h1 class="center">{{title}}</h1>
+<p class="title">{{title}}</p>
 <nav class="center" *ngIf="weekService.login">
   <a routerLink="/calendar">{{ 'Calendar' | translate }}</a>
   <a routerLink="/task-list">{{ 'Task list' | translate }}</a>
-  <label class="logout" (click)="onLogout()">{{ 'Logout' | translate }}</label>
+  <p class="logout" (click)="onLogout()">{{ 'Logout' | translate }}</p>
 </nav>
 <nav class="center" *ngIf="!weekService.login">
   <a routerLink="/login">{{ 'Login' | translate }}</a>

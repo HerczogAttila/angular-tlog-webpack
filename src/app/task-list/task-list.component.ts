@@ -13,6 +13,7 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'my-task-list',
   templateUrl: 'task-list.component.html',
+  styleUrls: ['task-list.component.scss'],
 })
 
 export class TaskListComponent implements OnInit {

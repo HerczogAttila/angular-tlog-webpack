@@ -5,6 +5,7 @@ import { Task } from '../../shared/classes/backend/task';
 @Component({
     selector: 'my-daily-statistic',
     templateUrl: 'daily-statistic.component.html',
+    styleUrls: ['daily-statistic.component.scss'],
 })
 
 export class DailyStatisticComponent {
