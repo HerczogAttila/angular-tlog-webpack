@@ -9,7 +9,7 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 import { WorkDayRB } from '../classes/backend/workDayRB';
 import { StartTaskRB } from '../classes/backend/startTaskRB';
-import { MyDate, DayType } from '../classes/myDate';
+import { MyDate } from '../classes/myDate';
 import { DeleteTaskRB } from '../classes/backend/deleteTaskRB';
 import { ModifyTaskRB } from '../classes/backend/modifyTaskRB';
 import { FinishingTaskRB } from '../classes/backend/finishingTaskRB';
@@ -31,7 +31,7 @@ export class WeekService {
     options = new RequestOptions({ headers: this.headers });
 
     ip = 'localhost';
-    port = 8080;
+    port = 9080;
     login = !!localStorage.getItem('jwtToken');
 
     urlBase = 'http://' + this.ip + ':' + this.port + '/timelogger/';
@@ -57,6 +57,10 @@ export class WeekService {
 
     constructor (private http: Http) {}
 
+    public getExtraMinutesColor(): string {
+        return (this.extraMinutes >= 0) ? 'green' : 'red';
+    }
+
     public refreshStatistics(): void {
         this.reqWorkMinutes = 0;
         this.minutes = 0;
@@ -67,7 +71,7 @@ export class WeekService {
                 this.reqWorkMinutes += d.requiredWorkMinutes;
                 this.minutes += d.minutes;
                 this.extraMinutes += d.extraMinutes;
-                if (d.type === DayType.Work) {
+                if (d.isWorkDay()) {
                     this.workdays++;
                 }
             }

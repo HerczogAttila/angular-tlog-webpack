@@ -10,10 +10,15 @@ export class MyDate {
   extraMinutes = 0;
   weekend = false;
 
-  isSimpleDay() {
+  public isSimpleDay(): boolean {
     return this.type === DayType.Simple;
   }
-  isWorkDay() {
+
+  public isWorkDay(): boolean {
     return this.type === DayType.Work;
+  }
+
+  public getExtraMinutesColor(): string {
+    return (this.extraMinutes >= 0) ? 'green' : 'red';
   }
 }

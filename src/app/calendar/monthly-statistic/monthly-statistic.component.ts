@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { AppComponent } from '../../app.component';
 import { WeekService } from '../../shared/services/week.service';
 
 @Component({
@@ -8,7 +7,7 @@ import { WeekService } from '../../shared/services/week.service';
 })
 
 export class MonthlyStatisticComponent {
-    app = AppComponent;
-
     constructor(public weekService: WeekService) { }
+
+
 }

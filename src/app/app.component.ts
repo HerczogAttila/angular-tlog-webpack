@@ -14,14 +14,6 @@ import { TranslateService } from 'ng2-translate';
 export class AppComponent {
   title = 'Time logger angular webpack';
 
-  public static getColor(n: number): string {
-    if (n >= 0) {
-      return 'green';
-    } else {
-      return 'red';
-    }
-  }
-
   constructor(
       public weekService: WeekService,
       public translate: TranslateService,

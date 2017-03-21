@@ -2,4 +2,4 @@
 {{ 'Workdays' | translate }}: {{weekService.workdays}}<br>
 {{ 'Required working minutes' | translate }}: {{weekService.reqWorkMinutes}}<br>
 {{ 'Minutes' | translate }}: {{weekService.minutes}}<br>
-{{ 'Extra minutes' | translate }}: <label [style.color]="app.getColor(weekService.extraMinutes)">{{weekService.extraMinutes}}</label><br>
+{{ 'Extra minutes' | translate }}: <label [style.color]="weekService.getExtraMinutesColor()">{{weekService.extraMinutes}}</label><br>
