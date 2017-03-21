@@ -1,9 +1,10 @@
 <p class="title">{{ 'Calendar' | translate }}</p>
+<div class="month">
+  <my-pager></my-pager>
+</div>
+
 <div class="container">
   <div class="row">
-    <div class="month col-md-12">
-      <my-pager></my-pager>
-    </div>
     <div class="col-md-12">
       <ul class="day_header col-xs-1" *ngFor="let day of daysOfWeek">{{day | translate}}</ul>
     </div>

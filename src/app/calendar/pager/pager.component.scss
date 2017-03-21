@@ -1,0 +1,23 @@
+
+.year {
+  margin: auto;
+  text-align: center;
+  font-size: large;
+}
+
+.center {
+  text-align: center;
+  padding: 15px;
+  overflow: auto;
+}
+
+.monthName {
+  text-align: center;
+  width: 350px;
+  display: inline;
+}
+
+.changeMonth {
+  display: inline;
+  cursor: pointer;
+}

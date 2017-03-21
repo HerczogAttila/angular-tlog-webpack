@@ -1,6 +1,7 @@
-<ul class="title">{{pagerService.year}}</ul>
-<ul class="title">
-    <button (click)="onPreviousMonth()">&#10094;</button>
-    {{pagerService.actualMonthName | translate}}
-    <button (click)="onNextMonth()">&#10095;</button>
-</ul>
+<p class="year">{{pagerService.year}}</p>
+
+<div class="center">
+    <span class="changeMonth glyphicon glyphicon-menu-left" (click)="onPreviousMonth()"></span>
+    <p class="monthName">{{pagerService.actualMonthName | translate}}</p>
+    <span class="changeMonth glyphicon glyphicon-menu-right" (click)="onNextMonth()"></span>
+</div>
