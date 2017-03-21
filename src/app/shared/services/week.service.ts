@@ -55,6 +55,23 @@ export class WeekService {
     urlModifyTask = this.urlBase + 'workmonths/workdays/tasks/modify';
     urlDeleteTask = this.urlBase + 'workmonths/workdays/tasks/delete';
 
+    private static extractDataText(res: Response) {
+        return res.text() || { };
+    }
+
+    private static handleError (error: Response | any) {
+        let errMsg: string;
+        if (error instanceof Response) {
+            const body = error.json() || '';
+            const err = body.error || JSON.stringify(body);
+            errMsg = `${error.status} - ${error.statusText || ''} ${err}`;
+        } else {
+            errMsg = error.message ? error.message : error.toString();
+        }
+        console.error(errMsg);
+        return Observable.throw(error);
+    }
+
     constructor (private http: Http) {}
 
     public getExtraMinutesColor(): string {
@@ -130,8 +147,7 @@ export class WeekService {
             .catch(WeekService.handleError);
     }
     public startTask(startTask: StartTaskRB): Observable<any> {
-        return this.http.post(this.urlStartTask, JSON.stringify(startTask), this.options)
-            .catch(WeekService.handleError);
+        return this.http.post(this.urlStartTask, JSON.stringify(startTask), this.options);
     }
     public finishingTask(finishingTask: FinishingTaskRB): Observable<any> {
         return this.http.put(this.urlFinishingTask, JSON.stringify(finishingTask), this.options)
@@ -156,22 +172,5 @@ export class WeekService {
         this.login = true;
         this.headers = new Headers({ 'Content-Type': 'application/json', 'Authorization': localStorage.getItem('jwtToken') });
         this.options = new RequestOptions({ headers: this.headers });
-    }
-
-    private static extractDataText(res: Response) {
-        return res.text() || { };
-    }
-
-    private static handleError (error: Response | any) {
-        let errMsg: string;
-        if (error instanceof Response) {
-            const body = error.json() || '';
-            const err = body.error || JSON.stringify(body);
-            errMsg = `${error.status} - ${error.statusText || ''} ${err}`;
-        } else {
-            errMsg = error.message ? error.message : error.toString();
-        }
-        console.error(errMsg);
-        return Observable.throw(errMsg);
     }
 }

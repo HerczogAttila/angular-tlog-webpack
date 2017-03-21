@@ -9,8 +9,8 @@
   </div>
   <my-daily-statistic [date]="date" [tasks]="tasks"></my-daily-statistic><br>
   <div>
-    <label>{{ 'Task id' | translate }}: <input #taskId /></label>
-    <button (click)="startTask(taskId.value); taskId.value=''">{{ 'Add' | translate }}</button>
+    <label>{{ 'Task id' | translate }}: <input [(ngModel)]="taskId"></label>
+    <button (click)="startTask();">{{ 'Add' | translate }}</button>
   </div>
   {{ 'Tasks' | translate }}:
   <div *ngFor="let t of tasks">
@@ -24,12 +24,12 @@
   </div>
   <div *ngIf="selectedTask">
     {{ 'Selected task' | translate }}: {{selectedTask.taskId}}<br>
-    <label>{{ 'Task id' | translate }}: <input value="{{selectedTask.taskId}}" #taskId /></label><br>
-    <label>{{ 'Comment' | translate }}: <input value="{{selectedTask.comment}}" #comment /></label><br>
+    <label>{{ 'Task id' | translate }}: <input value="{{selectedTask.taskId}}" #taskId ></label><br>
+    <label>{{ 'Comment' | translate }}: <input value="{{selectedTask.comment}}" #comment ></label><br>
     <div *ngIf="selectedTask.startingTime">
-      <label>{{ 'Start time' | translate }}: <input value="{{selectedTask.startingTime}}" #startTime /></label><br>
+      <label>{{ 'Start time' | translate }}: <input value="{{selectedTask.startingTime}}" #startTime ></label><br>
       <div *ngIf="selectedTask.endingTime">
-        <label>{{ 'End time' | translate }}: <input value="{{selectedTask.endingTime}}" #endTime /></label><br>
+        <label>{{ 'End time' | translate }}: <input value="{{selectedTask.endingTime}}" #endTime ></label><br>
         <button (click)="modifyTask(taskId.value, comment.value, startTime.value, endTime.value)">{{ 'Modify' | translate }}</button>
       </div>
       <div *ngIf="!selectedTask.endingTime">

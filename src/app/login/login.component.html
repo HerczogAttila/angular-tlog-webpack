@@ -1,14 +1,17 @@
 <table align="center">
     <tr>
-        <th class="right">{{ 'Username' | translate }}:</th>
-        <th><input type="text" [(ngModel)]="userName"></th>
+        <td class="right">{{ 'Username' | translate }}:</td>
+        <td><label>
+            <input type="text" [(ngModel)]="userName">
+        </label></td>
     </tr>
     <tr>
-        <th class="right" >{{ 'Password' | translate }}:</th>
-        <th><input type="password" [(ngModel)]="password"></th>
+        <td class="right" >{{ 'Password' | translate }}:</td>
+        <td><label>
+            <input type="password" [(ngModel)]="password">
+        </label></td>
     </tr>
     <tr>
-        <th></th>
-        <th class="right"><button (click)="onLogin()">{{ 'Login' | translate }}</button></th>
+        <td colspan="2" class="right"><button (click)="onLogin()">{{ 'Login' | translate }}</button></td>
     </tr>
 </table>

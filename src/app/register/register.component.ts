@@ -8,7 +8,10 @@ const STATUS_CODE_NOT_MODIFIED = 304;
 @Component({
     selector: 'my-register',
     templateUrl: 'register.component.html',
-    styleUrls: ['register.component.scss'],
+    styleUrls: [
+        '../login/login.component.scss',
+        'register.component.scss'
+    ],
 })
 
 export class RegisterComponent implements OnInit {

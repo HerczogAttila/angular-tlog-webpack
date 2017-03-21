@@ -6,15 +6,20 @@ import { WorkDay } from '../classes/backend/workDay';
 import Any = jasmine.Any;
 import { Observable } from 'rxjs';
 
+const DAYS_IN_WEEK = 7;
+const MONTHS_IN_YEAR = 12;
+const FEBRUARY = 1;
+const SUNDAY = 1;
+const SATURDAY = 7;
+const DAYS_IN_MONTH = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+const MONTHS_NAME = [ 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October',
+    'November', 'December' ];
+
 @Injectable()
 export class PagerService {
     year: number;
     month: number;
-
-    monthsOfYear = [ 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October',
-        'November', 'December' ];
-    dayInMonth = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
-    actualMonth: string;
+    actualMonthName: string;
 
     constructor(private weekService: WeekService) { }
 
@@ -25,14 +30,14 @@ export class PagerService {
             this.month = date.getMonth();
             this.refresh();
         } else {
-            this.actualMonth = this.monthsOfYear[this.month];
+            this.actualMonthName = MONTHS_NAME[this.month];
         }
     }
 
     public previousMonth(): void {
         this.month--;
         if (this.month < 0) {
-            this.month = 11;
+            this.month = MONTHS_IN_YEAR - 1;
             this.year--;
         }
 
@@ -40,7 +45,7 @@ export class PagerService {
     }
 
     public nextMonth(): void {
-        this.month = (this.month + 1) % 12;
+        this.month = (this.month + 1) % MONTHS_IN_YEAR;
         if (this.month === 0) {
             this.year++;
         }
@@ -56,12 +61,12 @@ export class PagerService {
     }
 
     private createWeeks(jsonData: string): void {
-        this.actualMonth = this.monthsOfYear[this.month];
+        this.actualMonthName = MONTHS_NAME[this.month];
 
         let workdays: WorkDay[] = JSON.parse(jsonData);
 
         let firstDay = new Date(this.year, this.month, 1);
-        let startingDay = firstDay.getDay() % 7;
+        let startingDay = firstDay.getDay() % DAYS_IN_WEEK;
 
         let days: MyDate[] = [];
         let weeks: Week[] = [];
@@ -78,7 +83,10 @@ export class PagerService {
             day = new MyDate();
             day.type = DayType.Simple;
             for (let wd of workdays) {
-                if (this.getDayOfMonth(wd.date) === i) {
+                let x = new WorkDay();
+                x.date = wd.date;
+
+                if (x.getDayOfMonth() === i) {
                     day.type = DayType.Work;
                     day.extraMinutes = wd.extraMinPerDay;
                     day.requiredWorkMinutes = wd.requiredMinPerDay;
@@ -93,10 +101,10 @@ export class PagerService {
             day.month = this.month;
             day.year = this.year;
             days.push(day);
-            if (days.length === 1 || days.length === 7) {
+            if (days.length === SUNDAY || days.length === SATURDAY) {
                 day.weekend = true;
             }
-            if (days.length === 7) {
+            if (days.length === SATURDAY) {
                 week = new Week();
                 week.days = days;
                 days = [];
@@ -114,19 +122,15 @@ export class PagerService {
         this.weekService.refreshStatistics();
     }
 
-    private getDayOfMonth(date: string): number {
-        let fields = date.split('.');
-        if (fields.length >= 3) {
-            return +fields[2];
+    private getMonthDayCount(): number {
+        if (this.month === FEBRUARY) {
+            return (this.isLeapYear()) ? 29 : 28;
         }
-        return 0;
+
+        return DAYS_IN_MONTH[this.month];
     }
 
-    private getMonthDayCount(): number {
-        if (this.month === 1) {
-            return ((this.year % 4 === 0 && this.year % 100 !== 0) || this.year % 400 === 0) ? 29 : 28;
-        }
-
-        return this.dayInMonth[this.month];
+    private isLeapYear(): boolean {
+        return ((this.year % 4 === 0 && this.year % 100 !== 0) || this.year % 400 === 0);
     }
 }

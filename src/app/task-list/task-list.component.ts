@@ -21,6 +21,8 @@ export class TaskListComponent implements OnInit {
   tasks: Task[] = [];
   selectedTask: Task;
 
+  taskId: string;
+
   private static getActualTime(): string {
     let date = new Date();
     let minutes = date.getMinutes() - date.getMinutes() % 15 + '';
@@ -70,8 +72,8 @@ export class TaskListComponent implements OnInit {
     });
   }
 
-  public startTask(taskId: string): void {
-    if (!taskId)  {
+  public startTask(): void {
+    if (!this.taskId)  {
       return;
     }
 
@@ -79,9 +81,10 @@ export class TaskListComponent implements OnInit {
     startTask.year = this.date.year;
     startTask.month = this.date.month + 1;
     startTask.day = this.date.day;
-    startTask.taskId = taskId;
+    startTask.taskId = this.taskId;
     startTask.startTime = TaskListComponent.getActualTime();
     this.weekService.startTask(startTask).subscribe(() => this.refreshWorkDay());
+    this.taskId = '';
   }
 
   public finishingTask(task: Task): void {
@@ -149,7 +152,7 @@ export class TaskListComponent implements OnInit {
 
   public refreshWorkDay(): void {
     if (this.date) {
-      this.weekService.getWorkDay(this.date).subscribe(jsonData =>  {
+      this.weekService.getWorkDay(this.date).subscribe(jsonData => {
         this.readWorkDay(jsonData);
       });
     }
