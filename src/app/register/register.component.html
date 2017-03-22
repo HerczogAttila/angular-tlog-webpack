@@ -2,7 +2,6 @@
     <tr>
         <td class="right"><label for="userName">{{ 'Username' | translate }}:</label></td>
         <td><input type="text" id="userName" [(ngModel)]="userName" (keyup)="onUserNameChanged()"></td>
-        <td [ngClass]="isExistUser ? 'existUser' : 'notExistUser'">{{ 'Existing user name!' | translate}}</td>
     </tr>
     <tr>
         <td class="right"><label for="password" >{{ 'Password' | translate }}:</label></td>
@@ -10,5 +9,8 @@
     </tr>
     <tr>
         <td colspan="2" class="right"><button (click)="onRegister()">{{ 'Register' | translate }}</button></td>
+    </tr>
+    <tr>
+        <td colspan="2"><p class="error">{{ errorMessage | translate }}</p></td>
     </tr>
 </table>

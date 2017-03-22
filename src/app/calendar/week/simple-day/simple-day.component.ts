@@ -3,6 +3,7 @@ import { MyDate } from '../../../shared/classes/myDate';
 import { WeekService } from '../../../shared/services/week.service';
 import { WorkDayRB } from '../../../shared/classes/backend/workDayRB';
 import { TranslateService } from 'ng2-translate';
+import { WorkDay } from '../../../shared/classes/backend/workDay';
 
 @Component({
   selector: 'my-simple-day',
@@ -30,18 +31,16 @@ export class SimpleDayComponent {
     if (this.date.isWeekend()) {
       if (confirm(this.weekendConfirmMessage)) {
         this.weekService.addWorkDayWeekend(workDay)
-            .subscribe(data => this.responseNewWorkDay(data));
+            .subscribe(day => this.responseNewWorkDay(day));
       }
     } else {
       this.weekService.addWorkDay(workDay)
-          .subscribe(data => this.responseNewWorkDay(data));
+          .subscribe(day => this.responseNewWorkDay(day));
     }
   }
 
-  private responseNewWorkDay(jsonData: string): void {
+  private responseNewWorkDay(workDay: WorkDay): void {
     try {
-      let workDay = JSON.parse(jsonData);
-
       this.date.makeWorkDay();
       this.date.requiredWorkMinutes = workDay.requiredMinPerDay;
       this.date.extraMinutes = workDay.extraMinPerDay;

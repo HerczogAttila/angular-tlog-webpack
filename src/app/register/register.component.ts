@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { WeekService } from '../shared/services/week.service';
+import { STATUS_CODE_NOT_MODIFIED, WeekService } from '../shared/services/week.service';
 import { UserRB } from '../shared/classes/backend/userRB';
 import { Router } from '@angular/router';
 
-const STATUS_CODE_NOT_MODIFIED = 304;
+const EXIST_USER = 'Existing user name!';
+const MISSING_USER = 'Missing user name!';
+const MISSING_PASSWORD = 'Missing password!';
 
 @Component({
     selector: 'my-register',
@@ -19,6 +21,7 @@ export class RegisterComponent implements OnInit {
     public password: string;
 
     public isExistUser = false;
+    public errorMessage: string;
 
     constructor(
         private weekService: WeekService,
@@ -27,26 +30,59 @@ export class RegisterComponent implements OnInit {
 
     public ngOnInit(): void {
         if (localStorage.getItem('jwtToken')) {
-            this.router.navigate(['/calendar']).catch(error => {
+            this.router.navigate(['/calendar'])
+                .catch(error => {
                 console.error(error);
             });
         }
     }
 
     public onRegister(): void {
+        if (!this.userName) {
+            this.errorMessage = MISSING_USER;
+            return;
+        }
+
+        if (!this.password) {
+            this.errorMessage = MISSING_PASSWORD;
+            return;
+        }
+
         let user = new UserRB(this.userName, this.password);
         this.weekService.registering(user)
-            .subscribe();
+            .subscribe(
+                () => {
+                    this.weekService.authenticate(user)
+                        .subscribe(jwtToken => {
+                            this.weekService.setJWTToken(jwtToken);
+                            this.router.navigate(['/calendar']).catch(error => {
+                                console.error(error);
+                            });
+                        });
+                },
+                (error) => {
+                    if (error.status === STATUS_CODE_NOT_MODIFIED) {
+                        this.errorMessage = EXIST_USER;
+                    }
+                }
+            );
     }
 
     public onUserNameChanged(): void {
+        if (!this.userName) {
+            this.errorMessage = MISSING_USER;
+            return;
+        }
+
         this.weekService.isExistUserName(this.userName)
             .map(res => res)
             .subscribe(
-                () => { this.isExistUser = false; },
-                (err) => {
-                    if (err.status === STATUS_CODE_NOT_MODIFIED) {
-                        this.isExistUser = true;
+                () => {
+                    this.errorMessage = '';
+                },
+                (error) => {
+                    if (error.status === STATUS_CODE_NOT_MODIFIED) {
+                        this.errorMessage = EXIST_USER;
                     }
                 }
             );

@@ -15,6 +15,11 @@ import { ModifyTaskRB } from '../classes/backend/modifyTaskRB';
 import { FinishingTaskRB } from '../classes/backend/finishingTaskRB';
 import { ModifyWorkDayRB } from '../classes/backend/modifyWorkDayRB';
 import { UserRB } from '../classes/backend/userRB';
+import { WorkDay } from '../classes/backend/workDay';
+import { Task } from '../classes/backend/task';
+
+export const STATUS_CODE_NOT_MODIFIED = 304;
+export const STATUS_CODE_UNAUTHORIZED = 401;
 
 @Injectable()
 export class WeekService {
@@ -55,21 +60,12 @@ export class WeekService {
     private urlModifyTask = this.urlBase + 'workmonths/workdays/tasks/modify';
     private urlDeleteTask = this.urlBase + 'workmonths/workdays/tasks/delete';
 
-    private static extractDataText(res: Response) {
-        return res.text() || { };
+    private static extractDataText(response: Response): string {
+        return response.text();
     }
 
-    private static handleError (error: Response | any) {
-        let errMsg: string;
-        if (error instanceof Response) {
-            const body = error.json() || '';
-            const err = body.error || JSON.stringify(body);
-            errMsg = `${error.status} - ${error.statusText || ''} ${err}`;
-        } else {
-            errMsg = error.message ? error.message : error.toString();
-        }
-        console.error(errMsg);
-        return Observable.throw(error);
+    private static extractDataJson(response: Response) {
+        return JSON.parse(response.text());
     }
 
     constructor (private http: Http) {}
@@ -91,76 +87,63 @@ export class WeekService {
         }
     }
 
-    public registering(user: UserRB): Observable<any> {
-        return this.http.post(this.urlRegistering, JSON.stringify(user), this.options)
+    public registering(user: UserRB): Observable<Response> {
+        return this.http.post(this.urlRegistering, JSON.stringify(user), this.options);
+    }
+    public authenticate(user: UserRB): Observable<string> {
+        return this.http.post(this.urlAuthenticate, JSON.stringify(user), this.options)
             .map(WeekService.extractDataText);
     }
-    public authenticate(user: UserRB): Observable<any> {
-        return this.http.post(this.urlAuthenticate, JSON.stringify(user), this.options)
-            .map(WeekService.extractDataText)
-            .catch(WeekService.handleError);
-    }
-    public refresh(): Observable<any> {
+    public refresh(): Observable<string> {
         return this.http.post(this.urlRefresh, {}, this.options)
-            .map(WeekService.extractDataText)
-            .catch(WeekService.handleError);
+            .map(WeekService.extractDataText);
     }
-    public isExistUserName(userName: string): Observable<any> {
+    public isExistUserName(userName: string): Observable<Response> {
         return this.http.post(this.urlExistUser, userName, this.options);
     }
 
-    public getMonthWorkDays(year: number, month: number): Observable<any> {
-        return this.http.get(this.urlGetMonths + year + '/' + month, this.options)
-            .map(WeekService.extractDataText)
-            .catch(WeekService.handleError);
+    public getMonthWorkDays(date: Date): Observable<WorkDay[]> {
+        return this.http.get(this.urlGetMonths + date.getFullYear() + '/' + (date.getMonth() + 1), this.options)
+            .map(WeekService.extractDataJson);
     }
 
-    public addWorkDay(workDay: WorkDayRB): Observable<any> {
+    public addWorkDay(workDay: WorkDayRB): Observable<WorkDay> {
         return this.http.post(this.urlAddWorkDay, JSON.stringify(workDay), this.options)
-            .map(WeekService.extractDataText)
-            .catch(WeekService.handleError);
+            .map(WeekService.extractDataJson);
     }
-    public addWorkDayWeekend(workDay: WorkDayRB): Observable<any> {
+    public addWorkDayWeekend(workDay: WorkDayRB): Observable<WorkDay> {
         return this.http.post(this.urlAddWorkDayWeekend, JSON.stringify(workDay), this.options)
-            .map(WeekService.extractDataText)
-            .catch(WeekService.handleError);
+            .map(WeekService.extractDataJson);
     }
-    public getWorkDay(date: MyDate): Observable<any> {
+    public getWorkDay(date: MyDate): Observable<WorkDay> {
         return this.http.get(this.urlGetWorkDay + date.getYear() + '/' + date.getMonth() + '/' + date.getDay(), this.options)
-            .map(WeekService.extractDataText)
-            .catch(WeekService.handleError);
+            .map(WeekService.extractDataJson);
     }
-    public modifyWorkDay(modifyWorkDay: ModifyWorkDayRB): Observable<any> {
+    public modifyWorkDay(modifyWorkDay: ModifyWorkDayRB): Observable<WorkDay> {
         return this.http.put(this.urlModifyWorkDay, JSON.stringify(modifyWorkDay), this.options)
-            .map(WeekService.extractDataText)
-            .catch(WeekService.handleError);
+            .map(WeekService.extractDataJson);
     }
 
-    public getTasks(date: MyDate): Observable<any> {
+    public getTasks(date: MyDate): Observable<Task[]> {
         let url = this.urlGetTasks + date.getYear() + '/' + date.getMonth() + '/' + date.getDay();
         return this.http.get(url, this.options)
-            .map(WeekService.extractDataText)
-            .catch(WeekService.handleError);
+            .map(WeekService.extractDataJson);
     }
-    public startTask(startTask: StartTaskRB): Observable<any> {
+    public startTask(startTask: StartTaskRB): Observable<Response> {
         return this.http.post(this.urlStartTask, JSON.stringify(startTask), this.options);
     }
-    public finishingTask(finishingTask: FinishingTaskRB): Observable<any> {
-        return this.http.put(this.urlFinishingTask, JSON.stringify(finishingTask), this.options)
-            .catch(WeekService.handleError);
+    public finishingTask(finishingTask: FinishingTaskRB): Observable<Response> {
+        return this.http.put(this.urlFinishingTask, JSON.stringify(finishingTask), this.options);
     }
-    public modifyTask(modifyTask: ModifyTaskRB): Observable<any> {
-        return this.http.put(this.urlModifyTask, JSON.stringify(modifyTask), this.options)
-            .catch(WeekService.handleError);
+    public modifyTask(modifyTask: ModifyTaskRB): Observable<Response> {
+        return this.http.put(this.urlModifyTask, JSON.stringify(modifyTask), this.options);
     }
-    public deleteTask(deleteTask: DeleteTaskRB): Observable<any> {
-        return this.http.put(this.urlDeleteTask, JSON.stringify(deleteTask), this.options)
-            .catch(WeekService.handleError);
+    public deleteTask(deleteTask: DeleteTaskRB): Observable<Response> {
+        return this.http.put(this.urlDeleteTask, JSON.stringify(deleteTask), this.options);
     }
 
-    public deleteAll(): Observable<any> {
-        return this.http.put(this.urlDeleteAll, { }, this.options)
-            .catch(WeekService.handleError);
+    public deleteAll(): Observable<Response> {
+        return this.http.put(this.urlDeleteAll, { }, this.options);
     }
 
     public setJWTToken(token: string): void {

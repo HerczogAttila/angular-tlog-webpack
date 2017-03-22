@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { WeekService } from './week.service';
 import { MyDate } from '../classes/myDate';
 import { WorkDay } from '../classes/backend/workDay';
-import Any = jasmine.Any;
 import { Observable } from 'rxjs';
 
 const DAYS_IN_WEEK = 7;
@@ -30,17 +29,15 @@ export class PagerService {
         this.refresh();
     }
 
-    public refresh(): Observable<Any> {
-        let workDays = this.weekService.getMonthWorkDays(this.date.getFullYear(), this.date.getMonth() + 1);
-        workDays.subscribe(jsonData => this.createDays(jsonData));
+    public refresh(): Observable<WorkDay[]> {
+        let workDays = this.weekService.getMonthWorkDays(this.date);
+        workDays.subscribe(days => this.createDays(days));
 
         return workDays;
     }
 
-    private createDays(jsonData: string): void {
+    private createDays(workdays: WorkDay[]): void {
         this.weekService.weeks = [];
-        let workdays: WorkDay[] = JSON.parse(jsonData);
-
         this.createEmptyDays();
 
         let dayCount = this.getMonthDayCount();
@@ -66,12 +63,15 @@ export class PagerService {
 
     private createDay(days: WorkDay[], dayOfMonth: number): MyDate {
         let now = new Date(this.date.getFullYear(), this.date.getMonth(), dayOfMonth);
-        for (let wd of days) {
+        for (let day of days) {
             let x = new WorkDay();
-            x.date = wd.date;
+            x.date = day.date;
+
+            // console.log(x);
+            // console.log(day);
 
             if (x.getDayOfMonth() === dayOfMonth) {
-                let workDay = MyDate.workDay(now, wd);
+                let workDay = MyDate.workDay(now, day);
                 if (!this.weekService.selectedDay) {
                     this.weekService.selectedDay = workDay;
                 }

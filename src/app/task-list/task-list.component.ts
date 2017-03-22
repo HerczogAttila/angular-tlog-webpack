@@ -9,6 +9,7 @@ import { FinishingTaskRB } from '../shared/classes/backend/finishingTaskRB';
 import { ModifyWorkDayRB } from '../shared/classes/backend/modifyWorkDayRB';
 import { Task } from '../shared/classes/backend/task';
 import { Router } from '@angular/router';
+import { WorkDay } from '../shared/classes/backend/workDay';
 
 @Component({
   selector: 'my-task-list',
@@ -115,8 +116,7 @@ export class TaskListComponent implements OnInit {
     }
   }
 
-  private readWorkDay(jsonData: string): void {
-    let workDay = JSON.parse(jsonData);
+  private readWorkDay(workDay: WorkDay): void {
     this.weekService.selectedDay.requiredWorkMinutes = workDay.requiredMinPerDay;
     this.weekService.selectedDay.minutes = workDay.sumMinPerDay;
     this.weekService.selectedDay.extraMinutes = this.date.minutes - this.date.requiredWorkMinutes;
