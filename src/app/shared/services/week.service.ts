@@ -74,10 +74,6 @@ export class WeekService {
 
     constructor (private http: Http) {}
 
-    public getExtraMinutesColor(): string {
-        return (this.extraMinutes >= 0) ? 'green' : 'red';
-    }
-
     public refreshStatistics(): void {
         this.reqWorkMinutes = 0;
         this.minutes = 0;
@@ -130,7 +126,7 @@ export class WeekService {
             .catch(WeekService.handleError);
     }
     public getWorkDay(date: MyDate): Observable<any> {
-        return this.http.get(this.urlGetWorkDay + date.year + '/' + (date.month + 1) + '/' + date.day, this.options)
+        return this.http.get(this.urlGetWorkDay + date.getYear() + '/' + date.getMonth() + '/' + date.getDay(), this.options)
             .map(WeekService.extractDataText)
             .catch(WeekService.handleError);
     }
@@ -141,7 +137,7 @@ export class WeekService {
     }
 
     public getTasks(date: MyDate): Observable<any> {
-        let url = this.urlGetTasks + date.year + '/' + (date.month + 1) + '/' + date.day;
+        let url = this.urlGetTasks + date.getYear() + '/' + date.getMonth() + '/' + date.getDay();
         return this.http.get(url, this.options)
             .map(WeekService.extractDataText)
             .catch(WeekService.handleError);
@@ -172,5 +168,22 @@ export class WeekService {
         this.login = true;
         this.headers = new Headers({ 'Content-Type': 'application/json', 'Authorization': localStorage.getItem('jwtToken') });
         this.options = new RequestOptions({ headers: this.headers });
+    }
+
+    public addDay(day: MyDate): void {
+        let week = this.lastWeek();
+        if (!week || week.isFull()) {
+            this.newWeek();
+            week = this.lastWeek();
+        }
+        week.days.push(day);
+    }
+
+    private lastWeek(): Week {
+        return this.weeks[this.weeks.length - 1];
+    }
+
+    private newWeek(): void {
+        this.weeks.push(new Week());
     }
 }

@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { MyDate, DayType } from '../../../shared/classes/myDate';
+import { MyDate } from '../../../shared/classes/myDate';
 import { WeekService } from '../../../shared/services/week.service';
 import { WorkDayRB } from '../../../shared/classes/backend/workDayRB';
 import { TranslateService } from 'ng2-translate';
@@ -25,12 +25,12 @@ export class SimpleDayComponent {
 
   public onNewWorkday(): void {
     let workDay = new WorkDayRB();
-    workDay.year = this.date.year;
-    workDay.month = this.date.month + 1;
-    workDay.day = this.date.day;
+    workDay.year = this.date.getYear();
+    workDay.month = this.date.getMonth();
+    workDay.day = this.date.getDay();
     workDay.requiredHours = 450;
 
-    if (this.date.weekend) {
+    if (this.date.isWeekend()) {
       if (confirm(this.weekendConfirmMessage)) {
         this.weekService.addWorkDayWeekend(workDay).subscribe(data => this.responseNewWorkDay(data));
       }
@@ -43,7 +43,7 @@ export class SimpleDayComponent {
     try {
       let workDay = JSON.parse(jsonData);
 
-      this.date.type = DayType.Work;
+      this.date.makeWorkDay();
       this.date.requiredWorkMinutes = workDay.requiredMinPerDay;
       this.date.extraMinutes = workDay.extraMinPerDay;
       this.date.minutes = workDay.sumMinPerDay;

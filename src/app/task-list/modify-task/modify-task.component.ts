@@ -21,9 +21,9 @@ export class ModifyTaskComponent {
         let selectedTask = this.taskList.selectedTask;
 
         let modifyTask = new ModifyTaskRB();
-        modifyTask.year = date.year;
-        modifyTask.month = date.month + 1;
-        modifyTask.day = date.day;
+        modifyTask.year = date.getYear();
+        modifyTask.month = date.getMonth();
+        modifyTask.day = date.getDay();
         modifyTask.taskId = selectedTask.taskId;
 
         modifyTask.newTaskId = taskId;

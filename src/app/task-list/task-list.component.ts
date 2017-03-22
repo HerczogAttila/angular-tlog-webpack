@@ -64,9 +64,9 @@ export class TaskListComponent implements OnInit {
     }
 
     let modifyWorkDay = new ModifyWorkDayRB();
-    modifyWorkDay.year = this.date.year;
-    modifyWorkDay.month = this.date.month + 1;
-    modifyWorkDay.day = this.date.day;
+    modifyWorkDay.year = this.date.getYear();
+    modifyWorkDay.month = this.date.getMonth();
+    modifyWorkDay.day = this.date.getDay();
     modifyWorkDay.requiredMinutes = reqWorkMinutes;
     this.weekService.modifyWorkDay(modifyWorkDay).subscribe(jsonData => {
       this.readWorkDay(jsonData);
@@ -79,9 +79,9 @@ export class TaskListComponent implements OnInit {
     }
 
     let startTask = new StartTaskRB();
-    startTask.year = this.date.year;
-    startTask.month = this.date.month + 1;
-    startTask.day = this.date.day;
+    startTask.year = this.date.getYear();
+    startTask.month = this.date.getMonth();
+    startTask.day = this.date.getDay();
     startTask.taskId = this.taskId;
     startTask.startTime = TaskListComponent.getActualTime();
     this.weekService.startTask(startTask).subscribe(() => this.refreshWorkDay());
@@ -94,9 +94,9 @@ export class TaskListComponent implements OnInit {
     }
 
     let finishingTask = new FinishingTaskRB();
-    finishingTask.year = this.date.year;
-    finishingTask.month = this.date.month + 1;
-    finishingTask.day = this.date.day;
+    finishingTask.year = this.date.getYear();
+    finishingTask.month = this.date.getMonth();
+    finishingTask.day = this.date.getDay();
     finishingTask.taskId = task.taskId;
     finishingTask.endTime = TaskListComponent.getActualTime();
     if (task.startingTime) {
@@ -118,9 +118,9 @@ export class TaskListComponent implements OnInit {
     }
 
     let deleteTask = new DeleteTaskRB();
-    deleteTask.year = this.date.year;
-    deleteTask.month = this.date.month + 1;
-    deleteTask.day = this.date.day;
+    deleteTask.year = this.date.getYear();
+    deleteTask.month = this.date.getMonth();
+    deleteTask.day = this.date.getDay();
     deleteTask.taskId = task.taskId;
     if (task.startingTime) {
       deleteTask.startTime = task.startingTime;

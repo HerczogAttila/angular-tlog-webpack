@@ -1,7 +1,7 @@
 <p class="title">{{ 'Task list' | translate }}</p>
 <div *ngIf="date">
   <div>
-    <p>{{ 'Selected day' | translate }}: {{date.year}}. {{date.month + 1}}. {{date.day}}.</p>
+    <p>{{ 'Selected day' | translate }}: {{ date.date | date : 'yyyy. MM. dd.' }}</p>
     <div>
       <label for="requiredWorkMinutes">{{ 'Required working minutes' | translate }}:</label>
       <input id="requiredWorkMinutes" value="{{date.requiredWorkMinutes}}" #reqWorkMinutes />
