@@ -7,7 +7,7 @@
       <button (click)="modifyDay(reqWorkMinutes.value)">{{ 'Modify' | translate }}</button>
     </div>
   </div>
-  <my-daily-statistic [date]="date" [tasks]="tasks"></my-daily-statistic><br>
+  <my-daily-statistic [date]="date" [tasks]="tasks"></my-daily-statistic>
   <div>
     <p>{{ 'Task id' | translate }}: <label><input [(ngModel)]="taskId"></label></p>
     <button (click)="startTask();">{{ 'Add' | translate }}</button>
