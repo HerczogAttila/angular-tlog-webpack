@@ -22,6 +22,7 @@ import { LoginComponent } from './login/login.component';
 import { TranslateModule, TranslateStaticLoader, TranslateLoader } from 'ng2-translate';
 import { RegisterComponent } from './register/register.component';
 import { ModifyTaskComponent } from './task-list/modify-task/modify-task.component';
+import { NavigationComponent } from './navigation/navigation.component';
 
 @NgModule({
   imports: [
@@ -37,6 +38,8 @@ import { ModifyTaskComponent } from './task-list/modify-task/modify-task.compone
   ],
   declarations: [
     AppComponent,
+
+    NavigationComponent,
 
     TaskListComponent,
     DailyStatisticComponent,

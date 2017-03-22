@@ -1,11 +1,3 @@
 <p class="title">{{title}}</p>
-<nav class="center" *ngIf="weekService.login">
-  <a routerLink="/calendar">{{ 'Calendar' | translate }}</a>
-  <a routerLink="/task-list">{{ 'Task list' | translate }}</a>
-  <p class="logout" (click)="onLogout()">{{ 'Logout' | translate }}</p>
-</nav>
-<nav class="center" *ngIf="!weekService.login">
-  <a routerLink="/login">{{ 'Login' | translate }}</a>
-  <a routerLink="/register">{{ 'Register' | translate }}</a>
-</nav>
+<my-navigation></my-navigation>
 <router-outlet></router-outlet>
