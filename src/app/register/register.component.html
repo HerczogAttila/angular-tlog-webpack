@@ -1,16 +1,12 @@
 <table>
     <tr>
-        <td class="right">{{ 'Username' | translate }}:</td>
-        <td><label>
-            <input type="text" [(ngModel)]="userName" (keyup)="onUserNameChanged()">
-        </label></td>
+        <td class="right"><label for="userName">{{ 'Username' | translate }}:</label></td>
+        <td><input type="text" id="userName" [(ngModel)]="userName" (keyup)="onUserNameChanged()"></td>
         <td [ngClass]="isExistUser ? 'existUser' : 'notExistUser'">{{ 'Existing user name!' | translate}}</td>
     </tr>
     <tr>
-        <td class="right" >{{ 'Password' | translate }}:</td>
-        <td><label>
-            <input type="password" [(ngModel)]="password">
-        </label></td>
+        <td class="right"><label for="password" >{{ 'Password' | translate }}:</label></td>
+        <td><input type="password" id="password" [(ngModel)]="password"></td>
     </tr>
     <tr>
         <td colspan="2" class="right"><button (click)="onRegister()">{{ 'Register' | translate }}</button></td>

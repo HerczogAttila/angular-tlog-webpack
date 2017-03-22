@@ -3,19 +3,21 @@
   <div>
     <p>{{ 'Selected day' | translate }}: {{date.year}}. {{date.month + 1}}. {{date.day}}.</p>
     <div>
-      <p>{{ 'Required working minutes' | translate }}:</p><label><input value="{{date.requiredWorkMinutes}}" #reqWorkMinutes /></label>
+      <label for="requiredWorkMinutes">{{ 'Required working minutes' | translate }}:</label>
+      <input id="requiredWorkMinutes" value="{{date.requiredWorkMinutes}}" #reqWorkMinutes />
       <button (click)="modifyDay(reqWorkMinutes.value)">{{ 'Modify' | translate }}</button>
     </div>
   </div>
   <my-daily-statistic [date]="date" [tasks]="tasks"></my-daily-statistic>
   <div>
-    <p>{{ 'Task id' | translate }}: <label><input [(ngModel)]="taskId"></label></p>
+    <label for="taskId">{{ 'Task id' | translate }}:</label>
+    <input id="taskId" [(ngModel)]="taskId">
     <button (click)="startTask();">{{ 'Add' | translate }}</button>
   </div>
   <p>{{ 'Tasks' | translate }}:</p>
   <div *ngFor="let t of tasks">
     <div class="inline" (click)="onSelectTask(t)">
-      <p>{{t.taskId}}, {{t.comment}},</p>
+      <p class="inline">{{t.taskId}}, {{t.comment}},</p>
       <p class="inline" *ngIf="t.startingTime">{{t.startingTime}}</p>-
       <p class="inline" *ngIf="t.endingTime">{{t.endingTime}}</p>
     </div>
