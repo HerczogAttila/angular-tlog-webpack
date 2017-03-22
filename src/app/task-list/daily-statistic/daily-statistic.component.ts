@@ -9,6 +9,6 @@ import { Task } from '../../shared/classes/backend/task';
 })
 
 export class DailyStatisticComponent {
-    @Input() date: MyDate;
-    @Input() tasks: Task[];
+    @Input() public date: MyDate;
+    @Input() public tasks: Task[];
 }

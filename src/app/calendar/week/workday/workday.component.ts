@@ -10,7 +10,7 @@ import { WeekService } from '../../../shared/services/week.service';
 })
 
 export class WorkdayComponent {
-  @Input() date: MyDate;
+  @Input() public date: MyDate;
 
   constructor(
       private router: Router,

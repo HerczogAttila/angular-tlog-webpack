@@ -15,10 +15,10 @@ const STATUS_CODE_NOT_MODIFIED = 304;
 })
 
 export class RegisterComponent implements OnInit {
-    userName: string;
-    password: string;
+    public userName: string;
+    public password: string;
 
-    isExistUser = false;
+    public isExistUser = false;
 
     constructor(
         private weekService: WeekService,
@@ -34,10 +34,7 @@ export class RegisterComponent implements OnInit {
     }
 
     public onRegister(): void {
-        let user = new UserRB();
-        user.name = this.userName;
-        user.password = this.password;
-
+        let user = new UserRB(this.userName, this.password);
         this.weekService.registering(user)
             .subscribe();
     }

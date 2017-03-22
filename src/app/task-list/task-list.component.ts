@@ -17,12 +17,12 @@ import { Router } from '@angular/router';
 })
 
 export class TaskListComponent implements OnInit {
-  date: MyDate;
-  tasks: Task[] = [];
-  selectedTask: Task;
+  public date: MyDate;
+  public tasks: Task[] = [];
+  public selectedTask: Task;
 
-  taskId: string;
-  me = this;
+  public taskId: string;
+  public me = this;
 
   private static getActualTime(): string {
     let date = new Date();
@@ -63,12 +63,9 @@ export class TaskListComponent implements OnInit {
       return;
     }
 
-    let modifyWorkDay = new ModifyWorkDayRB();
-    modifyWorkDay.year = this.date.getYear();
-    modifyWorkDay.month = this.date.getMonth();
-    modifyWorkDay.day = this.date.getDay();
-    modifyWorkDay.requiredMinutes = reqWorkMinutes;
-    this.weekService.modifyWorkDay(modifyWorkDay).subscribe(jsonData => {
+    let modifyWorkDay = new ModifyWorkDayRB(this.date, reqWorkMinutes);
+    this.weekService.modifyWorkDay(modifyWorkDay)
+        .subscribe(jsonData => {
       this.readWorkDay(jsonData);
     });
   }
@@ -78,38 +75,25 @@ export class TaskListComponent implements OnInit {
       return;
     }
 
-    let startTask = new StartTaskRB();
-    startTask.year = this.date.getYear();
-    startTask.month = this.date.getMonth();
-    startTask.day = this.date.getDay();
-    startTask.taskId = this.taskId;
-    startTask.startTime = TaskListComponent.getActualTime();
-    this.weekService.startTask(startTask).subscribe(() => this.refreshWorkDay());
+    let startTask = new StartTaskRB(this.date, this.taskId, '', TaskListComponent.getActualTime());
+    this.weekService.startTask(startTask)
+        .subscribe(() => this.refreshWorkDay());
     this.taskId = '';
   }
 
   public finishingTask(task: Task): void {
-    if (!task) {
+    if (!task || task.startingTime) {
       return;
     }
 
-    let finishingTask = new FinishingTaskRB();
-    finishingTask.year = this.date.getYear();
-    finishingTask.month = this.date.getMonth();
-    finishingTask.day = this.date.getDay();
-    finishingTask.taskId = task.taskId;
-    finishingTask.endTime = TaskListComponent.getActualTime();
-    if (task.startingTime) {
-      finishingTask.startTime = task.startingTime;
-    }
-
-    this.weekService.finishingTask(finishingTask).subscribe(() => {
-      this.refreshWorkDay();
-    });
+    task.endingTime = TaskListComponent.getActualTime();
+    let finishingTask = new FinishingTaskRB(this.date, task);
+    this.weekService.finishingTask(finishingTask)
+        .subscribe(() => this.refreshWorkDay());
   }
 
   public deleteTask(task: Task): void {
-    if (!task) {
+    if (!task || task.startingTime) {
       return;
     }
 
@@ -117,21 +101,15 @@ export class TaskListComponent implements OnInit {
       this.selectedTask = null;
     }
 
-    let deleteTask = new DeleteTaskRB();
-    deleteTask.year = this.date.getYear();
-    deleteTask.month = this.date.getMonth();
-    deleteTask.day = this.date.getDay();
-    deleteTask.taskId = task.taskId;
-    if (task.startingTime) {
-      deleteTask.startTime = task.startingTime;
-    }
-
-    this.weekService.deleteTask(deleteTask).subscribe(() => this.refreshWorkDay());
+    let deleteTask = new DeleteTaskRB(this.date, task);
+    this.weekService.deleteTask(deleteTask)
+        .subscribe(() => this.refreshWorkDay());
   }
 
   public refreshWorkDay(): void {
     if (this.date) {
-      this.weekService.getWorkDay(this.date).subscribe(jsonData => {
+      this.weekService.getWorkDay(this.date)
+          .subscribe(jsonData => {
         this.readWorkDay(jsonData);
       });
     }

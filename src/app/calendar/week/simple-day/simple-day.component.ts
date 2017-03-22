@@ -10,32 +10,31 @@ import { TranslateService } from 'ng2-translate';
 })
 
 export class SimpleDayComponent {
-  @Input() date: MyDate;
+  @Input() public date: MyDate;
 
-  weekendConfirmMessage = 'Are you sure working on weekend?';
+  private weekendConfirmMessage = 'Are you sure working on weekend?';
 
   constructor(
       public translate: TranslateService,
       private weekService: WeekService,
   ) {
-    translate.get(this.weekendConfirmMessage).subscribe((res: string) => {
+    translate.get(this.weekendConfirmMessage)
+        .subscribe((res: string) => {
       this.weekendConfirmMessage = res;
     });
   }
 
   public onNewWorkday(): void {
-    let workDay = new WorkDayRB();
-    workDay.year = this.date.getYear();
-    workDay.month = this.date.getMonth();
-    workDay.day = this.date.getDay();
-    workDay.requiredHours = 450;
+    let workDay = new WorkDayRB(this.date, 450);
 
     if (this.date.isWeekend()) {
       if (confirm(this.weekendConfirmMessage)) {
-        this.weekService.addWorkDayWeekend(workDay).subscribe(data => this.responseNewWorkDay(data));
+        this.weekService.addWorkDayWeekend(workDay)
+            .subscribe(data => this.responseNewWorkDay(data));
       }
     } else {
-      this.weekService.addWorkDay(workDay).subscribe(data => this.responseNewWorkDay(data));
+      this.weekService.addWorkDay(workDay)
+          .subscribe(data => this.responseNewWorkDay(data));
     }
   }
 

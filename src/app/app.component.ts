@@ -11,7 +11,7 @@ import { TranslateService } from 'ng2-translate';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-  title = 'Time logger angular webpack';
+  public title = 'Time logger angular webpack';
 
   constructor(
       public weekService: WeekService,

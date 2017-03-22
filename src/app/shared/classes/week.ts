@@ -3,7 +3,7 @@ import { MyDate } from './myDate';
 const DAYS_IN_WEEK = 7;
 
 export class Week {
-  days: MyDate[];
+  public days: MyDate[];
 
   constructor(days: MyDate[] = []) {
     this.days = days;

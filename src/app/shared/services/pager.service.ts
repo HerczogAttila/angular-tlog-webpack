@@ -71,7 +71,7 @@ export class PagerService {
             x.date = wd.date;
 
             if (x.getDayOfMonth() === dayOfMonth) {
-                let workDay = MyDate.workDay(now, wd.requiredMinPerDay, wd.sumMinPerDay, wd.extraMinPerDay);
+                let workDay = MyDate.workDay(now, wd);
                 if (!this.weekService.selectedDay) {
                     this.weekService.selectedDay = workDay;
                 }

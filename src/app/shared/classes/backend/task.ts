@@ -1,7 +1,7 @@
 export class Task {
-    taskId: string;
-    comment: string;
-    sumMinPerDay: number;
-    startingTime: string;
-    endingTime: string;
+    public taskId: string;
+    public comment: string;
+    public sumMinPerDay: number;
+    public startingTime: string;
+    public endingTime: string;
 }

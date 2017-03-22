@@ -10,8 +10,8 @@ import { Router } from '@angular/router';
 })
 
 export class LoginComponent implements OnInit {
-    userName: string;
-    password: string;
+    public userName: string;
+    public password: string;
 
     constructor(
         private weekService: WeekService,
@@ -27,11 +27,10 @@ export class LoginComponent implements OnInit {
     }
 
     public onLogin(): void {
-        let user = new UserRB();
-        user.name = this.userName;
-        user.password = this.password;
+        let user = new UserRB(this.userName, this.password);
 
-        this.weekService.authenticate(user).subscribe(jwtToken => {
+        this.weekService.authenticate(user)
+            .subscribe(jwtToken => {
             this.weekService.setJWTToken(jwtToken);
             this.router.navigate(['/calendar']).catch(error => {
                 console.error(error);

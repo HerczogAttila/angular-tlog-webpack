@@ -11,8 +11,8 @@ import { Task } from '../../shared/classes/backend/task';
 })
 
 export class ModifyTaskComponent {
-    @Input() selectedTask: Task;
-    @Input() taskList: TaskListComponent;
+    @Input() public selectedTask: Task;
+    @Input() public taskList: TaskListComponent;
 
     constructor(private weekService: WeekService) {}
 
@@ -20,24 +20,13 @@ export class ModifyTaskComponent {
         let date = this.taskList.date;
         let selectedTask = this.taskList.selectedTask;
 
-        let modifyTask = new ModifyTaskRB();
-        modifyTask.year = date.getYear();
-        modifyTask.month = date.getMonth();
-        modifyTask.day = date.getDay();
-        modifyTask.taskId = selectedTask.taskId;
-
-        modifyTask.newTaskId = taskId;
-        modifyTask.newComment = comment;
-
-        if (selectedTask.startingTime) {
-            modifyTask.startTime = selectedTask.startingTime;
-            modifyTask.newStartTime = startTime;
-        }
-        if (selectedTask.endingTime) {
-            modifyTask.newEndTime = endTime;
+        if (!selectedTask.startingTime) {
+            return;
         }
 
-        this.weekService.modifyTask(modifyTask).subscribe(() => this.taskList.refreshWorkDay());
+        let modifyTask = new ModifyTaskRB(date, selectedTask, taskId, comment, startTime, endTime);
+        this.weekService.modifyTask(modifyTask)
+            .subscribe(() => this.taskList.refreshWorkDay());
         this.taskList.selectedTask = null;
     }
 }

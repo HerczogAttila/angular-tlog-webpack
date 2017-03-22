@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 })
 
 export class CalendarComponent implements OnInit {
-  daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+  public daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
   constructor(
       public weekService: WeekService,

@@ -1,3 +1,4 @@
+import { WorkDay } from './backend/workDay';
 enum DayType { Empty, Simple, Work }
 
 const SUNDAY = 0;
@@ -14,8 +15,8 @@ export class MyDate {
     return new MyDate(DayType.Simple, date);
   }
 
-  public static workDay(date: Date, requiredWorkingMinutes: number, minutes: number, extraMinutes: number): MyDate {
-    return new MyDate(DayType.Work, date, requiredWorkingMinutes, minutes, extraMinutes);
+  public static workDay(date: Date, workDay: WorkDay): MyDate {
+    return new MyDate(DayType.Work, date, workDay.requiredMinPerDay, workDay.sumMinPerDay, workDay.extraMinPerDay);
   }
 
   constructor(type: DayType = DayType.Empty, date = new Date(), requiredWorkMinutes = 0, minutes = 0, extraMinutes = 0) {
@@ -43,7 +44,7 @@ export class MyDate {
   }
 
   public isWeekend(): boolean {
-    return this.date.getDate() === SUNDAY || this.date.getDate() === SATURDAY;
+    return this.date.getDay() === SUNDAY || this.date.getDay() === SATURDAY;
   }
 
   public isSimpleDay(): boolean {

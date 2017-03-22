@@ -7,5 +7,5 @@ import { Week } from '../../shared/classes/week';
 })
 
 export class WeekComponent {
-  @Input() week: Week;
+  @Input() public week: Week;
 }

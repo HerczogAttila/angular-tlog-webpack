@@ -1,8 +1,8 @@
 export class WorkDay {
-    requiredMinPerDay: number;
-    extraMinPerDay: number;
-    sumMinPerDay: number;
-    date: string;
+    public requiredMinPerDay: number;
+    public extraMinPerDay: number;
+    public sumMinPerDay: number;
+    public date: string;
 
     public getDayOfMonth(): number {
         let fields = this.date.split('.');

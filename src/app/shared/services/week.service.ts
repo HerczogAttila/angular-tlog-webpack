@@ -18,42 +18,42 @@ import { UserRB } from '../classes/backend/userRB';
 
 @Injectable()
 export class WeekService {
-    weeks: Week[] = [];
+    public weeks: Week[] = [];
 
-    selectedDay: MyDate;
+    public selectedDay: MyDate;
 
-    workdays: number;
-    reqWorkMinutes: number;
-    minutes: number;
-    extraMinutes: number;
+    public workdays: number;
+    public reqWorkMinutes: number;
+    public minutes: number;
+    public extraMinutes: number;
 
-    headers = new Headers({ 'Content-Type': 'application/json', 'Authorization': localStorage.getItem('jwtToken') });
-    options = new RequestOptions({ headers: this.headers });
+    private headers = new Headers({ 'Content-Type': 'application/json', 'Authorization': localStorage.getItem('jwtToken') });
+    private options = new RequestOptions({ headers: this.headers });
+    public login = !!localStorage.getItem('jwtToken');
 
-    ip = 'localhost';
-    port = 9080;
-    login = !!localStorage.getItem('jwtToken');
+    private ip = 'localhost';
+    private port = 9080;
 
-    urlBase = 'http://' + this.ip + ':' + this.port + '/timelogger/';
+    private urlBase = 'http://' + this.ip + ':' + this.port + '/timelogger/';
 
-    urlRegistering = this.urlBase + 'registering';
-    urlAuthenticate = this.urlBase + 'authenticate';
-    urlRefresh = this.urlBase + 'refresh';
-    urlExistUser = this.urlBase + 'isExistUser';
+    private urlRegistering = this.urlBase + 'registering';
+    private urlAuthenticate = this.urlBase + 'authenticate';
+    private urlRefresh = this.urlBase + 'refresh';
+    private urlExistUser = this.urlBase + 'isExistUser';
 
-    urlGetMonths = this.urlBase + 'workmonths/';
-    urlDeleteAll = this.urlBase + 'workmonths/deleteall';
+    private urlGetMonths = this.urlBase + 'workmonths/';
+    private urlDeleteAll = this.urlBase + 'workmonths/deleteall';
 
-    urlAddWorkDay = this.urlBase + 'workmonths/workdays';
-    urlAddWorkDayWeekend = this.urlBase + 'workmonths/workdaysweekend';
-    urlGetWorkDay = this.urlBase + 'workmonths/workdays/';
-    urlModifyWorkDay = this.urlBase + 'workmonths/workdays/modify';
+    private urlAddWorkDay = this.urlBase + 'workmonths/workdays';
+    private urlAddWorkDayWeekend = this.urlBase + 'workmonths/workdaysweekend';
+    private urlGetWorkDay = this.urlBase + 'workmonths/workdays/';
+    private urlModifyWorkDay = this.urlBase + 'workmonths/workdays/modify';
 
-    urlGetTasks = this.urlBase + 'workmonths/';
-    urlStartTask = this.urlBase + 'workmonths/workdays/tasks/start';
-    urlFinishingTask = this.urlBase + 'workmonths/workdays/tasks/finish';
-    urlModifyTask = this.urlBase + 'workmonths/workdays/tasks/modify';
-    urlDeleteTask = this.urlBase + 'workmonths/workdays/tasks/delete';
+    private urlGetTasks = this.urlBase + 'workmonths/';
+    private urlStartTask = this.urlBase + 'workmonths/workdays/tasks/start';
+    private urlFinishingTask = this.urlBase + 'workmonths/workdays/tasks/finish';
+    private urlModifyTask = this.urlBase + 'workmonths/workdays/tasks/modify';
+    private urlDeleteTask = this.urlBase + 'workmonths/workdays/tasks/delete';
 
     private static extractDataText(res: Response) {
         return res.text() || { };
