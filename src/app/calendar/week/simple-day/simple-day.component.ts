@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { MyDate } from '../../../shared/classes/myDate';
 import { STATUS_CODE_NOT_MODIFIED, WeekService } from '../../../shared/services/week.service';
 import { WorkDayRB } from '../../../shared/classes/backend/workDayRB';
@@ -14,8 +14,7 @@ import { Response } from '@angular/http';
 
 export class SimpleDayComponent {
   @Input() public date: MyDate;
-
-  public isError = false;
+  @Output() public newDayError = new EventEmitter();
 
   private weekendConfirmMessage = 'Are you sure working on weekend?';
 
@@ -27,10 +26,6 @@ export class SimpleDayComponent {
         .subscribe((res: string) => {
       this.weekendConfirmMessage = res;
     });
-  }
-
-  public onClose(): void {
-    this.isError = false;
   }
 
   public onNewWorkday(): void {
@@ -68,7 +63,7 @@ export class SimpleDayComponent {
 
   private errorNewWorkDay(error: Response): void {
     if (error.status === STATUS_CODE_NOT_MODIFIED) {
-      this.isError = true;
+      this.newDayError.emit();
     }
   }
 }

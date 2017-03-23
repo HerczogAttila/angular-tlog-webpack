@@ -9,9 +9,10 @@
       <ul class="day_header col-xs-1" *ngFor="let day of daysOfWeek">{{day | translate}}</ul>
     </div>
     <div class="col-md-12" *ngFor="let week of weekService.weeks">
-      <my-week [week]="week"></my-week>
+      <my-week [week]="week" (newDayError)="onNewDayError()"></my-week>
     </div>
     <my-monthly-statistic></my-monthly-statistic>
   </div>
 </div>
-<button (click)="deleteAll()">Delete all</button>
+<!--<button (click)="deleteAll()">Delete all</button>-->
+<my-error-modal message="You can not create a working day in the future" [isError]="isError" (closeError)="onClose()"></my-error-modal>

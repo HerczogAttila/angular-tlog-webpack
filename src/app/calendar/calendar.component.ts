@@ -12,6 +12,8 @@ import { Router } from '@angular/router';
 export class CalendarComponent implements OnInit {
   public daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
+  public isError = false;
+
   constructor(
       public weekService: WeekService,
       private pagerService: PagerService,
@@ -26,6 +28,14 @@ export class CalendarComponent implements OnInit {
     } else {
       this.pagerService.init();
     }
+  }
+
+  public onClose(): void {
+    this.isError = false;
+  }
+
+  public onNewDayError(): void {
+    this.isError = true;
   }
 
   public deleteAll(): void {

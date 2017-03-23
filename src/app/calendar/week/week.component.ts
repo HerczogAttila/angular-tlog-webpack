@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Week } from '../../shared/classes/week';
 
 @Component({
@@ -8,4 +8,9 @@ import { Week } from '../../shared/classes/week';
 
 export class WeekComponent {
   @Input() public week: Week;
+  @Output() public newDayError = new EventEmitter();
+
+  public onNewDayError(): void {
+    this.newDayError.emit();
+  }
 }
