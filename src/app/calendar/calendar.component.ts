@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { WeekService } from '../shared/services/week.service';
 import { PagerService } from '../shared/services/pager.service';
 import { Router } from '@angular/router';
+import { SimpleDayComponent } from './week/simple-day/simple-day.component';
+import { WorkDayRB } from '../shared/classes/backend/workDayRB';
 
 @Component({
   selector: 'my-calendar',
@@ -13,6 +15,9 @@ export class CalendarComponent implements OnInit {
   public daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
   public isError = false;
+  public isWeekend = false;
+
+  public day: SimpleDayComponent;
 
   constructor(
       public weekService: WeekService,
@@ -28,6 +33,24 @@ export class CalendarComponent implements OnInit {
     } else {
       this.pagerService.init();
     }
+  }
+
+  public onCloseConfirm(): void {
+    this.isWeekend = false;
+  }
+
+  public onConfirmNewDayWeekend(day: SimpleDayComponent): void {
+    this.day = day;
+    this.isWeekend = true;
+  }
+
+  public onConfirm(): void {
+    if (!this.day) {
+      return;
+    }
+
+    this.day.addWorkDayWeekend(new WorkDayRB(this.day.date, 450));
+    this.day = null;
   }
 
   public onClose(): void {

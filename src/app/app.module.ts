@@ -21,7 +21,9 @@ import { TranslateModule, TranslateStaticLoader, TranslateLoader } from 'ng2-tra
 import { RegisterComponent } from './register/register.component';
 import { ModifyTaskComponent } from './task-list/modify-task/modify-task.component';
 import { NavigationComponent } from './navigation/navigation.component';
-import { ErrorModalComponent } from './error-modal/error-modal.component';
+import { ErrorModalComponent } from './modals/error-modal/error-modal.component';
+import { ConfirmModalComponent } from './modals/confirm-modal/confirm-modal.component';
+import { ModalComponent } from './modals/modal.component';
 
 @NgModule({
   imports: [
@@ -39,7 +41,10 @@ import { ErrorModalComponent } from './error-modal/error-modal.component';
     AppComponent,
 
     NavigationComponent,
+
+    ModalComponent,
     ErrorModalComponent,
+    ConfirmModalComponent,
 
     TaskListComponent,
     DailyStatisticComponent,

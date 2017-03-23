@@ -116,6 +116,10 @@ export class TaskListComponent implements OnInit {
       return;
     }
 
+    if (!confirm()) {
+      return;
+    }
+
     if (this.selectedTask === task) {
       this.selectedTask = null;
     }

@@ -13,7 +13,7 @@
     <label for="taskId">{{ 'Task id' | translate }}:</label>
     <input id="taskId" [(ngModel)]="taskId">
     <button (click)="startTask();">{{ 'Add' | translate }}</button>
-    <my-error-modal message="The task can not be created" [isError]="startTaskError" (closeError)="onStartTaskErrorClose()"></my-error-modal>
+    <my-error-modal message="The task can not be created" [isVisible]="startTaskError" (close)="onStartTaskErrorClose()"></my-error-modal>
   </div>
   <p>{{ 'Tasks' | translate }}:</p>
   <div *ngFor="let t of tasks">

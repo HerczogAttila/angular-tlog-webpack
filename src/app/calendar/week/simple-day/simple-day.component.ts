@@ -15,6 +15,7 @@ import { Response } from '@angular/http';
 export class SimpleDayComponent {
   @Input() public date: MyDate;
   @Output() public newDayError = new EventEmitter();
+  @Output() public confirmNewDayWeekend = new EventEmitter();
 
   private weekendConfirmMessage = 'Are you sure working on weekend?';
 
@@ -32,15 +33,16 @@ export class SimpleDayComponent {
     let workDay = new WorkDayRB(this.date, 450);
 
     if (this.date.isWeekend()) {
-      if (confirm(this.weekendConfirmMessage)) {
-        this.addWorkDayWeekend(workDay);
-      }
+      this.confirmNewDayWeekend.emit(this);
+      // if (confirm(this.weekendConfirmMessage)) {
+      //   this.addWorkDayWeekend(workDay);
+      // }
     } else {
       this.addWorkDay(workDay);
     }
   }
 
-  private addWorkDayWeekend(workDay: WorkDayRB): void {
+  public addWorkDayWeekend(workDay: WorkDayRB): void {
     this.weekService.addWorkDayWeekend(workDay)
         .subscribe(
             day => this.responseNewWorkDay(day),
