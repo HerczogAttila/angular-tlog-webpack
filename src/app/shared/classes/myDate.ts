@@ -27,8 +27,12 @@ export class MyDate {
     this.extraMinutes = extraMinutes;
   }
 
-  public makeWorkDay() {
+  public makeWorkDay(workDay: WorkDay) {
     this.type = DayType.Work;
+    this.requiredWorkMinutes = workDay.requiredMinPerDay;
+    this.extraMinutes = workDay.extraMinPerDay;
+    this.minutes = workDay.sumMinPerDay;
+
   }
 
   public getYear(): number {

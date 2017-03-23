@@ -13,6 +13,7 @@
     <label for="taskId">{{ 'Task id' | translate }}:</label>
     <input id="taskId" [(ngModel)]="taskId">
     <button (click)="startTask();">{{ 'Add' | translate }}</button>
+    <my-error-modal message="The task can not be created" [isError]="startTaskError" (closeError)="onStartTaskErrorClose()"></my-error-modal>
   </div>
   <p>{{ 'Tasks' | translate }}:</p>
   <div *ngFor="let t of tasks">
@@ -24,5 +25,7 @@
     <button (click)="deleteTask(t)">x</button>
     <p class="inline" *ngIf="!t.endingTime"><button (click)="finishingTask(t)">{{ 'Finishing' | translate }}</button></p>
   </div>
-  <my-modify-task *ngIf="selectedTask" [selectedTask]="selectedTask" [taskList]="me" ></my-modify-task>
+  <my-modify-task *ngIf="selectedTask" [(selectedTask)]="selectedTask" [newTaskId]="selectedTask.taskId"
+                  [newComment]="selectedTask.comment" [newStartTime]="selectedTask.startingTime"
+                  [newEndTime]="selectedTask.endingTime" (modify)="onModifyTask($event)"></my-modify-task>
 </div>

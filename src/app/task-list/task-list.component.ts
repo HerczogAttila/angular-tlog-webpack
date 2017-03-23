@@ -1,7 +1,7 @@
 import 'rxjs/add/operator/switchMap';
 import { Component, OnInit } from '@angular/core';
 import { MyDate } from '../shared/classes/myDate';
-import { WeekService } from '../shared/services/week.service';
+import { STATUS_CODE_NOT_MODIFIED, WeekService } from '../shared/services/week.service';
 import { StartTaskRB } from '../shared/classes/backend/startTaskRB';
 import { DeleteTaskRB } from '../shared/classes/backend/deleteTaskRB';
 import { PagerService } from '../shared/services/pager.service';
@@ -10,6 +10,7 @@ import { ModifyWorkDayRB } from '../shared/classes/backend/modifyWorkDayRB';
 import { Task } from '../shared/classes/backend/task';
 import { Router } from '@angular/router';
 import { WorkDay } from '../shared/classes/backend/workDay';
+import { ModifyTaskRB } from '../shared/classes/backend/modifyTaskRB';
 
 @Component({
   selector: 'my-task-list',
@@ -23,7 +24,8 @@ export class TaskListComponent implements OnInit {
   public selectedTask: Task;
 
   public taskId: string;
-  public me = this;
+
+  public startTaskError = false;
 
   private static getActualTime(): string {
     let date = new Date();
@@ -55,8 +57,18 @@ export class TaskListComponent implements OnInit {
     }
   }
 
+  public onStartTaskErrorClose(): void {
+    this.startTaskError = false;
+  }
+
   public onSelectTask(task: Task): void {
     this.selectedTask = task;
+  }
+
+  public onModifyTask(modifyTask: ModifyTaskRB): void {
+    this.weekService.modifyTask(modifyTask)
+        .subscribe(() => this.refreshWorkDay());
+    this.selectedTask = null;
   }
 
   public modifyDay(reqWorkMinutes: number): void {
@@ -78,12 +90,18 @@ export class TaskListComponent implements OnInit {
 
     let startTask = new StartTaskRB(this.date, this.taskId, '', TaskListComponent.getActualTime());
     this.weekService.startTask(startTask)
-        .subscribe(() => this.refreshWorkDay());
+        .subscribe(() => this.refreshWorkDay(),
+            error => {
+              if (error.status === STATUS_CODE_NOT_MODIFIED) {
+                this.startTaskError = true;
+              }
+            }
+        );
     this.taskId = '';
   }
 
   public finishingTask(task: Task): void {
-    if (!task || task.startingTime) {
+    if (!task || !task.startingTime) {
       return;
     }
 
@@ -94,7 +112,7 @@ export class TaskListComponent implements OnInit {
   }
 
   public deleteTask(task: Task): void {
-    if (!task || task.startingTime) {
+    if (!task || !task.startingTime) {
       return;
     }
 

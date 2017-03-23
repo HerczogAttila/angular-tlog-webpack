@@ -1,7 +1,6 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { ModifyTaskRB } from '../../shared/classes/backend/modifyTaskRB';
 import { WeekService } from '../../shared/services/week.service';
-import { TaskListComponent } from '../task-list.component';
 import { Task } from '../../shared/classes/backend/task';
 
 @Component({
@@ -12,21 +11,21 @@ import { Task } from '../../shared/classes/backend/task';
 
 export class ModifyTaskComponent {
     @Input() public selectedTask: Task;
-    @Input() public taskList: TaskListComponent;
+    @Input() public newTaskId = '';
+    @Input() public newComment = '';
+    @Input() public newStartTime = '';
+    @Input() public newEndTime = '';
+
+    @Output() public modify = new EventEmitter();
 
     constructor(private weekService: WeekService) {}
 
-    public modifyTask(taskId: string, comment: string, startTime: string, endTime: string): void {
-        let date = this.taskList.date;
-        let selectedTask = this.taskList.selectedTask;
-
-        if (!selectedTask.startingTime) {
+    public modifyTask(): void {
+        if (!this.selectedTask.startingTime) {
             return;
         }
 
-        let modifyTask = new ModifyTaskRB(date, selectedTask, taskId, comment, startTime, endTime);
-        this.weekService.modifyTask(modifyTask)
-            .subscribe(() => this.taskList.refreshWorkDay());
-        this.taskList.selectedTask = null;
+        let modifyTask = new ModifyTaskRB(this.weekService.selectedDay, this);
+        this.modify.emit(modifyTask);
     }
 }

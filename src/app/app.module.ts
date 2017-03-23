@@ -2,11 +2,9 @@ import { NgModule, ApplicationRef } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpModule, Http } from '@angular/http';
 import { FormsModule } from '@angular/forms';
-
 import { AppComponent } from './app.component';
 import { ApiService } from './shared';
 import { routing } from './app.routing';
-
 import { removeNgStyles, createNewHosts } from '@angularclass/hmr';
 import { PagerService } from './shared/services/pager.service';
 import { WeekService } from './shared/services/week.service';
@@ -23,6 +21,7 @@ import { TranslateModule, TranslateStaticLoader, TranslateLoader } from 'ng2-tra
 import { RegisterComponent } from './register/register.component';
 import { ModifyTaskComponent } from './task-list/modify-task/modify-task.component';
 import { NavigationComponent } from './navigation/navigation.component';
+import { ErrorModalComponent } from './error-modal/error-modal.component';
 
 @NgModule({
   imports: [
@@ -40,6 +39,7 @@ import { NavigationComponent } from './navigation/navigation.component';
     AppComponent,
 
     NavigationComponent,
+    ErrorModalComponent,
 
     TaskListComponent,
     DailyStatisticComponent,

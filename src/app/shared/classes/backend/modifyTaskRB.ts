@@ -1,5 +1,5 @@
 import { MyDate } from '../myDate';
-import { Task } from './task';
+import { ModifyTaskComponent } from  '../../../task-list/modify-task/modify-task.component';
 
 export class ModifyTaskRB {
     public year: number;
@@ -12,15 +12,19 @@ export class ModifyTaskRB {
     public newEndTime: string;
     public newComment: string;
 
-    constructor(date: MyDate, task: Task, newTaskId: string, newComment: string, newStartTime: string, newEndTime: string) {
+    constructor(date: MyDate, modifyTask: ModifyTaskComponent) {
         this.year = date.getYear();
         this.month = date.getMonth();
         this.day = date.getDay();
-        this.taskId = task.taskId;
-        this.startTime = task.startingTime;
-        this.newTaskId = newTaskId;
-        this.newComment = newComment;
-        this.newStartTime = newStartTime;
-        this.newEndTime = newEndTime;
+        this.taskId = modifyTask.selectedTask.taskId;
+        this.startTime = modifyTask.selectedTask.startingTime;
+        this.newTaskId = modifyTask.newTaskId;
+        this.newComment = modifyTask.newComment;
+        if (modifyTask.newStartTime) {
+            this.newStartTime = modifyTask.newStartTime;
+        }
+        if (modifyTask.newEndTime) {
+            this.newEndTime = modifyTask.newEndTime;
+        }
     }
 }

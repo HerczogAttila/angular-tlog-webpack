@@ -1,0 +1,11 @@
+<div class="modal" [ngClass]="isError ? 'error' : 'notError'">
+  <div class="modal-content">
+    <div class="modal-header">
+      <span class="close glyphicon glyphicon-remove" (click)="onCloseError()"></span>
+      <p>{{ 'Error' | translate}}!</p>
+    </div>
+    <div class="modal-body">
+      <p>{{ message | translate}}!</p>
+    </div>
+  </div>
+</div>

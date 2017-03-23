@@ -28,7 +28,7 @@ export class CalendarComponent implements OnInit {
     }
   }
 
-  // public deleteAll(): void {
-  //   this.weekService.deleteAll().subscribe(() => this.pagerService.refresh());
-  // }
+  public deleteAll(): void {
+    this.weekService.deleteAll().subscribe(() => this.pagerService.refresh());
+  }
 }
