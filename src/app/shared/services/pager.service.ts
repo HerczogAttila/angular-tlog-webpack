@@ -49,7 +49,7 @@ export class PagerService {
     }
 
     private createEmptyDays(): void {
-        let firstDay = new Date(this.date);
+        let firstDay = new Date(this.date.getFullYear(), this.date.getMonth());
         let startingDay = firstDay.getDay() % DAYS_IN_WEEK;
 
         for (let i = 0; i < startingDay; i++) {

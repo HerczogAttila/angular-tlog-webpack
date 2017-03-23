@@ -20,12 +20,17 @@ export class AppComponent {
     translate.setDefaultLang('en');
     translate.use(navigator.language);
 
-    Observable.interval(24000).subscribe(() => {
-      if (localStorage.getItem('jwtToken')) {
-        this.weekService.refresh().subscribe(jwtToken => {
-          this.weekService.setJWTToken(jwtToken);
-        });
-      }
+    this.refreshToken();
+    Observable.interval(240000).subscribe(() => {
+      this.refreshToken();
     });
+  }
+
+  private refreshToken(): void {
+    if (localStorage.getItem('jwtToken')) {
+      this.weekService.refresh().subscribe(jwtToken => {
+        this.weekService.setJWTToken(jwtToken);
+      });
+    }
   }
 }
