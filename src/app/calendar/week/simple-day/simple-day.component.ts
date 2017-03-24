@@ -34,9 +34,6 @@ export class SimpleDayComponent {
 
     if (this.date.isWeekend()) {
       this.confirmNewDayWeekend.emit(this);
-      // if (confirm(this.weekendConfirmMessage)) {
-      //   this.addWorkDayWeekend(workDay);
-      // }
     } else {
       this.addWorkDay(workDay);
     }
