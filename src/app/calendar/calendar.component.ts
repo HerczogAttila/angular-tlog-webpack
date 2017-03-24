@@ -35,10 +35,6 @@ export class CalendarComponent implements OnInit {
     }
   }
 
-  public onCloseConfirm(): void {
-    this.isWeekend = false;
-  }
-
   public onConfirmNewDayWeekend(day: SimpleDayComponent): void {
     this.day = day;
     this.isWeekend = true;
@@ -51,10 +47,6 @@ export class CalendarComponent implements OnInit {
 
     this.day.addWorkDayWeekend(new WorkDayRB(this.day.date, 450));
     this.day = null;
-  }
-
-  public onClose(): void {
-    this.isError = false;
   }
 
   public onNewDayError(): void {

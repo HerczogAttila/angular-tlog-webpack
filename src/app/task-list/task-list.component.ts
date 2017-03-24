@@ -22,10 +22,12 @@ export class TaskListComponent implements OnInit {
   public date: MyDate;
   public tasks: Task[] = [];
   public selectedTask: Task;
+  public requestDeleteTask: Task;
 
   public taskId: string;
 
   public startTaskError = false;
+  public confirmDeleteVisible = false;
 
   private static getActualTime(): string {
     let date = new Date();
@@ -55,10 +57,6 @@ export class TaskListComponent implements OnInit {
         this.refreshWorkDay();
       });
     }
-  }
-
-  public onStartTaskErrorClose(): void {
-    this.startTaskError = false;
   }
 
   public onSelectTask(task: Task): void {
@@ -111,20 +109,21 @@ export class TaskListComponent implements OnInit {
         .subscribe(() => this.refreshWorkDay());
   }
 
-  public deleteTask(task: Task): void {
-    if (!task || !task.startingTime) {
+  public onRequestDeleteTask(task: Task): void {
+    this.confirmDeleteVisible = true;
+    this.requestDeleteTask = task;
+  }
+
+  public onConfirmDeleteTask(): void {
+    if (!this.requestDeleteTask || !this.requestDeleteTask.startingTime) {
       return;
     }
 
-    if (!confirm()) {
-      return;
-    }
-
-    if (this.selectedTask === task) {
+    if (this.selectedTask === this.requestDeleteTask) {
       this.selectedTask = null;
     }
 
-    let deleteTask = new DeleteTaskRB(this.date, task);
+    let deleteTask = new DeleteTaskRB(this.date, this.requestDeleteTask);
     this.weekService.deleteTask(deleteTask)
         .subscribe(() => this.refreshWorkDay());
   }
