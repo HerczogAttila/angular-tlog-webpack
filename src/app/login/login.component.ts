@@ -14,6 +14,7 @@ export class LoginComponent implements OnInit {
     public password: string;
 
     public errorMessage: string;
+    public error = false;
 
     constructor(
         private weekService: WeekService,
@@ -29,6 +30,18 @@ export class LoginComponent implements OnInit {
     }
 
     public onLogin(): void {
+        if (!this.userName) {
+            this.errorMessage = 'Missing user name!';
+            this.error = true;
+            return;
+        }
+
+        if (!this.password) {
+            this.errorMessage = 'Missing password!';
+            this.error = true;
+            return;
+        }
+
         let user = new UserRB(this.userName, this.password);
 
         this.weekService.authenticate(user)
@@ -43,6 +56,7 @@ export class LoginComponent implements OnInit {
                 error => {
                     if (error.status === STATUS_CODE_UNAUTHORIZED) {
                         this.errorMessage = 'Wrong password or user name!';
+                        this.error = true;
                     }
                 }
             );
