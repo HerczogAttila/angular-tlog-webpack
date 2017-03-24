@@ -1,16 +1,23 @@
 <p>{{ 'Selected task' | translate }}: {{selectedTask.taskId}}</p>
-<label for="taskId">{{ 'Task id' | translate }}:</label>
-<input id="taskId" [(ngModel)]="newTaskId">
-<div>
-  <label for="comment">{{ 'Comment' | translate }}:</label>
-  <input id="comment" [(ngModel)]="newComment">
-</div>
-<div *ngIf="selectedTask.startingTime">
-  <label for="startTime">{{ 'Start time' | translate }}:</label>
-  <input id="startTime" [(ngModel)]="newStartTime">
-  <div *ngIf="selectedTask.endingTime">
-    <label for="endTime">{{ 'End time' | translate }}:</label>
-    <input id="endTime" [(ngModel)]="newEndTime">
-  </div>
-  <button (click)="modifyTask()">{{ 'Modify' | translate }}</button>
-</div>
+
+<table>
+  <tr>
+    <td class="right"><label for="taskId">{{ 'Task id' | translate }}:</label></td>
+    <td><input type="text" id="taskId" [(ngModel)]="newTaskId"></td>
+  </tr>
+  <tr>
+    <td class="right"><label for="comment">{{ 'Comment' | translate }}:</label></td>
+    <td><input type="text" id="comment" [(ngModel)]="newComment"></td>
+  </tr>
+  <tr *ngIf="selectedTask.startingTime">
+    <td class="right"><label for="startTime">{{ 'Start time' | translate }}:</label></td>
+    <td><input type="time" id="startTime" [(ngModel)]="newStartTime"></td>
+  </tr>
+  <tr *ngIf="selectedTask.endingTime">
+    <td class="right"><label for="endTime">{{ 'End time' | translate }}:</label></td>
+    <td><input type="time" id="endTime" [(ngModel)]="newEndTime"></td>
+  </tr>
+  <tr>
+    <td class="right" colspan="2"><button (click)="modifyTask()">{{ 'Modify' | translate }}</button></td>
+  </tr>
+</table>
