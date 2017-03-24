@@ -2,3 +2,30 @@
 .inline {
   display: inline;
 }
+
+.tasks {
+  padding-top: 10px;
+  margin: auto;
+  width: 96%;
+  text-align: left;
+}
+
+table, th, td {
+  border: 1px solid black;
+  padding: 5px;
+}
+
+th {
+  text-align: center;
+  width: 20%;
+}
+
+td {
+  text-align: center;
+  width: 20%;
+}
+
+span {
+  margin: 7px;
+  cursor: pointer;
+}

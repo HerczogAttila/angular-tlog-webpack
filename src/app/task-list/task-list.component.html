@@ -9,11 +9,5 @@
     </div>
   </div>
   <my-daily-statistic [date]="date" [tasks]="tasks"></my-daily-statistic>
-  <div>
-    <label for="taskId">{{ 'Task id' | translate }}:</label>
-    <input id="taskId" [(ngModel)]="taskId">
-    <button (click)="startTask();">{{ 'Add' | translate }}</button>
-    <my-error-modal message="The task can not be created" [isVisible]="startTaskError" (close)="startTaskError = false"></my-error-modal>
-  </div>
   <my-task-table [(tasks)]="tasks" (refresh)="refreshWorkDay()"></my-task-table>
 </div>

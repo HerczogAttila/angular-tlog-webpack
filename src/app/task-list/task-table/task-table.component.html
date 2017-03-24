@@ -1,16 +1,49 @@
-<p>{{ 'Tasks' | translate }}:</p>
-<div *ngFor="let t of tasks">
-    <div class="inline" (click)="selectedTask = task">
-        <p class="inline">{{t.taskId}}, {{t.comment}},</p>
-        <p class="inline" *ngIf="t.startingTime">{{t.startingTime}}</p>-
-        <p class="inline" *ngIf="t.endingTime">{{t.endingTime}}</p>
-    </div>
-    <button (click)="onRequestDeleteTask(t)">x</button>
-    <p class="inline" *ngIf="!t.endingTime"><button (click)="finishingTask(t)">{{ 'Finishing' | translate }}</button></p>
-</div>
-<my-confirm-modal message="Are you sure you delete this task?" [isVisible]="confirmDeleteVisible" (confirm)="onConfirmDeleteTask()"
-                  (close)="confirmDeleteVisible = false"></my-confirm-modal>
+<div class="tasks">
+    <p>{{ 'Tasks' | translate }}:</p>
+    <table>
+        <tr>
+            <th>{{ 'Task id' | translate }}</th>
+            <th>{{ 'Comment' | translate }}</th>
+            <th>{{ 'Start time' | translate }}</th>
+            <th>{{ 'End time' | translate }}</th>
+            <th>{{ 'Length in minutes' | translate }}</th>
+            <th>{{ 'Edit' | translate }}</th>
+        </tr>
+        <tr *ngFor="let task of tasks">
+            <td>{{task.taskId}}</td>
+            <td>{{task.comment}}</td>
+            <td>{{task.startingTime}}</td>
+            <td *ngIf="task.endingTime">{{task.endingTime}}</td>
+            <td *ngIf="!task.endingTime"><button (click)="finishingTask(task)">{{ 'Finishing' | translate }}</button></td>
+            <td></td>
+            <td>
+                <span class="glyphicon glyphicon-pencil" (click)="onSelectTask(task)"></span>
+                <span class="glyphicon glyphicon-remove" (click)="onRequestDeleteTask(task)"></span>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label for="taskId"></label>
+                <input id="taskId" type="text" [(ngModel)]="taskId">
+            </td>
+            <td>
+                <label for="comment"></label>
+                <input id="comment" type="text" [(ngModel)]="comment">
+            </td>
+            <td>
+                <label for="startTime"></label>
+                <input id="startTime" type="time" [(ngModel)]="startTime">
+            </td>
+            <td></td>
+            <td></td>
+            <td><span class="glyphicon glyphicon-plus" (click)="onCreateTask()"></span></td>
+        </tr>
+    </table>
+    <my-error-modal message="The task can not be created" [isVisible]="startTaskError" (close)="startTaskError = false"></my-error-modal>
+    <my-confirm-modal message="Are you sure you delete this task?" [isVisible]="confirmDeleteVisible" (confirm)="onConfirmDeleteTask()"
+                      (close)="confirmDeleteVisible = false"></my-confirm-modal>
 
-<my-modify-task *ngIf="selectedTask" [(selectedTask)]="selectedTask" [newTaskId]="selectedTask.taskId"
-                [newComment]="selectedTask.comment" [newStartTime]="selectedTask.startingTime"
-                [newEndTime]="selectedTask.endingTime" (modify)="onModifyTask()"></my-modify-task>
+    <my-modify-task *ngIf="selectedTask" [(selectedTask)]="selectedTask" [newTaskId]="selectedTask.taskId"
+                    [newComment]="selectedTask.comment" [newStartTime]="selectedTask.startingTime"
+                    [newEndTime]="selectedTask.endingTime" (modify)="onModifyTask()"></my-modify-task>
+</div>

@@ -1,8 +1,7 @@
 import 'rxjs/add/operator/switchMap';
 import { Component, OnInit } from '@angular/core';
 import { MyDate } from '../shared/classes/myDate';
-import { STATUS_CODE_NOT_MODIFIED, WeekService } from '../shared/services/week.service';
-import { StartTaskRB } from '../shared/classes/backend/startTaskRB';
+import { WeekService } from '../shared/services/week.service';
 import { PagerService } from '../shared/services/pager.service';
 import { ModifyWorkDayRB } from '../shared/classes/backend/modifyWorkDayRB';
 import { Task } from '../shared/classes/backend/task';
@@ -19,20 +18,11 @@ export class TaskListComponent implements OnInit {
   public date: MyDate;
   public tasks: Task[] = [];
 
-
   public taskId: string;
 
   public startTaskError = false;
 
-  public static getActualTime(): string {
-    let date = new Date();
-    let minutes = date.getMinutes() - date.getMinutes() % 15 + '';
-    if (minutes === '0') {
-      minutes = '00';
-    }
 
-    return date.getHours() + ':' + minutes;
-  }
 
   constructor(
       private weekService: WeekService,
@@ -66,29 +56,13 @@ export class TaskListComponent implements OnInit {
     });
   }
 
-  public startTask(): void {
-    if (!this.taskId)  {
-      return;
-    }
-
-    let startTask = new StartTaskRB(this.date, this.taskId, '', TaskListComponent.getActualTime());
-    this.weekService.startTask(startTask)
-        .subscribe(() => this.refreshWorkDay(),
-            error => {
-              if (error.status === STATUS_CODE_NOT_MODIFIED) {
-                this.startTaskError = true;
-              }
-            }
-        );
-    this.taskId = '';
-  }
-
   public refreshWorkDay(): void {
     if (this.date) {
       this.weekService.getWorkDay(this.date)
           .subscribe(jsonData => {
-        this.readWorkDay(jsonData);
-      });
+            this.readWorkDay(jsonData);
+          }
+      );
     }
   }
 
