@@ -3,14 +3,11 @@ import { Component, OnInit } from '@angular/core';
 import { MyDate } from '../shared/classes/myDate';
 import { STATUS_CODE_NOT_MODIFIED, WeekService } from '../shared/services/week.service';
 import { StartTaskRB } from '../shared/classes/backend/startTaskRB';
-import { DeleteTaskRB } from '../shared/classes/backend/deleteTaskRB';
 import { PagerService } from '../shared/services/pager.service';
-import { FinishingTaskRB } from '../shared/classes/backend/finishingTaskRB';
 import { ModifyWorkDayRB } from '../shared/classes/backend/modifyWorkDayRB';
 import { Task } from '../shared/classes/backend/task';
 import { Router } from '@angular/router';
 import { WorkDay } from '../shared/classes/backend/workDay';
-import { ModifyTaskRB } from '../shared/classes/backend/modifyTaskRB';
 
 @Component({
   selector: 'my-task-list',
@@ -21,15 +18,13 @@ import { ModifyTaskRB } from '../shared/classes/backend/modifyTaskRB';
 export class TaskListComponent implements OnInit {
   public date: MyDate;
   public tasks: Task[] = [];
-  public selectedTask: Task;
-  public requestDeleteTask: Task;
+
 
   public taskId: string;
 
   public startTaskError = false;
-  public confirmDeleteVisible = false;
 
-  private static getActualTime(): string {
+  public static getActualTime(): string {
     let date = new Date();
     let minutes = date.getMinutes() - date.getMinutes() % 15 + '';
     if (minutes === '0') {
@@ -59,16 +54,6 @@ export class TaskListComponent implements OnInit {
     }
   }
 
-  public onSelectTask(task: Task): void {
-    this.selectedTask = task;
-  }
-
-  public onModifyTask(modifyTask: ModifyTaskRB): void {
-    this.weekService.modifyTask(modifyTask)
-        .subscribe(() => this.refreshWorkDay());
-    this.selectedTask = null;
-  }
-
   public modifyDay(reqWorkMinutes: number): void {
     if (!reqWorkMinutes) {
       return;
@@ -96,36 +81,6 @@ export class TaskListComponent implements OnInit {
             }
         );
     this.taskId = '';
-  }
-
-  public finishingTask(task: Task): void {
-    if (!task || !task.startingTime) {
-      return;
-    }
-
-    task.endingTime = TaskListComponent.getActualTime();
-    let finishingTask = new FinishingTaskRB(this.date, task);
-    this.weekService.finishingTask(finishingTask)
-        .subscribe(() => this.refreshWorkDay());
-  }
-
-  public onRequestDeleteTask(task: Task): void {
-    this.confirmDeleteVisible = true;
-    this.requestDeleteTask = task;
-  }
-
-  public onConfirmDeleteTask(): void {
-    if (!this.requestDeleteTask || !this.requestDeleteTask.startingTime) {
-      return;
-    }
-
-    if (this.selectedTask === this.requestDeleteTask) {
-      this.selectedTask = null;
-    }
-
-    let deleteTask = new DeleteTaskRB(this.date, this.requestDeleteTask);
-    this.weekService.deleteTask(deleteTask)
-        .subscribe(() => this.refreshWorkDay());
   }
 
   public refreshWorkDay(): void {

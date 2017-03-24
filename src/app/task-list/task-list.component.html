@@ -15,19 +15,5 @@
     <button (click)="startTask();">{{ 'Add' | translate }}</button>
     <my-error-modal message="The task can not be created" [isVisible]="startTaskError" (close)="startTaskError = false"></my-error-modal>
   </div>
-  <p>{{ 'Tasks' | translate }}:</p>
-  <div *ngFor="let t of tasks">
-    <div class="inline" (click)="onSelectTask(t)">
-      <p class="inline">{{t.taskId}}, {{t.comment}},</p>
-      <p class="inline" *ngIf="t.startingTime">{{t.startingTime}}</p>-
-      <p class="inline" *ngIf="t.endingTime">{{t.endingTime}}</p>
-    </div>
-    <button (click)="onRequestDeleteTask(t)">x</button>
-    <p class="inline" *ngIf="!t.endingTime"><button (click)="finishingTask(t)">{{ 'Finishing' | translate }}</button></p>
-  </div>
-  <my-confirm-modal message="Are you sure you delete this task?" [isVisible]="confirmDeleteVisible" (confirm)="onConfirmDeleteTask()"
-                    (close)="confirmDeleteVisible = false"></my-confirm-modal>
-  <my-modify-task *ngIf="selectedTask" [(selectedTask)]="selectedTask" [newTaskId]="selectedTask.taskId"
-                  [newComment]="selectedTask.comment" [newStartTime]="selectedTask.startingTime"
-                  [newEndTime]="selectedTask.endingTime" (modify)="onModifyTask($event)"></my-modify-task>
+  <my-task-table [(tasks)]="tasks" (refresh)="refreshWorkDay()"></my-task-table>
 </div>

@@ -26,6 +26,7 @@ export class ModifyTaskComponent {
         }
 
         let modifyTask = new ModifyTaskRB(this.weekService.selectedDay, this);
-        this.modify.emit(modifyTask);
+        this.weekService.modifyTask(modifyTask)
+            .subscribe(() => this.modify.emit());
     }
 }
