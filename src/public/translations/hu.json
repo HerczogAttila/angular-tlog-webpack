@@ -61,5 +61,6 @@
   "Error": "Hiba",
   "Unknown error": "Ismeretlen hiba",
   "You can not create a working day in the future": "Nem hozható létre munkanap a jövőben",
-  "The task can not be created": "A feladat nem hozható létre"
+  "The task can not be created": "A feladat nem hozható létre",
+  "Invalid data": "Érvénytelen adat"
 }

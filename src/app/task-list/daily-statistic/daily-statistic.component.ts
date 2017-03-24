@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { MyDate } from '../../shared/classes/myDate';
 import { Task } from '../../shared/classes/backend/task';
 import { ModifyWorkDayRB } from '../../shared/classes/backend/modifyWorkDayRB';
-import { WeekService } from '../../shared/services/week.service';
+import { STATUS_CODE_NOT_MODIFIED, WeekService } from '../../shared/services/week.service';
 
 @Component({
     selector: 'my-daily-statistic',
@@ -16,6 +16,7 @@ export class DailyStatisticComponent {
     @Output() public refresh = new EventEmitter();
 
     public edit = false;
+    public error = false;
 
     public requiredWorkingMinutes: number;
 
@@ -29,7 +30,15 @@ export class DailyStatisticComponent {
     public onModifyDay(): void {
         let modifyWorkDay = new ModifyWorkDayRB(this.date, this.requiredWorkingMinutes);
         this.weekService.modifyWorkDay(modifyWorkDay)
-            .subscribe(() => this.refresh.emit());
+            .subscribe(
+                () => this.refresh.emit(),
+                (error) => {
+                    if (error.status === STATUS_CODE_NOT_MODIFIED) {
+                        console.log('teszt');
+                        this.error = true;
+                    }
+                }
+            );
 
         this.edit = false;
     }

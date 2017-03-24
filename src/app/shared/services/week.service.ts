@@ -127,7 +127,6 @@ export class WeekService {
             .map(WeekService.extractDataJson);
     }
     public startTask(startTask: StartTaskRB): Observable<Response> {
-        console.log(JSON.stringify(startTask));
         return this.http.post(this.urlStartTask, JSON.stringify(startTask), this.options);
     }
     public finishingTask(finishingTask: FinishingTaskRB): Observable<Response> {
