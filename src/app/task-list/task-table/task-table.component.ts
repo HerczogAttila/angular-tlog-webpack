@@ -4,6 +4,7 @@ import { DeleteTaskRB } from '../../shared/classes/backend/deleteTaskRB';
 import { STATUS_CODE_NOT_MODIFIED, WeekService } from '../../shared/services/week.service';
 import { FinishingTaskRB } from '../../shared/classes/backend/finishingTaskRB';
 import { StartTaskRB } from '../../shared/classes/backend/startTaskRB';
+import { ErrorModalComponent } from '../../modals/error-modal/error-modal.component';
 
 @Component({
     selector: 'my-task-table',
@@ -40,10 +41,11 @@ export class TaskTableComponent {
     public onCreateTask(): void {
         let startTask = new StartTaskRB(this.weekService.selectedDay, this.taskId, this.comment, this.startTime);
         this.weekService.startTask(startTask)
-            .subscribe(() => this.refresh.emit(),
+            .subscribe(
+                () => this.refresh.emit(),
                 error => {
                     if (error.status === STATUS_CODE_NOT_MODIFIED) {
-                        this.startTaskError = true;
+                        ErrorModalComponent.show('The task can not be created');
                     }
                 });
 

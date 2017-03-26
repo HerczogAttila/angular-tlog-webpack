@@ -39,7 +39,6 @@
             <td><span class="glyphicon glyphicon-plus" (click)="onCreateTask()"></span></td>
         </tr>
     </table>
-    <my-error-modal message="The task can not be created" [isVisible]="startTaskError" (close)="startTaskError = false"></my-error-modal>
     <my-confirm-modal message="Are you sure you delete this task?" [isVisible]="confirmDeleteVisible" (confirm)="onConfirmDeleteTask()"
                       (close)="confirmDeleteVisible = false"></my-confirm-modal>
 

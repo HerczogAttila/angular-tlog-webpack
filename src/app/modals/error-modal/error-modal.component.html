@@ -1,11 +1,11 @@
-<div class="modal" [ngClass]="isVisible ? 'error' : 'notError'">
+<div class="modal" [ngClass]="getVisible() ? 'error' : 'notError'">
   <div class="modal-content">
     <div class="modal-header">
       <span class="close glyphicon glyphicon-remove" (click)="onClose()"></span>
       <p>{{ 'Error' | translate}}!</p>
     </div>
     <div class="modal-body">
-      <p>{{ message | translate}}!</p>
+      <p>{{ getMessage() | translate}}!</p>
     </div>
   </div>
 </div>

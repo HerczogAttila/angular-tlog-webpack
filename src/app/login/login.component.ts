@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { STATUS_CODE_UNAUTHORIZED, WeekService } from '../shared/services/week.service';
 import { UserRB } from '../shared/classes/backend/userRB';
 import { Router } from '@angular/router';
+import { ErrorModalComponent } from '../modals/error-modal/error-modal.component';
 
 @Component({
     selector: 'my-login',
@@ -31,14 +32,12 @@ export class LoginComponent implements OnInit {
 
     public onLogin(): void {
         if (!this.userName) {
-            this.errorMessage = 'Missing user name!';
-            this.error = true;
+            ErrorModalComponent.show('Missing user name!');
             return;
         }
 
         if (!this.password) {
-            this.errorMessage = 'Missing password!';
-            this.error = true;
+            ErrorModalComponent.show('Missing password!');
             return;
         }
 
@@ -55,8 +54,7 @@ export class LoginComponent implements OnInit {
                 },
                 error => {
                     if (error.status === STATUS_CODE_UNAUTHORIZED) {
-                        this.errorMessage = 'Wrong password or user name!';
-                        this.error = true;
+                        ErrorModalComponent.show('Wrong password or user name!');
                     }
                 }
             );

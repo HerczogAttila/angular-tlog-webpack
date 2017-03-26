@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { STATUS_CODE_NOT_MODIFIED, WeekService } from '../shared/services/week.service';
 import { UserRB } from '../shared/classes/backend/userRB';
 import { Router } from '@angular/router';
+import { ErrorModalComponent } from '../modals/error-modal/error-modal.component';
 
 const EXIST_USER = 'Existing user name!';
 const MISSING_USER = 'Missing user name!';
@@ -39,12 +40,12 @@ export class RegisterComponent implements OnInit {
 
     public onRegister(): void {
         if (!this.userName) {
-            this.errorMessage = MISSING_USER;
+            ErrorModalComponent.show(MISSING_USER);
             return;
         }
 
         if (!this.password) {
-            this.errorMessage = MISSING_PASSWORD;
+            ErrorModalComponent.show(MISSING_PASSWORD);
             return;
         }
 
@@ -62,7 +63,7 @@ export class RegisterComponent implements OnInit {
                 },
                 (error) => {
                     if (error.status === STATUS_CODE_NOT_MODIFIED) {
-                        this.errorMessage = EXIST_USER;
+                        ErrorModalComponent.show(EXIST_USER);
                     }
                 }
             );

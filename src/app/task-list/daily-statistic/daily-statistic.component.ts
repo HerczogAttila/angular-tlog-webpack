@@ -3,6 +3,7 @@ import { MyDate } from '../../shared/classes/myDate';
 import { Task } from '../../shared/classes/backend/task';
 import { ModifyWorkDayRB } from '../../shared/classes/backend/modifyWorkDayRB';
 import { STATUS_CODE_NOT_MODIFIED, WeekService } from '../../shared/services/week.service';
+import { ErrorModalComponent } from '../../modals/error-modal/error-modal.component';
 
 @Component({
     selector: 'my-daily-statistic',
@@ -16,7 +17,6 @@ export class DailyStatisticComponent {
     @Output() public refresh = new EventEmitter();
 
     public edit = false;
-    public error = false;
 
     public requiredWorkingMinutes: number;
 
@@ -34,8 +34,7 @@ export class DailyStatisticComponent {
                 () => this.refresh.emit(),
                 (error) => {
                     if (error.status === STATUS_CODE_NOT_MODIFIED) {
-                        console.log('teszt');
-                        this.error = true;
+                        ErrorModalComponent.show('Invalid data');
                     }
                 }
             );

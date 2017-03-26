@@ -23,7 +23,6 @@ import { ModifyTaskComponent } from './task-list/modify-task/modify-task.compone
 import { NavigationComponent } from './navigation/navigation.component';
 import { ErrorModalComponent } from './modals/error-modal/error-modal.component';
 import { ConfirmModalComponent } from './modals/confirm-modal/confirm-modal.component';
-import { ModalComponent } from './modals/modal.component';
 import { TaskTableComponent } from './task-list/task-table/task-table.component';
 
 @NgModule({
@@ -43,7 +42,6 @@ import { TaskTableComponent } from './task-list/task-table/task-table.component'
 
     NavigationComponent,
 
-    ModalComponent,
     ErrorModalComponent,
     ConfirmModalComponent,
 

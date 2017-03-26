@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { ModalComponent } from '../modal.component';
 
 @Component({
     selector: 'my-error-modal',
@@ -7,4 +6,24 @@ import { ModalComponent } from '../modal.component';
     styleUrls: ['error-modal.component.scss'],
 })
 
-export class ErrorModalComponent extends ModalComponent { }
+export class ErrorModalComponent {
+    private static visible = false;
+    private static message = '';
+
+    public static show(message: string): void {
+        ErrorModalComponent.message = message;
+        ErrorModalComponent.visible = true;
+    }
+
+    public getVisible(): boolean {
+        return ErrorModalComponent.visible;
+    }
+
+    public getMessage(): string {
+        return ErrorModalComponent.message;
+    }
+
+    public onClose(): void {
+        ErrorModalComponent.visible = false;
+    }
+}

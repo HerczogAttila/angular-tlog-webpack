@@ -5,6 +5,7 @@ import { WorkDayRB } from '../../../shared/classes/backend/workDayRB';
 import { TranslateService } from 'ng2-translate';
 import { WorkDay } from '../../../shared/classes/backend/workDay';
 import { Response } from '@angular/http';
+import { ErrorModalComponent } from '../../../modals/error-modal/error-modal.component';
 
 @Component({
   selector: 'my-simple-day',
@@ -14,7 +15,6 @@ import { Response } from '@angular/http';
 
 export class SimpleDayComponent {
   @Input() public date: MyDate;
-  @Output() public newDayError = new EventEmitter();
   @Output() public confirmNewDayWeekend = new EventEmitter();
 
   private weekendConfirmMessage = 'Are you sure working on weekend?';
@@ -62,7 +62,7 @@ export class SimpleDayComponent {
 
   private errorNewWorkDay(error: Response): void {
     if (error.status === STATUS_CODE_NOT_MODIFIED) {
-      this.newDayError.emit();
+      ErrorModalComponent.show('You can not create a working day in the future');
     }
   }
 }

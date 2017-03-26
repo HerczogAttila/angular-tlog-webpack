@@ -14,7 +14,6 @@ import { WorkDayRB } from '../shared/classes/backend/workDayRB';
 export class CalendarComponent implements OnInit {
   public daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
-  public isError = false;
   public isWeekend = false;
 
   public day: SimpleDayComponent;
@@ -47,10 +46,6 @@ export class CalendarComponent implements OnInit {
 
     this.day.addWorkDayWeekend(new WorkDayRB(this.day.date, 450));
     this.day = null;
-  }
-
-  public onNewDayError(): void {
-    this.isError = true;
   }
 
   public deleteAll(): void {
