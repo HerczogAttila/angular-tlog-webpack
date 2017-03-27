@@ -18,7 +18,7 @@ import { PagerComponent } from './calendar/pager/pager.component';
 import { LoginComponent } from './login/login.component';
 import { TranslateModule, TranslateStaticLoader, TranslateLoader } from 'ng2-translate';
 import { RegisterComponent } from './register/register.component';
-import { ModifyTaskComponent } from './task-list/modify-task/modify-task.component';
+import { ModifyTaskComponent } from './task-list/task-table/modify-task/modify-task.component';
 import { NavigationComponent } from './navigation/navigation.component';
 import { ErrorModalComponent } from './modals/error-modal/error-modal.component';
 import { ConfirmModalComponent } from './modals/confirm-modal/confirm-modal.component';

@@ -1,8 +1,8 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { ModifyTaskRB } from '../../shared/classes/backend/modifyTaskRB';
-import { STATUS_CODE_NOT_MODIFIED, WeekService } from '../../shared/services/week.service';
-import { Task } from '../../shared/classes/backend/task';
-import { ErrorModalComponent } from '../../modals/error-modal/error-modal.component';
+import { ModifyTaskRB } from '../../../shared/classes/backend/modifyTaskRB';
+import { STATUS_CODE_NOT_MODIFIED, WeekService } from '../../../shared/services/week.service';
+import { Task } from '../../../shared/classes/backend/task';
+import { ErrorModalComponent } from '../../../modals/error-modal/error-modal.component';
 
 @Component({
     selector: 'my-modify-task',

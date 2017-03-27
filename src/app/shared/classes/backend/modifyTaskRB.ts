@@ -1,5 +1,5 @@
 import { MyDate } from '../myDate';
-import { ModifyTaskComponent } from  '../../../task-list/modify-task/modify-task.component';
+import { ModifyTaskComponent } from  '../../../task-list/task-table/modify-task/modify-task.component';
 
 export class ModifyTaskRB {
     public year: number;
