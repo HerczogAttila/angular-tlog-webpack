@@ -2,7 +2,6 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { MyDate } from '../../../shared/classes/myDate';
 import { STATUS_CODE_NOT_MODIFIED, WeekService } from '../../../shared/services/week.service';
 import { WorkDayRB } from '../../../shared/classes/backend/workDayRB';
-import { TranslateService } from 'ng2-translate';
 import { WorkDay } from '../../../shared/classes/backend/workDay';
 import { Response } from '@angular/http';
 import { ErrorModalComponent } from '../../../modals/error-modal/error-modal.component';
@@ -17,17 +16,7 @@ export class SimpleDayComponent {
   @Input() public date: MyDate;
   @Output() public confirmNewDayWeekend = new EventEmitter();
 
-  private weekendConfirmMessage = 'Are you sure working on weekend?';
-
-  constructor(
-      public translate: TranslateService,
-      private weekService: WeekService,
-  ) {
-    translate.get(this.weekendConfirmMessage)
-        .subscribe((res: string) => {
-      this.weekendConfirmMessage = res;
-    });
-  }
+  constructor(private weekService: WeekService) { }
 
   public onNewWorkday(): void {
     let workDay = new WorkDayRB(this.date, 450);
