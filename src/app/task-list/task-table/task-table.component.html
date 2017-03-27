@@ -14,7 +14,7 @@
             <td>{{task.comment}}</td>
             <td>{{task.startingTime}}</td>
             <td *ngIf="task.endingTime">{{task.endingTime}}</td>
-            <td *ngIf="!task.endingTime"><button (click)="finishingTask(task)">{{ 'Finishing' | translate }}</button></td>
+            <td *ngIf="!task.endingTime"><span class="glyphicon glyphicon-time" (click)="finishingTask(task)"></span></td>
             <td></td>
             <td>
                 <span class="glyphicon glyphicon-pencil" (click)="onSelectTask(task)"></span>

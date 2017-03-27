@@ -9,11 +9,11 @@
     <td class="right"><label for="comment">{{ 'Comment' | translate }}:</label></td>
     <td><input type="text" id="comment" [(ngModel)]="newComment"></td>
   </tr>
-  <tr *ngIf="selectedTask.startingTime">
+  <tr>
     <td class="right"><label for="startTime">{{ 'Start time' | translate }}:</label></td>
     <td><input type="time" id="startTime" [(ngModel)]="newStartTime"></td>
   </tr>
-  <tr *ngIf="selectedTask.endingTime">
+  <tr>
     <td class="right"><label for="endTime">{{ 'End time' | translate }}:</label></td>
     <td><input type="time" id="endTime" [(ngModel)]="newEndTime"></td>
   </tr>

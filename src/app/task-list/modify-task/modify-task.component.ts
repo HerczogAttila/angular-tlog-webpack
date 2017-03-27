@@ -1,7 +1,8 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { ModifyTaskRB } from '../../shared/classes/backend/modifyTaskRB';
-import { WeekService } from '../../shared/services/week.service';
+import { STATUS_CODE_NOT_MODIFIED, WeekService } from '../../shared/services/week.service';
 import { Task } from '../../shared/classes/backend/task';
+import { ErrorModalComponent } from '../../modals/error-modal/error-modal.component';
 
 @Component({
     selector: 'my-modify-task',
@@ -27,6 +28,13 @@ export class ModifyTaskComponent {
 
         let modifyTask = new ModifyTaskRB(this.weekService.selectedDay, this);
         this.weekService.modifyTask(modifyTask)
-            .subscribe(() => this.modify.emit());
+            .subscribe(
+                () => this.modify.emit(),
+                (error) => {
+                    if (error.status === STATUS_CODE_NOT_MODIFIED) {
+                        ErrorModalComponent.show('Invalid data');
+                    }
+                }
+            );
     }
 }

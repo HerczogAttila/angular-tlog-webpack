@@ -12,7 +12,6 @@ import { TaskListComponent } from './task-list/task-list.component';
 import { CalendarComponent } from './calendar/calendar.component';
 import { SimpleDayComponent } from './calendar/week/simple-day/simple-day.component';
 import { WorkdayComponent } from './calendar/week/workday/workday.component';
-import { WeekComponent } from './calendar/week/week.component';
 import { MonthlyStatisticComponent } from './calendar/monthly-statistic/monthly-statistic.component';
 import { DailyStatisticComponent } from './task-list/daily-statistic/daily-statistic.component';
 import { PagerComponent } from './calendar/pager/pager.component';
@@ -53,7 +52,6 @@ import { TaskTableComponent } from './task-list/task-table/task-table.component'
     CalendarComponent,
     MonthlyStatisticComponent,
     PagerComponent,
-    WeekComponent,
     SimpleDayComponent,
     WorkdayComponent,
 

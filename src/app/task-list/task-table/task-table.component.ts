@@ -17,7 +17,6 @@ export class TaskTableComponent {
     @Output() public refresh = new EventEmitter();
 
     public confirmDeleteVisible = false;
-    public startTaskError = false;
 
     public taskId = '';
     public comment = '';
@@ -78,10 +77,16 @@ export class TaskTableComponent {
             return;
         }
 
-        task.endingTime = TaskTableComponent.getActualTime();
-        let finishingTask = new FinishingTaskRB(this.weekService.selectedDay, task);
+        let finishingTask = FinishingTaskRB.create(this.weekService.selectedDay, task, TaskTableComponent.getActualTime());
         this.weekService.finishingTask(finishingTask)
-            .subscribe(() => this.refresh.emit());
+            .subscribe(
+                () => this.refresh.emit(),
+                (error) => {
+                    if (error.status === STATUS_CODE_NOT_MODIFIED) {
+                        ErrorModalComponent.show('Invalid data');
+                    }
+                }
+            );
     }
 
     public onSelectTask(task: Task): void {

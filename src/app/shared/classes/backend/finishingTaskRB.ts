@@ -9,12 +9,16 @@ export class FinishingTaskRB {
     public startTime: string;
     public endTime: string;
 
-    constructor(date: MyDate, task: Task) {
+    public static create(date: MyDate, task: Task, endTime: string) {
+        return new FinishingTaskRB(date, task.taskId, task.startingTime, endTime);
+    }
+
+    constructor(date: MyDate, taskId: string, startTime: string, endTime: string) {
         this.year = date.getYear();
         this.month = date.getMonth();
         this.day = date.getDay();
-        this.taskId = task.taskId;
-        this.startTime = task.startingTime;
-        this.endTime = task.endingTime;
+        this.taskId = taskId;
+        this.startTime = startTime;
+        this.endTime = endTime;
     }
 }
