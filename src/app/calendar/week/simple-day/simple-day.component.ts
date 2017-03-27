@@ -1,10 +1,11 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { MyDate } from '../../../shared/classes/myDate';
-import { STATUS_CODE_NOT_MODIFIED, WeekService } from '../../../shared/services/week.service';
 import { WorkDayRB } from '../../../shared/classes/backend/workDayRB';
 import { WorkDay } from '../../../shared/classes/backend/workDay';
 import { Response } from '@angular/http';
 import { ErrorModalComponent } from '../../../modals/error-modal/error-modal.component';
+import { NetworkService, STATUS_CODE_NOT_MODIFIED } from '../../../shared/services/network.service';
+import { WeekService } from '../../../shared/services/week.service';
 
 @Component({
   selector: 'my-simple-day',
@@ -16,7 +17,10 @@ export class SimpleDayComponent {
   @Input() public date: MyDate;
   @Output() public confirmNewDayWeekend = new EventEmitter();
 
-  constructor(private weekService: WeekService) { }
+  constructor(
+      private weekService: WeekService,
+      private networkService: NetworkService
+  ) { }
 
   public onNewWorkday(): void {
     let workDay = new WorkDayRB(this.date, 450);
@@ -33,7 +37,7 @@ export class SimpleDayComponent {
   }
 
   public addWorkDayWeekend(workDay: WorkDayRB): void {
-    this.weekService.addWorkDayWeekend(workDay)
+    this.networkService.addWorkDayWeekend(workDay)
         .subscribe(
             day => this.responseNewWorkDay(day),
             error => this.errorNewWorkDay(error)
@@ -41,7 +45,7 @@ export class SimpleDayComponent {
   }
 
   private addWorkDay(workDay: WorkDayRB): void {
-    this.weekService.addWorkDay(workDay)
+    this.networkService.addWorkDay(workDay)
         .subscribe(
             day => this.responseNewWorkDay(day),
             error => this.errorNewWorkDay(error)

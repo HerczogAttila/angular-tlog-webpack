@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { STATUS_CODE_UNAUTHORIZED, WeekService } from '../shared/services/week.service';
 import { UserRB } from '../shared/classes/backend/userRB';
 import { Router } from '@angular/router';
 import { ErrorModalComponent } from '../modals/error-modal/error-modal.component';
+import { NetworkService, STATUS_CODE_UNAUTHORIZED } from '../shared/services/network.service';
 
 @Component({
     selector: 'my-login',
@@ -14,11 +14,10 @@ export class LoginComponent implements OnInit {
     public userName: string;
     public password: string;
 
-    public errorMessage: string;
     public error = false;
 
     constructor(
-        private weekService: WeekService,
+        private networkService: NetworkService,
         private router: Router,
     ) {}
 
@@ -43,10 +42,10 @@ export class LoginComponent implements OnInit {
 
         let user = new UserRB(this.userName, this.password);
 
-        this.weekService.authenticate(user)
+        this.networkService.authenticate(user)
             .subscribe(
                 jwtToken => {
-                    this.weekService.setJWTToken(jwtToken);
+                    this.networkService.setJWTToken(jwtToken);
                     this.router.navigate(['/calendar']).catch(error => {
                         console.error(error);
                         }

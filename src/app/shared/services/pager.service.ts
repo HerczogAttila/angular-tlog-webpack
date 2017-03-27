@@ -3,6 +3,7 @@ import { WeekService } from './week.service';
 import { MyDate } from '../classes/myDate';
 import { WorkDay } from '../classes/backend/workDay';
 import { Observable } from 'rxjs';
+import { NetworkService } from './network.service';
 
 const DAYS_IN_WEEK = 7;
 
@@ -10,7 +11,10 @@ const DAYS_IN_WEEK = 7;
 export class PagerService {
     public date: Date;
 
-    constructor(private weekService: WeekService) { }
+    constructor(
+        private weekService: WeekService,
+        private networkService: NetworkService,
+    ) { }
 
     public init(): void {
         if (this.weekService.getWeeks().length === 0) {
@@ -30,7 +34,7 @@ export class PagerService {
     }
 
     public refresh(): Observable<WorkDay[]> {
-        let workDays = this.weekService.getMonthWorkDays(this.date);
+        let workDays = this.networkService.getMonthWorkDays(this.date);
         workDays.subscribe(days => this.createDays(days));
 
         return workDays;
@@ -73,8 +77,7 @@ export class PagerService {
             // console.log(day);
 
             if (x.getDayOfMonth() === dayOfMonth) {
-                let workDay = MyDate.workDay(now, day);
-                return workDay;
+                return MyDate.workDay(now, day);
             }
         }
 

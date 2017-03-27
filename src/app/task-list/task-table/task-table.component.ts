@@ -1,10 +1,11 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Task } from '../../shared/classes/backend/task';
 import { DeleteTaskRB } from '../../shared/classes/backend/deleteTaskRB';
-import { STATUS_CODE_NOT_MODIFIED, WeekService } from '../../shared/services/week.service';
+import { WeekService } from '../../shared/services/week.service';
 import { FinishingTaskRB } from '../../shared/classes/backend/finishingTaskRB';
 import { StartTaskRB } from '../../shared/classes/backend/startTaskRB';
 import { ErrorModalComponent } from '../../modals/error-modal/error-modal.component';
+import { STATUS_CODE_NOT_MODIFIED, NetworkService } from '../../shared/services/network.service';
 
 @Component({
     selector: 'my-task-table',
@@ -35,11 +36,14 @@ export class TaskTableComponent {
         return date.getHours() + ':' + minutes;
     }
 
-    constructor(private weekService: WeekService) {}
+    constructor(
+        private weekService: WeekService,
+        private networkService: NetworkService,
+    ) {}
 
     public onCreateTask(): void {
         let startTask = new StartTaskRB(this.weekService.getSelectedDay(), this.taskId, this.comment, this.startTime);
-        this.weekService.startTask(startTask)
+        this.networkService.startTask(startTask)
             .subscribe(
                 () => this.refresh.emit(),
                 error => {
@@ -68,7 +72,7 @@ export class TaskTableComponent {
         }
 
         let deleteTask = new DeleteTaskRB(this.weekService.getSelectedDay(), this.requestDeleteTask);
-        this.weekService.deleteTask(deleteTask)
+        this.networkService.deleteTask(deleteTask)
             .subscribe(() => this.refresh.emit());
     }
 
@@ -78,7 +82,7 @@ export class TaskTableComponent {
         }
 
         let finishingTask = FinishingTaskRB.create(this.weekService.getSelectedDay(), task, TaskTableComponent.getActualTime());
-        this.weekService.finishingTask(finishingTask)
+        this.networkService.finishingTask(finishingTask)
             .subscribe(
                 () => this.refresh.emit(),
                 (error) => {

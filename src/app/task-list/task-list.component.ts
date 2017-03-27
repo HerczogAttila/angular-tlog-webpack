@@ -6,6 +6,7 @@ import { PagerService } from '../shared/services/pager.service';
 import { Task } from '../shared/classes/backend/task';
 import { Router } from '@angular/router';
 import { WorkDay } from '../shared/classes/backend/workDay';
+import { NetworkService } from '../shared/services/network.service';
 
 @Component({
   selector: 'my-task-list',
@@ -23,6 +24,7 @@ export class TaskListComponent implements OnInit {
   constructor(
       private weekService: WeekService,
       private pagerService: PagerService,
+      private networkService: NetworkService,
       private router: Router,
   ) { }
 
@@ -50,7 +52,7 @@ export class TaskListComponent implements OnInit {
 
   public refreshWorkDay(): void {
     if (this.date) {
-      this.weekService.getWorkDay(this.date)
+      this.networkService.getWorkDay(this.date)
           .subscribe(
               workDay => {
                 this.readWorkDay(workDay);
@@ -60,9 +62,9 @@ export class TaskListComponent implements OnInit {
   }
 
   private readWorkDay(workDay: WorkDay): void {
-    this.weekService.getSelectedDay().requiredWorkMinutes = workDay.requiredMinPerDay;
-    this.weekService.getSelectedDay().minutes = workDay.sumMinPerDay;
-    this.weekService.getSelectedDay().extraMinutes = this.date.minutes - this.date.requiredWorkMinutes;
+    this.date.requiredWorkMinutes = workDay.requiredMinPerDay;
+    this.date.minutes = workDay.sumMinPerDay;
+    this.date.extraMinutes = this.date.minutes - this.date.requiredWorkMinutes;
     this.tasks = workDay.tasks;
     this.pagerService.refresh();
   }

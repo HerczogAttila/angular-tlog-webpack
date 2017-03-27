@@ -23,6 +23,7 @@ import { NavigationComponent } from './navigation/navigation.component';
 import { ErrorModalComponent } from './modals/error-modal/error-modal.component';
 import { ConfirmModalComponent } from './modals/confirm-modal/confirm-modal.component';
 import { TaskTableComponent } from './task-list/task-table/task-table.component';
+import { NetworkService } from './shared/services/network.service';
 
 @NgModule({
   imports: [
@@ -62,6 +63,7 @@ import { TaskTableComponent } from './task-list/task-table/task-table.component'
     ApiService,
     WeekService,
     PagerService,
+    NetworkService,
   ],
   bootstrap: [AppComponent]
 })

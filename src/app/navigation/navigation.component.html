@@ -1,9 +1,9 @@
-<nav class="center" *ngIf="weekService.login">
+<nav class="center" *ngIf="networkService.login">
     <a routerLink="/calendar">{{ 'Calendar' | translate }}</a>
     <a routerLink="/task-list">{{ 'Task list' | translate }}</a>
     <p class="logout" (click)="onLogout()">{{ 'Logout' | translate }}</p>
 </nav>
-<nav class="center" *ngIf="!weekService.login">
+<nav class="center" *ngIf="!networkService.login">
     <a routerLink="/login">{{ 'Login' | translate }}</a>
     <a routerLink="/register">{{ 'Register' | translate }}</a>
 </nav>

@@ -1,8 +1,9 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { ModifyTaskRB } from '../../../shared/classes/backend/modifyTaskRB';
-import { STATUS_CODE_NOT_MODIFIED, WeekService } from '../../../shared/services/week.service';
 import { Task } from '../../../shared/classes/backend/task';
 import { ErrorModalComponent } from '../../../modals/error-modal/error-modal.component';
+import { NetworkService, STATUS_CODE_NOT_MODIFIED } from '../../../shared/services/network.service';
+import { WeekService } from '../../../shared/services/week.service';
 
 @Component({
     selector: 'my-modify-task',
@@ -19,7 +20,10 @@ export class ModifyTaskComponent {
 
     @Output() public modify = new EventEmitter();
 
-    constructor(private weekService: WeekService) {}
+    constructor(
+        private weekService: WeekService,
+        private networkService: NetworkService,
+    ) {}
 
     public modifyTask(): void {
         if (!this.selectedTask.startingTime) {
@@ -27,7 +31,7 @@ export class ModifyTaskComponent {
         }
 
         let modifyTask = new ModifyTaskRB(this.weekService.getSelectedDay(), this);
-        this.weekService.modifyTask(modifyTask)
+        this.networkService.modifyTask(modifyTask)
             .subscribe(
                 () => this.modify.emit(),
                 (error) => {

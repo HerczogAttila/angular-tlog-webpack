@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { STATUS_CODE_NOT_MODIFIED, WeekService } from '../shared/services/week.service';
 import { UserRB } from '../shared/classes/backend/userRB';
 import { Router } from '@angular/router';
 import { ErrorModalComponent } from '../modals/error-modal/error-modal.component';
+import { NetworkService, STATUS_CODE_NOT_MODIFIED } from '../shared/services/network.service';
 
 const EXIST_USER = 'Existing user name!';
 const MISSING_USER = 'Missing user name!';
@@ -25,7 +25,7 @@ export class RegisterComponent implements OnInit {
     public errorMessage: string;
 
     constructor(
-        private weekService: WeekService,
+        private networkService: NetworkService,
         private router: Router,
     ) {}
 
@@ -50,12 +50,12 @@ export class RegisterComponent implements OnInit {
         }
 
         let user = new UserRB(this.userName, this.password);
-        this.weekService.registering(user)
+        this.networkService.registering(user)
             .subscribe(
                 () => {
-                    this.weekService.authenticate(user)
+                    this.networkService.authenticate(user)
                         .subscribe(jwtToken => {
-                            this.weekService.setJWTToken(jwtToken);
+                            this.networkService.setJWTToken(jwtToken);
                             this.router.navigate(['/calendar']).catch(error => {
                                 console.error(error);
                             });
@@ -75,7 +75,7 @@ export class RegisterComponent implements OnInit {
             return;
         }
 
-        this.weekService.isExistUserName(this.userName)
+        this.networkService.isExistUserName(this.userName)
             .map(res => res)
             .subscribe(
                 () => {
