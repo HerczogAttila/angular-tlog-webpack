@@ -28,6 +28,10 @@ export class SimpleDayComponent {
     }
   }
 
+  public creatable(): boolean {
+    return this.date.date.getTime() <= new Date().getTime();
+  }
+
   public addWorkDayWeekend(workDay: WorkDayRB): void {
     this.weekService.addWorkDayWeekend(workDay)
         .subscribe(

@@ -1,3 +1,2 @@
 <p>{{date.getDay()}}</p>
-<button (click)="onNewWorkday()">+</button>
-
+<span class="glyphicon glyphicon-plus" *ngIf="creatable()" (click)="onNewWorkday()"></span>
