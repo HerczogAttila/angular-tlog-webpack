@@ -1,5 +1,20 @@
 
-.title {
-  font-size: x-large;
-  padding: 10px;
+td {
+  border: 1px solid black;
+}
+
+my-monthly-statistic {
+  width: 96%;
+  margin: auto;
+}
+
+.header {
+  border: 1px solid black;
+  margin: auto;
+  width: 96%;
+  text-align: center;
+}
+
+.day {
+  height: 70px;
 }

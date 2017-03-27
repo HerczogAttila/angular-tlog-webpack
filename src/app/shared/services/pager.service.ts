@@ -45,6 +45,8 @@ export class PagerService {
             this.weekService.addDay(this.createDay(workdays, i));
         }
 
+        this.weekService.fillWeek();
+
         this.weekService.refreshStatistics();
     }
 

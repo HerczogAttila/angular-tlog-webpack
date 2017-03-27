@@ -1,4 +1,0 @@
-<div class="day col-xs-1"  *ngFor="let date of week.days">
-  <my-simple-day *ngIf="date.isSimpleDay()" [date]="date" (confirmNewDayWeekend)="onConfirmNewDayWeekend($event)" ></my-simple-day>
-  <my-workday *ngIf="date.isWorkDay()" [date]="date"></my-workday>
-</div>

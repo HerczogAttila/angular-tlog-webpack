@@ -150,6 +150,15 @@ export class WeekService {
         this.options = new RequestOptions({ headers: this.headers });
     }
 
+    public fillWeek(): void {
+        let week = this.lastWeek();
+        if (week) {
+            while (!week.isFull()) {
+                week.days.push(new MyDate());
+            }
+        }
+    }
+
     public addDay(day: MyDate): void {
         let week = this.lastWeek();
         if (!week || week.isFull()) {

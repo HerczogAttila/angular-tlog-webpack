@@ -3,16 +3,17 @@
   <my-pager></my-pager>
 </div>
 
-<div class="container">
-  <div class="row">
-    <div class="col-md-12">
-      <ul class="day_header col-xs-1" *ngFor="let day of daysOfWeek">{{day | translate}}</ul>
-    </div>
-    <div class="col-md-12" *ngFor="let week of weekService.weeks">
-      <my-week [week]="week" (confirmNewDayWeekend)="onConfirmNewDayWeekend($event)"></my-week>
-    </div>
-    <my-monthly-statistic></my-monthly-statistic>
-  </div>
-</div>
+<table class="header">
+  <tr>
+    <td *ngFor="let day of daysOfWeek">{{day | translate}}</td>
+  </tr>
+  <tr *ngFor="let week of weekService.weeks">
+    <td class="day" *ngFor="let date of week.days">
+      <my-simple-day *ngIf="date.isSimpleDay()" [date]="date" (confirmNewDayWeekend)="onConfirmNewDayWeekend($event)" ></my-simple-day>
+      <my-workday *ngIf="date.isWorkDay()" [date]="date"></my-workday>
+    </td>
+  </tr>
+</table>
+<my-monthly-statistic></my-monthly-statistic>
 <!--<button (click)="deleteAll()">Delete all</button>-->
 <my-confirm-modal message="Are you sure working on weekend?" [isVisible]="isWeekend" (confirm)="onConfirm()" (close)="isWeekend = false;"></my-confirm-modal>
