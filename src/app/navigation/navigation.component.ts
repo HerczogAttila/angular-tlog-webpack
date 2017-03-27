@@ -18,7 +18,7 @@ export class NavigationComponent {
     public onLogout(): void {
         localStorage.removeItem('jwtToken');
         this.weekService.login = false;
-        this.weekService.weeks = [];
+        this.weekService.clear();
         this.router.navigate(['/login']).catch(error => {
             console.error(error);
         });

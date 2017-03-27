@@ -38,7 +38,7 @@ export class TaskTableComponent {
     constructor(private weekService: WeekService) {}
 
     public onCreateTask(): void {
-        let startTask = new StartTaskRB(this.weekService.selectedDay, this.taskId, this.comment, this.startTime);
+        let startTask = new StartTaskRB(this.weekService.getSelectedDay(), this.taskId, this.comment, this.startTime);
         this.weekService.startTask(startTask)
             .subscribe(
                 () => this.refresh.emit(),
@@ -67,7 +67,7 @@ export class TaskTableComponent {
             this.selectedTask = null;
         }
 
-        let deleteTask = new DeleteTaskRB(this.weekService.selectedDay, this.requestDeleteTask);
+        let deleteTask = new DeleteTaskRB(this.weekService.getSelectedDay(), this.requestDeleteTask);
         this.weekService.deleteTask(deleteTask)
             .subscribe(() => this.refresh.emit());
     }
@@ -77,7 +77,7 @@ export class TaskTableComponent {
             return;
         }
 
-        let finishingTask = FinishingTaskRB.create(this.weekService.selectedDay, task, TaskTableComponent.getActualTime());
+        let finishingTask = FinishingTaskRB.create(this.weekService.getSelectedDay(), task, TaskTableComponent.getActualTime());
         this.weekService.finishingTask(finishingTask)
             .subscribe(
                 () => this.refresh.emit(),

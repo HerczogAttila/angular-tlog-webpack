@@ -1,7 +1,12 @@
 <p class="title">{{ 'Task list' | translate }}</p>
 <div *ngIf="date">
-  <div>
-    <p class="selectedDay">{{ 'Selected day' | translate }}: {{ date.date | date : 'yyyy. MM. dd.' }}</p>
+  <div class="selectedDay">
+    <label for="actualDay">{{ 'Selected day' | translate }}:</label>
+    <select id="actualDay" [(ngModel)]="date" (change)="changeWorkDay()">
+      <option *ngFor="let day of days" [ngValue]="day" [selected]="date.date.getDate() === day.date.getDate()">
+        {{day.date | date : 'yyyy. MM. dd.' }}
+      </option>
+    </select>
   </div>
   <my-daily-statistic [date]="date" [tasks]="tasks" (refresh)="refreshWorkDay()"></my-daily-statistic>
   <my-task-table [(tasks)]="tasks" (refresh)="refreshWorkDay()"></my-task-table>

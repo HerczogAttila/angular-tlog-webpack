@@ -16,6 +16,7 @@ import { WorkDay } from '../shared/classes/backend/workDay';
 export class TaskListComponent implements OnInit {
   public date: MyDate;
   public tasks: Task[] = [];
+  public days: MyDate[] = [];
 
   public taskId: string;
 
@@ -35,27 +36,34 @@ export class TaskListComponent implements OnInit {
     } else {
       this.pagerService.init();
       this.pagerService.refresh().subscribe(() => {
-        this.date = this.weekService.selectedDay;
+        this.date = this.weekService.getSelectedDay();
+        this.days = this.weekService.getDays();
         this.refreshWorkDay();
       });
     }
   }
 
+  public changeWorkDay(): void {
+    this.weekService.setSelectedDayIfExist(this.date);
+    this.refreshWorkDay();
+  }
+
   public refreshWorkDay(): void {
     if (this.date) {
       this.weekService.getWorkDay(this.date)
-      .subscribe(workDay => {
-        this.readWorkDay(workDay);
-      });
+          .subscribe(
+              workDay => {
+                this.readWorkDay(workDay);
+              }
+          );
     }
   }
 
   private readWorkDay(workDay: WorkDay): void {
-    this.weekService.selectedDay.requiredWorkMinutes = workDay.requiredMinPerDay;
-    this.weekService.selectedDay.minutes = workDay.sumMinPerDay;
-    this.weekService.selectedDay.extraMinutes = this.date.minutes - this.date.requiredWorkMinutes;
+    this.weekService.getSelectedDay().requiredWorkMinutes = workDay.requiredMinPerDay;
+    this.weekService.getSelectedDay().minutes = workDay.sumMinPerDay;
+    this.weekService.getSelectedDay().extraMinutes = this.date.minutes - this.date.requiredWorkMinutes;
     this.tasks = workDay.tasks;
-    this.date = this.weekService.selectedDay;
     this.pagerService.refresh();
   }
 }

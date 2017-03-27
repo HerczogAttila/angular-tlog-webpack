@@ -18,9 +18,10 @@ export class WorkdayComponent {
   ) { }
 
   public navigateTaskList(): void {
-    this.weekService.selectedDay = this.date;
-    this.router.navigate(['/task-list']).catch(error => {
-      console.error(error);
-    });
+    if (this.weekService.setSelectedDayIfExist(this.date)) {
+      this.router.navigate(['/task-list']).catch(error => {
+        console.error(error);
+      });
+    }
   }
 }

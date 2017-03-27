@@ -20,18 +20,20 @@ export const STATUS_CODE_UNAUTHORIZED = 401;
 
 @Injectable()
 export class WeekService {
-    public weeks: Week[] = [];
-
-    public selectedDay: MyDate;
-
-    public workdays: number;
+    public workdaysCount: number;
     public reqWorkMinutes: number;
     public minutes: number;
     public extraMinutes: number;
 
+    private weeks: Week[] = [];
+    private workDays: MyDate[] = [];
+
+    private selectedDay = 0;
+
+    public login = !!localStorage.getItem('jwtToken');
+
     private headers = new Headers({ 'Content-Type': 'application/json', 'Authorization': localStorage.getItem('jwtToken') });
     private options = new RequestOptions({ headers: this.headers });
-    public login = !!localStorage.getItem('jwtToken');
 
     private ip = 'localhost';
     private port = 9080;
@@ -71,14 +73,14 @@ export class WeekService {
         this.reqWorkMinutes = 0;
         this.minutes = 0;
         this.extraMinutes = 0;
-        this.workdays = 0;
+        this.workdaysCount = 0;
         for (let w of this.weeks) {
             for (let d of w.days) {
                 this.reqWorkMinutes += d.requiredWorkMinutes;
                 this.minutes += d.minutes;
                 this.extraMinutes += d.extraMinutes;
                 if (d.isWorkDay()) {
-                    this.workdays++;
+                    this.workdaysCount++;
                 }
             }
         }
@@ -150,6 +152,36 @@ export class WeekService {
         this.options = new RequestOptions({ headers: this.headers });
     }
 
+    public getDays(): MyDate[] {
+        return this.workDays;
+    }
+
+    public getWeeks(): Week[] {
+        return this.weeks;
+    }
+
+    public getSelectedDay(): MyDate {
+        return this.workDays[this.selectedDay];
+    }
+
+    public setSelectedDayIfExist(date: MyDate): boolean {
+        let i = 0;
+        for (let day of this.workDays) {
+            if (date.date.getDate() === day.date.getDate()) {
+                this.selectedDay = i;
+                return true;
+            }
+            i++;
+        }
+
+        return false;
+    }
+
+    public clear() {
+        this.weeks = [];
+        this.workDays = [];
+    }
+
     public fillWeek(): void {
         let week = this.lastWeek();
         if (week) {
@@ -166,6 +198,9 @@ export class WeekService {
             week = this.lastWeek();
         }
         week.days.push(day);
+        if (day.isWorkDay()) {
+            this.workDays.push(day);
+        }
     }
 
     private lastWeek(): Week {

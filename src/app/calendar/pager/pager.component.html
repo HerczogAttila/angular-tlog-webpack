@@ -2,7 +2,6 @@
 
 <div class="center">
     <span class="changeMonth glyphicon glyphicon-menu-left" (click)="onPreviousMonth()"></span>
-    <!--<p class="monthName">{{pagerService.actualMonthName | translate}}</p>-->
     <p class="monthName">{{pagerService.date | date : 'MMMM' | translate }}</p>
     <span class="changeMonth glyphicon glyphicon-menu-right" (click)="onNextMonth()"></span>
 </div>

@@ -13,7 +13,7 @@ export class PagerService {
     constructor(private weekService: WeekService) { }
 
     public init(): void {
-        if (this.weekService.weeks.length === 0) {
+        if (this.weekService.getWeeks().length === 0) {
             this.date = new Date();
             this.refresh();
         }
@@ -37,7 +37,7 @@ export class PagerService {
     }
 
     private createDays(workdays: WorkDay[]): void {
-        this.weekService.weeks = [];
+        this.weekService.clear();
         this.createEmptyDays();
 
         let dayCount = this.getMonthDayCount();
@@ -74,10 +74,6 @@ export class PagerService {
 
             if (x.getDayOfMonth() === dayOfMonth) {
                 let workDay = MyDate.workDay(now, day);
-                if (!this.weekService.selectedDay) {
-                    this.weekService.selectedDay = workDay;
-                }
-
                 return workDay;
             }
         }
