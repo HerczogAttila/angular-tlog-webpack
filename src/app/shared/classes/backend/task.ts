@@ -4,4 +4,5 @@ export class Task {
     public sumMinPerDay: number;
     public startingTime: string;
     public endingTime: string;
+    public minPerTask: number;
 }

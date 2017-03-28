@@ -15,7 +15,7 @@
             <td>{{task.startingTime}}</td>
             <td *ngIf="task.endingTime">{{task.endingTime}}</td>
             <td *ngIf="!task.endingTime"><span class="glyphicon glyphicon-time" (click)="finishingTask(task)"></span></td>
-            <td></td>
+            <td>{{task.minPerTask}}</td>
             <td>
                 <span class="glyphicon glyphicon-pencil" (click)="onSelectTask(task)"></span>
                 <span class="glyphicon glyphicon-remove" (click)="onRequestDeleteTask(task)"></span>
