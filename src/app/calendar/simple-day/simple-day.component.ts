@@ -27,9 +27,7 @@ export class SimpleDayComponent {
 
     if (this.date.isWeekend()) {
       ConfirmModalComponent.show('Are you sure working on weekend?',
-          () => {
-        this.addWorkDayWeekend(workDay);
-      });
+          () => this.addWorkDayWeekend(workDay));
     } else {
       this.addWorkDay(workDay);
     }

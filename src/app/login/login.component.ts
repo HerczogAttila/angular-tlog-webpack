@@ -34,28 +34,28 @@ export class LoginComponent implements OnInit {
             ErrorModalComponent.show('Missing user name!');
             return;
         }
-
         if (!this.password) {
             ErrorModalComponent.show('Missing password!');
             return;
         }
 
         let user = new UserRB(this.userName, this.password);
-
         this.networkService.authenticate(user)
             .subscribe(
-                jwtToken => {
-                    this.networkService.setJWTToken(jwtToken);
-                    this.router.navigate(['/calendar']).catch(error => {
-                        console.error(error);
-                        }
-                    );
-                },
+                jwtToken => this.navigateCalendar(jwtToken),
                 error => {
                     if (error.status === STATUS_CODE_UNAUTHORIZED) {
                         ErrorModalComponent.show('Wrong password or user name!');
                     }
                 }
             );
+    }
+
+    private navigateCalendar(jwtToken: string): void {
+        this.networkService.setJWTToken(jwtToken);
+        this.router.navigate(['/calendar'])
+            .catch(error => {
+                console.error(error);
+            });
     }
 }

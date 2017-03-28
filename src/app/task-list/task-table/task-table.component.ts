@@ -61,9 +61,7 @@ export class TaskTableComponent {
     public onRequestDeleteTask(task: Task): void {
         this.requestDeleteTask = task;
         ConfirmModalComponent.show('Are you sure you delete this task?',
-            () => {
-            this.onConfirmDeleteTask();
-        });
+            () => this.onConfirmDeleteTask());
     }
 
     public onConfirmDeleteTask(): void {
