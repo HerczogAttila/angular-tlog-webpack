@@ -11,11 +11,11 @@
   </tr>
   <tr>
     <td class="right"><label for="startTime">{{ 'Start time' | translate }}:</label></td>
-    <td><input type="time" id="startTime" [(ngModel)]="newStartTime"></td>
+    <td><input type="text" id="startTime" [(ngModel)]="newStartTime"></td>
   </tr>
   <tr>
     <td class="right"><label for="endTime">{{ 'End time' | translate }}:</label></td>
-    <td><input type="time" id="endTime" [(ngModel)]="newEndTime"></td>
+    <td><input type="text" id="endTime" [(ngModel)]="newEndTime"></td>
   </tr>
   <tr>
     <td class="right" colspan="2"><button (click)="modifyTask()">{{ 'Modify' | translate }}</button></td>

@@ -12,8 +12,8 @@ import { NetworkService } from '../shared/services/network.service';
 export class NavigationComponent {
 
     constructor(
-        public weekService: WeekService,
-        private networkService: NetworkService,
+        public networkService: NetworkService,
+        private weekService: WeekService,
         private router: Router,
     ) {}
 
