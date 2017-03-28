@@ -1,0 +1,6 @@
+#!/bin/bash
+# Remove last docker image and create new
+
+docker-compose down
+sudo docker rmi -f polc/tlog16angular
+sudo docker build --no-cache -t polc/tlog16angular .
