@@ -45,16 +45,18 @@ export class TaskTableComponent {
         let startTask = new StartTaskRB(this.weekService.getSelectedDay(), this.taskId, this.comment, this.startTime);
         this.networkService.startTask(startTask)
             .subscribe(
-                () => this.refresh.emit(),
+                () => {
+                    this.refresh.emit();
+                    this.taskId = '';
+                    this.comment = '';
+                    this.startTime = TaskTableComponent.getActualTime();
+                },
                 error => {
                     if (error.status === STATUS_CODE_NOT_MODIFIED) {
                         ErrorModalComponent.show('The task can not be created');
                     }
-                });
-
-        this.taskId = '';
-        this.comment = '';
-        this.startTime = TaskTableComponent.getActualTime();
+                }
+            );
     }
 
     public onRequestDeleteTask(task: Task): void {
