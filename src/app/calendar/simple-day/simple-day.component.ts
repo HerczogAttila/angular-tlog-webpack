@@ -1,11 +1,11 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { MyDate } from '../../../shared/classes/myDate';
-import { WorkDayRB } from '../../../shared/classes/backend/workDayRB';
-import { WorkDay } from '../../../shared/classes/backend/workDay';
+import { MyDate } from '../../shared/classes/myDate';
+import { WorkDayRB } from '../../shared/classes/backend/workDayRB';
+import { WorkDay } from '../../shared/classes/backend/workDay';
 import { Response } from '@angular/http';
-import { ErrorModalComponent } from '../../../modals/error-modal/error-modal.component';
-import { NetworkService, STATUS_CODE_NOT_MODIFIED } from '../../../shared/services/network.service';
-import { WeekService } from '../../../shared/services/week.service';
+import { ErrorModalComponent } from '../../modals/error-modal/error-modal.component';
+import { NetworkService, STATUS_CODE_NOT_MODIFIED } from '../../shared/services/network.service';
+import { WeekService } from '../../shared/services/week.service';
 
 @Component({
   selector: 'my-simple-day',

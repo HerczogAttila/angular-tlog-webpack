@@ -1,7 +1,7 @@
 <p class="year">{{pagerService.date.getFullYear()}}</p>
 
 <div class="center">
-    <span class="changeMonth glyphicon glyphicon-menu-left" (click)="onPreviousMonth()"></span>
+    <span class="changeMonth glyphicon glyphicon-menu-left" (click)="pagerService.previousMonth()"></span>
     <p class="monthName">{{pagerService.date | date : 'MMMM' | translate }}</p>
-    <span class="changeMonth glyphicon glyphicon-menu-right" (click)="onNextMonth()"></span>
+    <span class="changeMonth glyphicon glyphicon-menu-right" (click)="pagerService.nextMonth()"></span>
 </div>

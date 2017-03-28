@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { PagerService } from '../shared/services/pager.service';
 import { Router } from '@angular/router';
-import { SimpleDayComponent } from './week/simple-day/simple-day.component';
+import { SimpleDayComponent } from './simple-day/simple-day.component';
 import { WorkDayRB } from '../shared/classes/backend/workDayRB';
 import { NetworkService } from '../shared/services/network.service';
 import { WeekService } from '../shared/services/week.service';

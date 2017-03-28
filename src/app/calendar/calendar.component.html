@@ -2,14 +2,13 @@
 <div class="month">
   <my-pager></my-pager>
 </div>
-
 <table class="header">
   <tr>
     <td *ngFor="let day of daysOfWeek">{{day | translate}}</td>
   </tr>
-  <tr *ngFor="let week of weekService.weeks">
+  <tr *ngFor="let week of weekService.getWeeks()">
     <td class="day" *ngFor="let date of week.days">
-      <my-simple-day *ngIf="date.isSimpleDay()" [date]="date" (confirmNewDayWeekend)="onConfirmNewDayWeekend($event)" ></my-simple-day>
+      <my-simple-day *ngIf="date.isSimpleDay()" [date]="date" (confirmNewDayWeekend)="onConfirmNewDayWeekend($event)"></my-simple-day>
       <my-workday *ngIf="date.isWorkDay()" [date]="date"></my-workday>
     </td>
   </tr>

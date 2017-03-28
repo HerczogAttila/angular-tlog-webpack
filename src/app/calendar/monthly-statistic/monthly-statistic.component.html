@@ -1,7 +1,10 @@
 <div>
     <p class="statistic">{{ 'Statistics' | translate }}:</p>
-    <p>{{ 'Workdays' | translate }}: {{weekService.workdays}}</p>
+    <p>{{ 'Workdays' | translate }}: {{weekService.getDays().length}}</p>
     <p>{{ 'Required working minutes' | translate }}: {{weekService.reqWorkMinutes}}</p>
     <p>{{ 'Minutes' | translate }}: {{weekService.minutes}}</p>
-    <p class="inline">{{ 'Extra minutes' | translate }}:</p><p class="inline" [ngClass]="weekService.extraMinutes >= 0 ? 'positiveValue' : 'negativeValue'">{{weekService.extraMinutes}}</p>
+    <p class="inline">{{ 'Extra minutes' | translate }}:</p>
+    <p class="inline" [ngClass]="weekService.extraMinutes >= 0 ? 'positiveValue' : 'negativeValue'">
+        {{weekService.extraMinutes}}
+    </p>
 </div>
