@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { MyDate } from '../../shared/classes/myDate';
 import { WorkDayRB } from '../../shared/classes/backend/workDayRB';
 import { WorkDay } from '../../shared/classes/backend/workDay';
@@ -6,6 +6,7 @@ import { Response } from '@angular/http';
 import { ErrorModalComponent } from '../../modals/error-modal/error-modal.component';
 import { NetworkService, STATUS_CODE_NOT_MODIFIED } from '../../shared/services/network.service';
 import { WeekService } from '../../shared/services/week.service';
+import { ConfirmModalComponent } from '../../modals/confirm-modal/confirm-modal.component';
 
 @Component({
   selector: 'my-simple-day',
@@ -15,7 +16,6 @@ import { WeekService } from '../../shared/services/week.service';
 
 export class SimpleDayComponent {
   @Input() public date: MyDate;
-  @Output() public confirmNewDayWeekend = new EventEmitter();
 
   constructor(
       private weekService: WeekService,
@@ -26,7 +26,10 @@ export class SimpleDayComponent {
     let workDay = new WorkDayRB(this.date, 450);
 
     if (this.date.isWeekend()) {
-      this.confirmNewDayWeekend.emit(this);
+      ConfirmModalComponent.show('Are you sure working on weekend?',
+          () => {
+        this.addWorkDayWeekend(workDay);
+      });
     } else {
       this.addWorkDay(workDay);
     }

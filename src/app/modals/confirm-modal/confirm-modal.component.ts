@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
     selector: 'my-confirm-modal',
@@ -7,17 +7,30 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 })
 
 export class ConfirmModalComponent {
-    @Input() public isVisible: boolean;
-    @Input() public message: string;
-    @Output() public close = new EventEmitter();
-    @Output() public confirm = new EventEmitter();
+    private static visible = false;
+    private static message = '';
+    private static confirm: Function;
 
-    public onClose(): void {
-        this.close.emit();
+    public static show(message: string, confirm: Function): void {
+        ConfirmModalComponent.message = message;
+        ConfirmModalComponent.confirm = confirm;
+        ConfirmModalComponent.visible = true;
     }
 
-    public onConfirm() {
-        this.close.emit();
-        this.confirm.emit();
+    public isVisible(): boolean {
+        return ConfirmModalComponent.visible;
+    }
+
+    public getMessage(): string {
+        return ConfirmModalComponent.message;
+    }
+
+    public onClose(): void {
+        ConfirmModalComponent.visible = false;
+    }
+
+    public onConfirm(): void {
+        ConfirmModalComponent.visible = false;
+        ConfirmModalComponent.confirm();
     }
 }

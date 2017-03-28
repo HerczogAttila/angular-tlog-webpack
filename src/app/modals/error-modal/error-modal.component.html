@@ -1,4 +1,4 @@
-<div class="modal" [ngClass]="getVisible() ? 'error' : 'notError'">
+<div class="modal" [ngClass]="isVisible() ? 'error' : 'notError'">
   <div class="modal-content">
     <div class="modal-header">
       <span class="close glyphicon glyphicon-remove" (click)="onClose()"></span>

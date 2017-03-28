@@ -15,7 +15,7 @@ export class ErrorModalComponent {
         ErrorModalComponent.visible = true;
     }
 
-    public getVisible(): boolean {
+    public isVisible(): boolean {
         return ErrorModalComponent.visible;
     }
 

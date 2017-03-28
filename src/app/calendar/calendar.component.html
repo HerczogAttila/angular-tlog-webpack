@@ -8,11 +8,10 @@
   </tr>
   <tr *ngFor="let week of weekService.getWeeks()">
     <td class="day" *ngFor="let date of week.days">
-      <my-simple-day *ngIf="date.isSimpleDay()" [date]="date" (confirmNewDayWeekend)="onConfirmNewDayWeekend($event)"></my-simple-day>
+      <my-simple-day *ngIf="date.isSimpleDay()" [date]="date"></my-simple-day>
       <my-workday *ngIf="date.isWorkDay()" [date]="date"></my-workday>
     </td>
   </tr>
 </table>
 <my-monthly-statistic></my-monthly-statistic>
 <!--<button (click)="deleteAll()">Delete all</button>-->
-<my-confirm-modal message="Are you sure working on weekend?" [isVisible]="isWeekend" (confirm)="onConfirm()" (close)="isWeekend = false;"></my-confirm-modal>

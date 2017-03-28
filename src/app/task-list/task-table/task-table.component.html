@@ -39,9 +39,6 @@
             <td><span class="glyphicon glyphicon-plus" (click)="onCreateTask()"></span></td>
         </tr>
     </table>
-    <my-confirm-modal message="Are you sure you delete this task?" [isVisible]="confirmDeleteVisible" (confirm)="onConfirmDeleteTask()"
-                      (close)="confirmDeleteVisible = false"></my-confirm-modal>
-
     <my-modify-task *ngIf="selectedTask" [(selectedTask)]="selectedTask" [newTaskId]="selectedTask.taskId"
                     [newComment]="selectedTask.comment" [newStartTime]="selectedTask.startingTime"
                     [newEndTime]="selectedTask.endingTime" (modify)="onModifyTask()"></my-modify-task>

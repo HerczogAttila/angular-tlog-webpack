@@ -6,6 +6,7 @@ import { FinishingTaskRB } from '../../shared/classes/backend/finishingTaskRB';
 import { StartTaskRB } from '../../shared/classes/backend/startTaskRB';
 import { ErrorModalComponent } from '../../modals/error-modal/error-modal.component';
 import { STATUS_CODE_NOT_MODIFIED, NetworkService } from '../../shared/services/network.service';
+import { ConfirmModalComponent } from '../../modals/confirm-modal/confirm-modal.component';
 
 @Component({
     selector: 'my-task-table',
@@ -16,8 +17,6 @@ import { STATUS_CODE_NOT_MODIFIED, NetworkService } from '../../shared/services/
 export class TaskTableComponent {
     @Input() public tasks: Task[];
     @Output() public refresh = new EventEmitter();
-
-    public confirmDeleteVisible = false;
 
     public taskId = '';
     public comment = '';
@@ -60,8 +59,11 @@ export class TaskTableComponent {
     }
 
     public onRequestDeleteTask(task: Task): void {
-        this.confirmDeleteVisible = true;
         this.requestDeleteTask = task;
+        ConfirmModalComponent.show('Are you sure you delete this task?',
+            () => {
+            this.onConfirmDeleteTask();
+        });
     }
 
     public onConfirmDeleteTask(): void {
