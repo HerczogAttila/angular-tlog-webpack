@@ -9,7 +9,6 @@ import { MyDate } from '../classes/myDate';
 import { WorkDay } from '../classes/backend/workDay';
 import { ModifyWorkDayRB } from '../classes/backend/modifyWorkDayRB';
 import { WorkDayRB } from '../classes/backend/workDayRB';
-// import { Task } from '../classes/backend/task';
 import { UserRB } from '../classes/backend/userRB';
 
 export const STATUS_CODE_NOT_MODIFIED = 304;
@@ -40,7 +39,6 @@ export class NetworkService {
     private urlGetWorkDay = this.urlBase + 'workmonths/workdays/';
     private urlModifyWorkDay = this.urlBase + 'workmonths/workdays/modify';
 
-    // private urlGetTasks = this.urlBase + 'workmonths/';
     private urlStartTask = this.urlBase + 'workmonths/workdays/tasks/start';
     private urlFinishingTask = this.urlBase + 'workmonths/workdays/tasks/finish';
     private urlModifyTask = this.urlBase + 'workmonths/workdays/tasks/modify';
@@ -92,12 +90,6 @@ export class NetworkService {
         return this.http.put(this.urlModifyWorkDay, JSON.stringify(modifyWorkDay), this.options)
             .map(NetworkService.extractDataJson);
     }
-
-    // public getTasks(date: MyDate): Observable<Task[]> {
-    //     let url = this.urlGetTasks + date.getYear() + '/' + date.getMonth() + '/' + date.getDay();
-    //     return this.http.get(url, this.options)
-    //         .map(NetworkService.extractDataJson);
-    // }
     public startTask(startTask: StartTaskRB): Observable<Response> {
         return this.http.post(this.urlStartTask, JSON.stringify(startTask), this.options);
     }
