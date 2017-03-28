@@ -1,0 +1,6 @@
+#!/bin/bash
+# Stop containers and remove images
+
+docker-compose down
+sudo docker rmi -f polc/tlog16angular
+sudo docker rmi -f polc/tlog16rs
