@@ -1,7 +1,10 @@
+<div class="left" *ngIf="isLogged()">
+    <p class="inline">{{ getUserName() }}</p>
+    <span class="glyphicon glyphicon-log-out" (click)="logOut()"></span>
+</div>
 <nav class="center" *ngIf="isLogged()">
     <a routerLink="/calendar">{{ 'Calendar' | translate }}</a>
     <a routerLink="/task-list">{{ 'Task list' | translate }}</a>
-    <p class="logout" (click)="logOut()">{{ 'Logout' | translate }}</p>
 </nav>
 <nav class="center" *ngIf="!isLogged()">
     <a routerLink="/login">{{ 'Login' | translate }}</a>

@@ -1,9 +1,7 @@
-import { Component } from '@angular/core';
-
 import '../style/app.scss';
+import { Component } from '@angular/core';
 import { Observable } from 'rxjs';
 import { TranslateService } from 'ng2-translate';
-import { NetworkService } from './shared/services/network.service';
 import { LoginService } from './shared/services/login.service';
 
 @Component({
@@ -16,7 +14,6 @@ export class AppComponent {
 
   constructor(
       private translate: TranslateService,
-      private networkService: NetworkService,
       private loginService: LoginService,
   ) {
     this.translate.setDefaultLang('en');
@@ -30,17 +27,8 @@ export class AppComponent {
   }
 
   private refreshToken(): void {
-    if (localStorage.getItem('jwtToken')) {
-      this.networkService.refresh()
-          .subscribe(
-              jwtToken => {
-                  localStorage.setItem('jwtToken', jwtToken);
-              },
-              error => {
-                  console.log(error);
-                  this.loginService.logOut();
-              }
-          );
+    if (LoginService.isLogged()) {
+      this.loginService.refreshToken();
     }
   }
 }

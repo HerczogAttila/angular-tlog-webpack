@@ -14,6 +14,10 @@ export class NavigationComponent {
         this.loginService.logOut();
     }
 
+    public getUserName(): string {
+        return LoginService.getUserName();
+    }
+
     public isLogged(): boolean {
         return LoginService.isLogged();
     }

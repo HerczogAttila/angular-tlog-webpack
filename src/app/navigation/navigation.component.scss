@@ -3,8 +3,16 @@
   text-align: center;
 }
 
-.logout {
-  color: red;
-  cursor: pointer;
+.left {
+  margin: auto;
+  width: 96%;
+  text-align: right;
+}
+
+.inline {
   display: inline;
+}
+
+span {
+  cursor: pointer;
 }

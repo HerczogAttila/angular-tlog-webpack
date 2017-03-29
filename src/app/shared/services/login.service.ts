@@ -11,11 +11,29 @@ export class LoginService {
         return !!localStorage.getItem('jwtToken');
     }
 
+    public static getUserName(): string {
+        return localStorage.getItem('userName');
+    }
+
     constructor(
         private networkService: NetworkService,
         private weekService: WeekService,
         private router: Router,
     ) {}
+
+    public refreshToken() {
+        this.networkService.refresh()
+            .subscribe(
+                jwtToken => {
+                    localStorage.setItem('jwtToken', jwtToken);
+                },
+                error => {
+                    console.log(error);
+                    this.logOut();
+                    ErrorModalComponent.show('Authorization problem');
+                }
+            );
+    }
 
     public logOut(): void {
         localStorage.removeItem('jwtToken');
@@ -42,7 +60,7 @@ export class LoginService {
     }
 
     private logIn(name: string, jwt: string): void {
-        localStorage.setItem('username', name);
+        localStorage.setItem('userName', name);
         localStorage.setItem('jwtToken', jwt);
         this.networkService.refreshHeader();
         this.router.navigate(['/calendar'])
