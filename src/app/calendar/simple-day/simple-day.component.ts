@@ -17,6 +17,12 @@ import { ConfirmModalComponent } from '../../modals/confirm-modal/confirm-modal.
 export class SimpleDayComponent {
   @Input() public date: MyDate;
 
+  private static errorNewWorkDay(error: Response): void {
+    if (error.status === STATUS_CODE_NOT_MODIFIED) {
+      ErrorModalComponent.show('You can not create a working day in the future');
+    }
+  }
+
   constructor(
       private weekService: WeekService,
       private networkService: NetworkService
@@ -33,7 +39,7 @@ export class SimpleDayComponent {
     }
   }
 
-  public creatable(): boolean {
+  public isCreatable(): boolean {
     return this.date.date.getTime() <= new Date().getTime();
   }
 
@@ -41,7 +47,7 @@ export class SimpleDayComponent {
     this.networkService.addWorkDayWeekend(workDay)
         .subscribe(
             day => this.responseNewWorkDay(day),
-            error => this.errorNewWorkDay(error)
+            error => SimpleDayComponent.errorNewWorkDay(error)
         );
   }
 
@@ -49,18 +55,12 @@ export class SimpleDayComponent {
     this.networkService.addWorkDay(workDay)
         .subscribe(
             day => this.responseNewWorkDay(day),
-            error => this.errorNewWorkDay(error)
+            error => SimpleDayComponent.errorNewWorkDay(error)
         );
   }
 
   private responseNewWorkDay(workDay: WorkDay): void {
     this.date.makeWorkDay(workDay);
     this.weekService.refreshStatistics();
-  }
-
-  private errorNewWorkDay(error: Response): void {
-    if (error.status === STATUS_CODE_NOT_MODIFIED) {
-      ErrorModalComponent.show('You can not create a working day in the future');
-    }
   }
 }
