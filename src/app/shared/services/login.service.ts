@@ -25,7 +25,7 @@ export class LoginService {
         this.networkService.refresh()
             .subscribe(
                 jwtToken => {
-                    localStorage.setItem('jwtToken', jwtToken);
+                    this.setJwtToken(jwtToken);
                 },
                 error => {
                     console.log(error);
@@ -61,11 +61,15 @@ export class LoginService {
 
     private logIn(name: string, jwt: string): void {
         localStorage.setItem('userName', name);
-        localStorage.setItem('jwtToken', jwt);
-        this.networkService.refreshHeader();
+        this.setJwtToken(jwt);
         this.router.navigate(['/calendar'])
             .catch(error => {
                 console.error(error);
             });
+    }
+
+    private setJwtToken(jwt: string): void {
+        localStorage.setItem('jwtToken', jwt);
+        this.networkService.refreshHeader();
     }
 }
