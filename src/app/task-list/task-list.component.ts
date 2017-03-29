@@ -4,7 +4,6 @@ import { MyDate } from '../shared/classes/myDate';
 import { WeekService } from '../shared/services/week.service';
 import { PagerService } from '../shared/services/pager.service';
 import { Task } from '../shared/classes/backend/task';
-import { Router } from '@angular/router';
 import { WorkDay } from '../shared/classes/backend/workDay';
 import { NetworkService } from '../shared/services/network.service';
 
@@ -25,24 +24,16 @@ export class TaskListComponent implements OnInit {
       private weekService: WeekService,
       private pagerService: PagerService,
       private networkService: NetworkService,
-      private router: Router,
   ) { }
 
   public ngOnInit(): void {
-    if (!localStorage.getItem('jwtToken')) {
-      this.router.navigate(['/login'])
-          .catch(error => {
-            console.error(error);
-          }
-      );
-    } else {
-      this.pagerService.init();
-      this.pagerService.refresh().subscribe(() => {
-        this.date = this.weekService.getSelectedDay();
-        this.days = this.weekService.getDays();
-        this.refreshWorkDay();
-      });
-    }
+    this.pagerService.init();
+    this.pagerService.refresh()
+        .subscribe(() => {
+          this.date = this.weekService.getSelectedDay();
+          this.days = this.weekService.getDays();
+          this.refreshWorkDay();
+        });
   }
 
   public changeWorkDay(): void {

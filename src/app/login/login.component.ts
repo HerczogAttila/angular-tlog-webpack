@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { UserRB } from '../shared/classes/backend/userRB';
 import { Router } from '@angular/router';
 import { ErrorModalComponent } from '../modals/error-modal/error-modal.component';
@@ -10,7 +10,7 @@ import { NetworkService, STATUS_CODE_UNAUTHORIZED } from '../shared/services/net
     styleUrls: ['login.component.scss'],
 })
 
-export class LoginComponent implements OnInit {
+export class LoginComponent {
     public userName: string;
     public password: string;
 
@@ -20,14 +20,6 @@ export class LoginComponent implements OnInit {
         private networkService: NetworkService,
         private router: Router,
     ) {}
-
-    public ngOnInit(): void {
-        if (localStorage.getItem('jwtToken')) {
-            this.router.navigate(['/calendar']).catch(error => {
-                console.error(error);
-            });
-        }
-    }
 
     public onLogin(): void {
         if (!this.userName) {

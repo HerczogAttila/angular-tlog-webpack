@@ -24,6 +24,7 @@ import { ErrorModalComponent } from './modals/error-modal/error-modal.component'
 import { ConfirmModalComponent } from './modals/confirm-modal/confirm-modal.component';
 import { TaskTableComponent } from './task-list/task-table/task-table.component';
 import { NetworkService } from './shared/services/network.service';
+import { AuthGuard } from './shared/auth.guard.';
 
 @NgModule({
   imports: [
@@ -64,6 +65,7 @@ import { NetworkService } from './shared/services/network.service';
     WeekService,
     PagerService,
     NetworkService,
+    AuthGuard,
   ],
   bootstrap: [AppComponent]
 })

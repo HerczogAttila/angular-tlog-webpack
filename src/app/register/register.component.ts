@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { UserRB } from '../shared/classes/backend/userRB';
 import { Router } from '@angular/router';
 import { ErrorModalComponent } from '../modals/error-modal/error-modal.component';
@@ -17,7 +17,7 @@ const MISSING_PASSWORD = 'Missing password!';
     ],
 })
 
-export class RegisterComponent implements OnInit {
+export class RegisterComponent {
     public userName: string;
     public password: string;
 
@@ -28,15 +28,6 @@ export class RegisterComponent implements OnInit {
         private networkService: NetworkService,
         private router: Router,
     ) {}
-
-    public ngOnInit(): void {
-        if (localStorage.getItem('jwtToken')) {
-            this.router.navigate(['/calendar'])
-                .catch(error => {
-                console.error(error);
-            });
-        }
-    }
 
     public onRegister(): void {
         if (!this.userName) {
