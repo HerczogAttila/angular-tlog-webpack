@@ -25,6 +25,7 @@ import { ConfirmModalComponent } from './modals/confirm-modal/confirm-modal.comp
 import { TaskTableComponent } from './task-list/task-table/task-table.component';
 import { NetworkService } from './shared/services/network.service';
 import { AuthGuard } from './shared/auth.guard.';
+import { LoginService } from './shared/services/login.service';
 
 @NgModule({
   imports: [
@@ -66,22 +67,26 @@ import { AuthGuard } from './shared/auth.guard.';
     PagerService,
     NetworkService,
     AuthGuard,
+    LoginService,
   ],
   bootstrap: [AppComponent]
 })
 export class AppModule {
   constructor(public appRef: ApplicationRef) {}
-  hmrOnInit(store) {
+
+  public hmrOnInit(store): void {
     console.log('HMR store', store);
   }
-  hmrOnDestroy(store) {
+
+  public hmrOnDestroy(store): void {
     let cmpLocation = this.appRef.components.map(cmp => cmp.location.nativeElement);
     // recreate elements
     store.disposeOldHosts = createNewHosts(cmpLocation);
     // remove styles
     removeNgStyles();
   }
-  hmrAfterDestroy(store) {
+
+  public hmrAfterDestroy(store): void {
     // display new elements
     store.disposeOldHosts();
     delete store.disposeOldHosts;

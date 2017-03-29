@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { UserRB } from '../shared/classes/backend/userRB';
-import { Router } from '@angular/router';
 import { ErrorModalComponent } from '../modals/error-modal/error-modal.component';
 import { NetworkService, STATUS_CODE_NOT_MODIFIED } from '../shared/services/network.service';
+import { LoginService } from '../shared/services/login.service';
 
 const EXIST_USER = 'Existing user name!';
 const MISSING_USER = 'Missing user name!';
@@ -26,7 +26,7 @@ export class RegisterComponent {
 
     constructor(
         private networkService: NetworkService,
-        private router: Router,
+        private loginService: LoginService,
     ) {}
 
     public onRegister(): void {
@@ -44,13 +44,7 @@ export class RegisterComponent {
         this.networkService.registering(user)
             .subscribe(
                 () => {
-                    this.networkService.authenticate(user)
-                        .subscribe(jwtToken => {
-                            this.networkService.setJWTToken(jwtToken);
-                            this.router.navigate(['/calendar']).catch(error => {
-                                console.error(error);
-                            });
-                        });
+                    this.loginService.logInRequest(user);
                 },
                 (error) => {
                     if (error.status === STATUS_CODE_NOT_MODIFIED) {

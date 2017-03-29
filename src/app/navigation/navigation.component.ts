@@ -1,7 +1,5 @@
 import { Component } from '@angular/core';
-import { WeekService } from '../shared/services/week.service';
-import { Router } from '@angular/router';
-import { NetworkService } from '../shared/services/network.service';
+import { LoginService } from '../shared/services/login.service';
 
 @Component({
     selector: 'my-navigation',
@@ -10,19 +8,13 @@ import { NetworkService } from '../shared/services/network.service';
 })
 
 export class NavigationComponent {
+    constructor(private loginService: LoginService) {}
 
-    constructor(
-        public networkService: NetworkService,
-        private weekService: WeekService,
-        private router: Router,
-    ) {}
+    public logOut(): void {
+        this.loginService.logOut();
+    }
 
-    public onLogout(): void {
-        localStorage.removeItem('jwtToken');
-        this.networkService.login = false;
-        this.weekService.clear();
-        this.router.navigate(['/login']).catch(error => {
-            console.error(error);
-        });
+    public isLogged(): boolean {
+        return LoginService.isLogged();
     }
 }

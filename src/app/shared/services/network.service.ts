@@ -16,8 +16,6 @@ export const STATUS_CODE_UNAUTHORIZED = 401;
 
 @Injectable()
 export class NetworkService {
-    public login = !!localStorage.getItem('jwtToken');
-
     private headers = new Headers({ 'Content-Type': 'application/json', 'Authorization': localStorage.getItem('jwtToken') });
     private options = new RequestOptions({ headers: this.headers });
 
@@ -53,6 +51,11 @@ export class NetworkService {
     }
 
     constructor (private http: Http) {}
+
+    public refreshHeader(): void {
+        this.headers = new Headers({ 'Content-Type': 'application/json', 'Authorization': localStorage.getItem('jwtToken') });
+        this.options = new RequestOptions({ headers: this.headers });
+    }
 
     public registering(user: UserRB): Observable<Response> {
         return this.http.post(this.urlRegistering, JSON.stringify(user), this.options);
@@ -105,12 +108,5 @@ export class NetworkService {
 
     public deleteAll(): Observable<Response> {
         return this.http.put(this.urlDeleteAll, { }, this.options);
-    }
-
-    public setJWTToken(token: string): void {
-        localStorage.setItem('jwtToken', token);
-        this.login = true;
-        this.headers = new Headers({ 'Content-Type': 'application/json', 'Authorization': localStorage.getItem('jwtToken') });
-        this.options = new RequestOptions({ headers: this.headers });
     }
 }
