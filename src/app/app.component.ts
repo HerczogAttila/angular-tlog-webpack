@@ -18,7 +18,7 @@ export class AppComponent {
       public translate: TranslateService,
   ) {
     translate.setDefaultLang('en');
-    translate.use(navigator.language);
+    translate.use(navigator.language.split('-')[0]);
 
     this.refreshToken();
     Observable.interval(240000).subscribe(() => {
