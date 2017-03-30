@@ -1,2 +1,3 @@
 <p>{{date.getDay()}}</p>
-<span class="glyphicon glyphicon-plus" *ngIf="isCreatable()" (click)="onNewWorkday()"></span>
+<span data-toggle="tooltip" title="{{ 'Create workday' | translate }}" class="glyphicon glyphicon-plus"
+      *ngIf="isCreatable()" (click)="onNewWorkday()"></span>

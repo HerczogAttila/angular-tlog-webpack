@@ -5,8 +5,10 @@
         </div>
         <div class="modal-body">
             <p>{{ getMessage() | translate}}</p>
-            <span class="answer glyphicon glyphicon-ok" (click)="onConfirm()"></span>
-            <span class="answer glyphicon glyphicon-remove" (click)="onClose()"></span>
+            <span data-toggle="tooltip" title="{{ 'Confirm' | translate }}" class="answer glyphicon glyphicon-ok"
+                  (click)="onConfirm()"></span>
+            <span data-toggle="tooltip" title="{{ 'Cancel' | translate }}" class="answer glyphicon glyphicon-remove"
+                  (click)="onClose()"></span>
         </div>
     </div>
 </div>

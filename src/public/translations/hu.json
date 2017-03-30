@@ -48,10 +48,11 @@
   "Minutes": "Munkaidő (percekben)",
   "Extra minutes": "Extra munkaidő (percekben)",
 
-  "Finishing": "Befejez",
+  "Finish": "Befejez",
   "Edit": "Szerkesztés",
-  "Modify": "Módosít",
-  "Add": "Hozzáad",
+  "Modify": "Módosítás",
+  "Add": "Hozzáadás",
+  "Delete": "Törlés",
 
   "Are you sure working on weekend?": "Biztos dolgozik hétvégén?",
   "Are you sure you delete this task?": "Biztosan törli ezt a feladatot?",
@@ -62,5 +63,11 @@
   "Unknown error": "Ismeretlen hiba",
   "You can not create a working day in the future": "Nem hozható létre munkanap a jövőben",
   "The task can not be created": "A feladat nem hozható létre",
-  "Invalid data": "Érvénytelen adat"
+  "Invalid data": "Érvénytelen adat",
+
+  "Create workday": "Munkanap létrehozás",
+  "Previous month": "Előző hónap",
+  "Next month": "Következő hónap",
+  "Close": "Bezár",
+  "Cancel": "Mégse"
 }

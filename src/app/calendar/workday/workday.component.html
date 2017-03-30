@@ -1,3 +1,4 @@
 <p>{{date.getDay()}}</p>
 <p class="inline" [ngClass]="date.extraMinutes >= 0 ? 'positiveValue' : 'negativeValue'">{{date.extraMinutes}}</p>
-<span class="glyphicon glyphicon-pencil" (click)="navigateTaskList()"></span>
+<span data-toggle="tooltip" title="{{ 'Task list' | translate }}" class="glyphicon glyphicon-pencil"
+      (click)="navigateTaskList()"></span>

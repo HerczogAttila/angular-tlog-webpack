@@ -4,7 +4,8 @@
 
     <p class="inline">{{ 'Required working minutes' | translate }}:</p>
     <p class="inline" *ngIf="!edit">{{date.requiredWorkMinutes}}</p>
-    <span class="glyphicon glyphicon-pencil" *ngIf="!edit" (click)="onEditRequiredWorkingMinutes()"></span>
+    <span data-toggle="tooltip" title="{{ 'Edit' | translate }}" class="glyphicon glyphicon-pencil"
+          *ngIf="!edit" (click)="onEditRequiredWorkingMinutes()"></span>
     <div *ngIf="edit" class="inline">
         <label for="requiredWorkingMinutes"></label>
         <input id="requiredWorkingMinutes" type="text" [(ngModel)]="requiredWorkingMinutes">

@@ -14,11 +14,17 @@
             <td>{{task.comment}}</td>
             <td>{{task.startingTime}}</td>
             <td *ngIf="task.endingTime">{{task.endingTime}}</td>
-            <td *ngIf="!task.endingTime"><span class="glyphicon glyphicon-time" (click)="finishingTask(task)"></span></td>
+            <td *ngIf="!task.endingTime">
+                <span data-toggle="tooltip" title="{{ 'Finish' | translate }}" class="glyphicon glyphicon-time"
+                      (click)="finishingTask(task)">
+
+                </span></td>
             <td>{{task.minPerTask}}</td>
             <td>
-                <span class="glyphicon glyphicon-pencil" (click)="onSelectTask(task)"></span>
-                <span class="glyphicon glyphicon-remove" (click)="onRequestDeleteTask(task)"></span>
+                <span data-toggle="tooltip" title="{{ 'Edit' | translate }}" class="glyphicon glyphicon-pencil"
+                      (click)="onSelectTask(task)"></span>
+                <span data-toggle="tooltip" title="{{ 'Delete' | translate }}" class="glyphicon glyphicon-remove"
+                      (click)="onRequestDeleteTask(task)"></span>
             </td>
         </tr>
         <tr>
@@ -36,7 +42,8 @@
             </td>
             <td></td>
             <td></td>
-            <td><span class="glyphicon glyphicon-plus" (click)="onCreateTask()"></span></td>
+            <td><span data-toggle="tooltip" title="{{ 'Add' | translate }}" class="glyphicon glyphicon-plus"
+                      (click)="onCreateTask()"></span></td>
         </tr>
     </table>
     <my-modify-task *ngIf="selectedTask" [(selectedTask)]="selectedTask" [newTaskId]="selectedTask.taskId"
