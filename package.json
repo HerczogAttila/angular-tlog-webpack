@@ -19,8 +19,9 @@
     "posttest": "remap-istanbul -i coverage/json/coverage-final.json -o coverage/html -t html",
     "test-watch": "karma start --no-single-run --auto-watch",
     "ci": "npm run e2e && npm run test",
-    "docs": "typedoc --options typedoc.json src/app/app.component.ts",
+    "docs": "typedoc --options   typedoc.json src/app/app.component.ts",
     "start": "npm run server",
+    // "start": "webpack-dev-server --inline --colors --watch --display-error-details --display-cached  --port 3001 --hot"
     "start:hmr": "npm run server -- --hot",
     "postinstall": "npm run webdriver-update"
   },
