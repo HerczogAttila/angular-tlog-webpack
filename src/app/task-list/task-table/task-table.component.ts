@@ -20,19 +20,50 @@ export class TaskTableComponent {
 
     public taskId = '';
     public comment = '';
-    public startTime = TaskTableComponent.getActualTime();
+    public startTime = TaskTableComponent.getActualTimeQuarterHour();
 
     public selectedTask: Task;
     private requestDeleteTask: Task;
 
-    private static getActualTime(): string {
+    private static getDateFromTimeString(time: string): Date {
         let date = new Date();
-        let minutes = date.getMinutes() - date.getMinutes() % 15 + '';
+        let split = time.split(':');
+        date.setHours(+split[0]);
+        date.setMinutes(+split[1]);
+
+        return date;
+    }
+
+    private static getActualTimeQuarterHour(): string {
+        let date = new Date();
+        let minutes = date.getMinutes();
+        minutes -= minutes % 15;
+        date.setMinutes(minutes);
+
+        return TaskTableComponent.dateToTimeString(date);
+    }
+
+    private static dateToTimeString(date: Date): string {
+        let minutes = date.getMinutes() + '';
         if (minutes === '0') {
             minutes = '00';
         }
 
         return date.getHours() + ':' + minutes;
+    }
+
+    private static nextQuarterHour(task: Task): string {
+        let startDate = TaskTableComponent.getDateFromTimeString(task.startingTime);
+        let endDate = new Date();
+        let minutes = (endDate.getTime() - startDate.getTime()) / 60000;
+        minutes -= minutes % 15 - 15;
+        if (minutes < 15) {
+            minutes = 15;
+        }
+
+        startDate.setMinutes(startDate.getMinutes() + minutes);
+
+        return TaskTableComponent.dateToTimeString(startDate);
     }
 
     constructor(
@@ -48,7 +79,7 @@ export class TaskTableComponent {
                     this.refresh.emit();
                     this.taskId = '';
                     this.comment = '';
-                    this.startTime = TaskTableComponent.getActualTime();
+                    this.startTime = TaskTableComponent.getActualTimeQuarterHour();
                 },
                 error => {
                     if (error.status === STATUS_CODE_NOT_MODIFIED) {
@@ -82,8 +113,10 @@ export class TaskTableComponent {
         if (!task || !task.startingTime) {
             return;
         }
+        let endTime = TaskTableComponent.nextQuarterHour(task);
+        console.log(endTime);
 
-        let finishingTask = FinishingTaskRB.create(this.weekService.getSelectedDay(), task, TaskTableComponent.getActualTime());
+        let finishingTask = FinishingTaskRB.create(this.weekService.getSelectedDay(), task, endTime);
         this.networkService.finishingTask(finishingTask)
             .subscribe(
                 () => this.refresh.emit(),
