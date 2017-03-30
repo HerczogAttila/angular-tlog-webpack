@@ -3,10 +3,14 @@
   text-align: center;
 }
 
-.left {
-  margin: auto;
-  width: 96%;
+.right {
+  margin-right: 50px;
   text-align: right;
+}
+
+.left {
+  margin-left: 50px;
+  text-align: left;
 }
 
 .inline {

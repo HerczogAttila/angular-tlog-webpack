@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { LoginService } from '../shared/services/login.service';
+import { WeekService } from '../shared/services/week.service';
+import { PagerService } from '../shared/services/pager.service';
 
 @Component({
     selector: 'my-navigation',
@@ -8,7 +10,11 @@ import { LoginService } from '../shared/services/login.service';
 })
 
 export class NavigationComponent {
-    constructor(private loginService: LoginService) {}
+    constructor(
+        public weekService: WeekService,
+        private pagerService: PagerService,
+        private loginService: LoginService,
+    ) {}
 
     public logOut(): void {
         this.loginService.logOut();
@@ -20,5 +26,9 @@ export class NavigationComponent {
 
     public isLogged(): boolean {
         return LoginService.isLogged();
+    }
+
+    public setWeekStartIndex() {
+        this.pagerService.refresh();
     }
 }

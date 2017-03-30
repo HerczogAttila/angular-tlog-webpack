@@ -27,8 +27,7 @@ export class LoginService {
                 jwtToken => {
                     this.setJwtToken(jwtToken);
                 },
-                error => {
-                    console.log(error);
+                () => {
                     this.logOut();
                     ErrorModalComponent.show('Authorization problem');
                 }

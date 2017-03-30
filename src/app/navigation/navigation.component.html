@@ -1,4 +1,12 @@
 <div class="left" *ngIf="isLogged()">
+    <p class="inline">{{ 'Week start day' | translate }}:</p>
+    <label for="startWeekIndex"></label>
+    <select id="startWeekIndex" [(ngModel)]="weekService.weekStartIndex" (change)="setWeekStartIndex($event)">
+        <option [selected]="weekService.weekStartIndex === 0" [ngValue]="0">{{ 'Sunday' | translate }}</option>
+        <option [selected]="weekService.weekStartIndex === 1" [ngValue]="1">{{ 'Monday' | translate }}</option>
+    </select>
+</div>
+<div class="right" *ngIf="isLogged()">
     <p class="inline">{{ getUserName() }}</p>
     <span data-toggle="tooltip" title="{{ 'Logout' | translate }}" class="glyphicon glyphicon-log-out"
           (click)="logOut()"></span>

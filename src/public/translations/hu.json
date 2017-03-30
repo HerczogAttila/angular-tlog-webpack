@@ -11,8 +11,11 @@
   "Wrong password or user name!": "Hibás jelszó vagy felhasználónév!",
 
   "Calendar": "Naptár",
+  "Week start day": "Hét kezdőnap",
   "Sun": "Vasárnap",
+  "Sunday": "Vasárnap",
   "Mon": "Hétfő",
+  "Monday": "Hétfő",
   "Tue": "Kedd",
   "Wed": "Szerda",
   "Thu": "Csütörtök",
