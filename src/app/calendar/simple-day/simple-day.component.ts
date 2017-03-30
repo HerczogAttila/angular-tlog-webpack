@@ -61,6 +61,7 @@ export class SimpleDayComponent {
 
   private responseNewWorkDay(workDay: WorkDay): void {
     this.date.makeWorkDay(workDay);
+    this.weekService.addWorkDay(this.date);
     this.weekService.refreshStatistics();
   }
 }

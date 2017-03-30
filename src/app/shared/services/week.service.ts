@@ -76,6 +76,10 @@ export class WeekService {
             week = this.lastWeek();
         }
         week.days.push(day);
+        this.addWorkDay(day);
+    }
+
+    public addWorkDay(day: MyDate): void {
         if (day.isWorkDay()) {
             this.workDays.push(day);
         }
