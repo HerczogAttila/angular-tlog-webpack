@@ -11,6 +11,8 @@ export class WeekService {
     public minutes: number;
     public extraMinutes: number;
 
+    public weekStartIndex = 0;
+
     private weeks: Week[] = [];
     private workDays: MyDate[] = [];
 

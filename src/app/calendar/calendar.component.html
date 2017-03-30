@@ -4,7 +4,8 @@
 </div>
 <table class="header">
   <tr>
-    <td *ngFor="let day of daysOfWeek">{{day | translate}}</td>
+    <td *ngFor="let day of daysOfWeek | slice:weekService.weekStartIndex:7">{{day | translate}}</td>
+    <td *ngFor="let day of daysOfWeek | slice:0:weekService.weekStartIndex">{{day | translate}}</td>
   </tr>
   <tr *ngFor="let week of weekService.getWeeks()">
     <td class="day" *ngFor="let date of week.days">
@@ -14,4 +15,4 @@
   </tr>
 </table>
 <my-monthly-statistic></my-monthly-statistic>
-<button (click)="deleteAll()">Delete all</button>
+<!--<button (click)="deleteAll()">Delete all</button>-->
