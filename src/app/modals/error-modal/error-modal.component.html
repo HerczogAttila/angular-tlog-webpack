@@ -1,12 +1,12 @@
-<div class="modal" [ngClass]="isVisible() ? 'error' : 'notError'">
+<div class="modal" [ngClass]="me.visible ? 'error' : 'notError'">
   <div class="modal-content">
     <div class="modal-header">
       <span data-toggle="tooltip" title="{{ 'Close' | translate }}"
-             class="close glyphicon glyphicon-remove" (click)="onClose()"></span>
+             class="close glyphicon glyphicon-remove" (click)="me.onClose()"></span>
       <p>{{ 'Error' | translate}}!</p>
     </div>
     <div class="modal-body">
-      <p>{{ getMessage() | translate}}!</p>
+      <p>{{ me.message | translate}}!</p>
     </div>
   </div>
 </div>

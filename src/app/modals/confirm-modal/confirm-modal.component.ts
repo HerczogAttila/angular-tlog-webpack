@@ -7,9 +7,9 @@ import { Component } from '@angular/core';
 })
 
 export class ConfirmModalComponent {
-    private static visible = false;
-    private static message = '';
-    private static confirm: Function;
+    public static visible = false;
+    public static message = '';
+    public static confirm: Function;
 
     public static show(message: string, confirm: Function): void {
         ConfirmModalComponent.message = message;
@@ -17,20 +17,14 @@ export class ConfirmModalComponent {
         ConfirmModalComponent.visible = true;
     }
 
-    public isVisible(): boolean {
-        return ConfirmModalComponent.visible;
-    }
-
-    public getMessage(): string {
-        return ConfirmModalComponent.message;
-    }
-
-    public onClose(): void {
+    public static onClose(): void {
         ConfirmModalComponent.visible = false;
     }
 
-    public onConfirm(): void {
+    public static onConfirm(): void {
         ConfirmModalComponent.visible = false;
         ConfirmModalComponent.confirm();
     }
+
+    public me = ConfirmModalComponent;
 }

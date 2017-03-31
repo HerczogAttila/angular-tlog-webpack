@@ -7,23 +7,17 @@ import { Component } from '@angular/core';
 })
 
 export class ErrorModalComponent {
-    private static visible = false;
-    private static message = '';
+    public static visible = false;
+    public static message = '';
 
     public static show(message: string): void {
         ErrorModalComponent.message = message;
         ErrorModalComponent.visible = true;
     }
 
-    public isVisible(): boolean {
-        return ErrorModalComponent.visible;
-    }
-
-    public getMessage(): string {
-        return ErrorModalComponent.message;
-    }
-
-    public onClose(): void {
+    public static onClose(): void {
         ErrorModalComponent.visible = false;
     }
+
+    public me = ErrorModalComponent;
 }
