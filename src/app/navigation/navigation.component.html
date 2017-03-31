@@ -1,4 +1,4 @@
-<table *ngIf="isLogged()">
+<table *ngIf="login.isLogged()">
     <tr>
         <td class="left">
             <p class="inline">{{ 'Week start day' | translate }}:</p>
@@ -10,7 +10,7 @@
         </td>
         <td class="right">
             <div class="dropdown">
-                <p class="inline">{{ getUserName() }}</p>
+                <p class="inline">{{ login.getUserName() }}</p>
                 <span class="inline glyphicon glyphicon-menu-down"></span>
                 <div class="dropdown-content">
                     <a routerLink="/calendar">{{ 'Calendar' | translate }}</a>
@@ -31,7 +31,7 @@
     </tr>
 </table>
 
-<nav class="center" *ngIf="!isLogged()">
+<nav class="center" *ngIf="!login.isLogged()">
     <a routerLink="/login">{{ 'Login' | translate }}</a>
     <a routerLink="/register">{{ 'Register' | translate }}</a>
 </nav>

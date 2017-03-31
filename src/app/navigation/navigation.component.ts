@@ -16,16 +16,10 @@ export class NavigationComponent {
         private loginService: LoginService,
     ) {}
 
+    public login = LoginService;
+
     public logOut(): void {
         this.loginService.logOut();
-    }
-
-    public getUserName(): string {
-        return LoginService.getUserName();
-    }
-
-    public isLogged(): boolean {
-        return LoginService.isLogged();
     }
 
     public setWeekStartIndex() {
