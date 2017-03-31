@@ -109,7 +109,6 @@ export class TaskTableComponent {
             return;
         }
         let endTime = TaskTableComponent.nextQuarterHour(task);
-        console.log(endTime);
 
         let finishingTask = FinishingTaskRB.create(this.weekService.getSelectedDay(), task, endTime);
         this.networkService.finishingTask(finishingTask)
