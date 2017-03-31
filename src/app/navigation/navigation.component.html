@@ -1,20 +1,36 @@
-<div class="left" *ngIf="isLogged()">
-    <p class="inline">{{ 'Week start day' | translate }}:</p>
-    <label for="startWeekIndex"></label>
-    <select id="startWeekIndex" [(ngModel)]="weekService.weekStartIndex" (change)="setWeekStartIndex($event)">
-        <option [selected]="weekService.weekStartIndex === 0" [ngValue]="0">{{ 'Sunday' | translate }}</option>
-        <option [selected]="weekService.weekStartIndex === 1" [ngValue]="1">{{ 'Monday' | translate }}</option>
-    </select>
-</div>
-<div class="right" *ngIf="isLogged()">
-    <p class="inline">{{ getUserName() }}</p>
-    <span data-toggle="tooltip" title="{{ 'Logout' | translate }}" class="glyphicon glyphicon-log-out"
-          (click)="logOut()"></span>
-</div>
-<nav class="center" *ngIf="isLogged()">
-    <a routerLink="/calendar">{{ 'Calendar' | translate }}</a>
-    <a routerLink="/task-list">{{ 'Task list' | translate }}</a>
-</nav>
+<table *ngIf="isLogged()">
+    <tr>
+        <td class="left">
+            <p class="inline">{{ 'Week start day' | translate }}:</p>
+            <label for="startWeekIndex"></label>
+            <select id="startWeekIndex" [(ngModel)]="weekService.weekStartIndex" (change)="setWeekStartIndex($event)">
+                <option [selected]="weekService.weekStartIndex === 0" [ngValue]="0">{{ 'Sunday' | translate }}</option>
+                <option [selected]="weekService.weekStartIndex === 1" [ngValue]="1">{{ 'Monday' | translate }}</option>
+            </select>
+        </td>
+        <td class="right">
+            <div class="dropdown">
+                <p class="inline">{{ getUserName() }}</p>
+                <span class="inline glyphicon glyphicon-menu-down"></span>
+                <div class="dropdown-content">
+                    <a routerLink="/calendar">{{ 'Calendar' | translate }}</a>
+                    <a routerLink="/task-list">{{ 'Task list' | translate }}</a>
+                    <div class="span">
+                        <span class="glyphicon glyphicon-log-out" (click)="logOut()"></span>
+                        <p class="logout">{{ 'Logout' | translate }}</p>
+                    </div>
+                </div>
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2" class="center">
+            <a routerLink="/calendar">{{ 'Calendar' | translate }}</a>
+            <a routerLink="/task-list">{{ 'Task list' | translate }}</a>
+        </td>
+    </tr>
+</table>
+
 <nav class="center" *ngIf="!isLogged()">
     <a routerLink="/login">{{ 'Login' | translate }}</a>
     <a routerLink="/register">{{ 'Register' | translate }}</a>

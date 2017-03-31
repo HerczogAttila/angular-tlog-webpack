@@ -17,6 +17,47 @@
   display: inline;
 }
 
-span {
-  cursor: pointer;
+.logout {
+  display: inline;
+  margin-left: 10px;
+}
+
+table {
+  margin: auto;
+  text-align: center;
+  width: 96%;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+  padding: 15px;
+  margin-right: 100px;
+}
+
+.dropdown-content {
+  display: none;
+  margin-right: 60px;
+  text-align: left;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-content a, .span {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-content a:hover, .span:hover {
+  background-color: black;
+  color: white;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
 }
