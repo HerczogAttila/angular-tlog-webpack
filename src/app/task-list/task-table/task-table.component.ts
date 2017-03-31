@@ -115,7 +115,7 @@ export class TaskTableComponent {
             .subscribe(
                 () => {
                     this.startTime = endTime;
-                    this.refresh.emit()
+                    this.refresh.emit();
                 },
                 (error) => {
                     if (error.status === STATUS_CODE_NOT_MODIFIED) {

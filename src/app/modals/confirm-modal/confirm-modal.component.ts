@@ -11,6 +11,8 @@ export class ConfirmModalComponent {
     public static message = '';
     public static confirm: Function;
 
+    public me = ConfirmModalComponent;
+
     public static show(message: string, confirm: Function): void {
         ConfirmModalComponent.message = message;
         ConfirmModalComponent.confirm = confirm;
@@ -25,6 +27,4 @@ export class ConfirmModalComponent {
         ConfirmModalComponent.visible = false;
         ConfirmModalComponent.confirm();
     }
-
-    public me = ConfirmModalComponent;
 }

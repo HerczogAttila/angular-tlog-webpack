@@ -10,6 +10,8 @@ export class ErrorModalComponent {
     public static visible = false;
     public static message = '';
 
+    public me = ErrorModalComponent;
+
     public static show(message: string): void {
         ErrorModalComponent.message = message;
         ErrorModalComponent.visible = true;
@@ -18,6 +20,4 @@ export class ErrorModalComponent {
     public static onClose(): void {
         ErrorModalComponent.visible = false;
     }
-
-    public me = ErrorModalComponent;
 }

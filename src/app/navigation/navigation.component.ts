@@ -10,13 +10,13 @@ import { PagerService } from '../shared/services/pager.service';
 })
 
 export class NavigationComponent {
+    public login = LoginService;
+
     constructor(
         public weekService: WeekService,
         private pagerService: PagerService,
         private loginService: LoginService,
     ) {}
-
-    public login = LoginService;
 
     public logOut(): void {
         this.loginService.logOut();
