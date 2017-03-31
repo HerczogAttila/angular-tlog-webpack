@@ -48,5 +48,5 @@
     </table>
     <my-modify-task *ngIf="selectedTask" [(selectedTask)]="selectedTask" [newTaskId]="selectedTask.taskId"
                     [newComment]="selectedTask.comment" [newStartTime]="selectedTask.startingTime"
-                    [newEndTime]="selectedTask.endingTime" (modify)="onModifyTask()"></my-modify-task>
+                    [newEndTime]="selectedTask.endingTime" (modify)="onModifyTask($event)"></my-modify-task>
 </div>

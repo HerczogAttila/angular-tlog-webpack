@@ -33,7 +33,7 @@ export class ModifyTaskComponent {
         let modifyTask = new ModifyTaskRB(this.weekService.getSelectedDay(), this);
         this.networkService.modifyTask(modifyTask)
             .subscribe(
-                () => this.modify.emit(),
+                () => this.modify.emit(modifyTask.newEndTime),
                 (error) => {
                     if (error.status === STATUS_CODE_NOT_MODIFIED) {
                         ErrorModalComponent.show('Invalid data');

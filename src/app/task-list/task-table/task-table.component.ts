@@ -113,7 +113,10 @@ export class TaskTableComponent {
         let finishingTask = FinishingTaskRB.create(this.weekService.getSelectedDay(), task, endTime);
         this.networkService.finishingTask(finishingTask)
             .subscribe(
-                () => this.refresh.emit(),
+                () => {
+                    this.startTime = endTime;
+                    this.refresh.emit()
+                },
                 (error) => {
                     if (error.status === STATUS_CODE_NOT_MODIFIED) {
                         ErrorModalComponent.show('Invalid data');
@@ -126,8 +129,9 @@ export class TaskTableComponent {
         this.selectedTask = task;
     }
 
-    public onModifyTask(): void {
+    public onModifyTask(endTime: string): void {
         this.refresh.emit();
+        this.startTime = endTime;
         this.selectedTask = null;
     }
 }
