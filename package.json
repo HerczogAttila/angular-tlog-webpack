@@ -21,7 +21,6 @@
     "ci": "npm run e2e && npm run test",
     "docs": "typedoc --options   typedoc.json src/app/app.component.ts",
     "start": "npm run server",
-    // "start": "webpack-dev-server --inline --colors --watch --display-error-details --display-cached  --port 3001 --hot"
     "start:hmr": "npm run server -- --hot",
     "postinstall": "npm run webdriver-update"
   },

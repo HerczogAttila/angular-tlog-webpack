@@ -20,7 +20,7 @@ export class TaskTableComponent {
 
     public taskId = '';
     public comment = '';
-    public startTime = TaskTableComponent.getActualTimeQuarterHour();
+    public startTime = TaskTableComponent.getActualTimeString();
 
     public selectedTask: Task;
     private requestDeleteTask: Task;
@@ -34,13 +34,8 @@ export class TaskTableComponent {
         return date;
     }
 
-    private static getActualTimeQuarterHour(): string {
-        let date = new Date();
-        let minutes = date.getMinutes();
-        minutes -= minutes % 15;
-        date.setMinutes(minutes);
-
-        return TaskTableComponent.dateToTimeString(date);
+    private static getActualTimeString(): string {
+        return TaskTableComponent.dateToTimeString(new Date());
     }
 
     private static dateToTimeString(date: Date): string {
@@ -79,7 +74,7 @@ export class TaskTableComponent {
                     this.refresh.emit();
                     this.taskId = '';
                     this.comment = '';
-                    this.startTime = TaskTableComponent.getActualTimeQuarterHour();
+                    this.startTime = TaskTableComponent.getActualTimeString();
                 },
                 error => {
                     if (error.status === STATUS_CODE_NOT_MODIFIED) {
