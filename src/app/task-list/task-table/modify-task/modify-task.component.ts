@@ -4,7 +4,7 @@ import { Task } from '../../../shared/classes/backend/task';
 import { ErrorModalComponent } from '../../../modals/error-modal/error-modal.component';
 import { NetworkService, STATUS_CODE_NOT_MODIFIED } from '../../../shared/services/network.service';
 import { WeekService } from '../../../shared/services/week.service';
-import { TaskTableComponent } from "../task-table.component";
+import { TaskTableComponent } from '../task-table.component';
 
 @Component({
     selector: 'my-modify-task',
