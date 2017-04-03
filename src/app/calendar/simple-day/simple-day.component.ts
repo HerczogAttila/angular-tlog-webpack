@@ -5,8 +5,8 @@ import { WorkDay } from '../../shared/classes/backend/workDay';
 import { Response } from '@angular/http';
 import { ErrorModalComponent } from '../../modals/error-modal/error-modal.component';
 import { NetworkService, STATUS_CODE_NOT_MODIFIED } from '../../shared/services/network.service';
-import { WeekService } from '../../shared/services/week.service';
 import { ConfirmModalComponent } from '../../modals/confirm-modal/confirm-modal.component';
+import { PagerService } from '../../shared/services/pager.service';
 
 @Component({
   selector: 'my-simple-day',
@@ -24,7 +24,7 @@ export class SimpleDayComponent {
   }
 
   constructor(
-      private weekService: WeekService,
+      private pagerService: PagerService,
       private networkService: NetworkService
   ) { }
 
@@ -60,8 +60,8 @@ export class SimpleDayComponent {
   }
 
   private responseNewWorkDay(workDay: WorkDay): void {
-    this.date.makeWorkDay(workDay);
-    this.weekService.addWorkDay(this.date);
-    this.weekService.refreshStatistics();
+    if (workDay) {
+      this.pagerService.refresh();
+    }
   }
 }
