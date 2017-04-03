@@ -15,8 +15,8 @@
                 <div class="dropdown-content">
                     <a routerLink="/calendar">{{ 'Calendar' | translate }}</a>
                     <a routerLink="/task-list">{{ 'Task list' | translate }}</a>
-                    <div class="span">
-                        <span class="glyphicon glyphicon-log-out" (click)="logOut()"></span>
+                    <div class="logoutDiv span" (click)="logOut()">
+                        <span class="glyphicon glyphicon-log-out"></span>
                         <p class="logout">{{ 'Logout' | translate }}</p>
                     </div>
                 </div>
