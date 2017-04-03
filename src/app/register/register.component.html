@@ -11,6 +11,9 @@
         <td colspan="2" class="right"><button (click)="onRegister()">{{ 'Register' | translate }}</button></td>
     </tr>
     <tr>
-        <td colspan="2"><p class="error">{{ errorMessage | translate }}</p></td>
+        <td colspan="2"><div *ngIf="errorMessage" class="alert alert-danger alert-dismissable fade in">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <p>{{ errorMessage | translate }}</p>
+        </div></td>
     </tr>
 </table>
