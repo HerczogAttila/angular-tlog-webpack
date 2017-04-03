@@ -25,6 +25,20 @@ export class TaskTableComponent {
     public selectedTask: Task;
     private requestDeleteTask: Task;
 
+    public static nextQuarterHour(task: Task): string {
+        let startDate = TaskTableComponent.getDateFromTimeString(task.startingTime);
+        let endDate = new Date();
+        let minutes = (endDate.getTime() - startDate.getTime()) / 60000;
+        minutes -= minutes % 15 - 15;
+        if (minutes < 15) {
+            minutes = 15;
+        }
+
+        startDate.setMinutes(startDate.getMinutes() + minutes);
+
+        return TaskTableComponent.dateToTimeString(startDate);
+    }
+
     private static getDateFromTimeString(time: string): Date {
         let date = new Date();
         let split = time.split(':');
@@ -45,20 +59,6 @@ export class TaskTableComponent {
         }
 
         return date.getHours() + ':' + minutes;
-    }
-
-    private static nextQuarterHour(task: Task): string {
-        let startDate = TaskTableComponent.getDateFromTimeString(task.startingTime);
-        let endDate = new Date();
-        let minutes = (endDate.getTime() - startDate.getTime()) / 60000;
-        minutes -= minutes % 15 - 15;
-        if (minutes < 15) {
-            minutes = 15;
-        }
-
-        startDate.setMinutes(startDate.getMinutes() + minutes);
-
-        return TaskTableComponent.dateToTimeString(startDate);
     }
 
     constructor(

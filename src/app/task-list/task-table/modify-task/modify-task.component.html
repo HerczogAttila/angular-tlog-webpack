@@ -16,6 +16,8 @@
   <tr>
     <td class="right"><label for="endTime">{{ 'End time' | translate }}:</label></td>
     <td><input type="text" id="endTime" [(ngModel)]="newEndTime"></td>
+    <td><span data-toggle="tooltip" title="{{ 'Auto completion' | translate }}" class="glyphicon glyphicon-time"
+              (click)="setEndTime()"></span></td>
   </tr>
   <tr>
     <td class="right" colspan="2"><button (click)="modifyTask()">{{ 'Modify' | translate }}</button></td>
